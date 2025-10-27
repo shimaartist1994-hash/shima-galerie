@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "functions": {
+    "api/send-email.js": {
+      "maxDuration": 10
+    }
+  },
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
