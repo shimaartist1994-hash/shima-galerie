@@ -1,278 +1,927 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Shima Galerie - Realistische Kunstwerke mit Kugelschreiber und Bleistift" />
-  <title>Shima Galerie | Realistische Kunst</title>
-  <!-- Open Graph / Twitter Cards -->
-  <meta property="og:title" content="Shima Galerie – Realistische Kunst" />
-  <meta property="og:description" content="Kugelschreiber- & Bleistiftkunst von Shima. Galerie & Kontakt." />
+  <meta name="description" content="Shima Gallery - Realistic artwork with pen and pencil" />
+  <title>Shima Gallery | Realistic Art</title>
+  <meta property="og:title" content="Shima Gallery – Realistic Art" />
+  <meta property="og:description" content="Pen & pencil art by Shima. Gallery & contact." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://miladnd01.github.io/shima-galerie/" />
-  <meta property="og:image" content="https://miladnd01.github.io/shima-galerie/cover.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Shima Galerie – Realistische Kunst" />
-  <meta name="twitter:description" content="Kugelschreiber- & Bleistiftkunst von Shima. Galerie & Kontakt." />
-  <meta name="twitter:image" content="https://miladnd01.github.io/shima-galerie/cover.jpg" />
   <meta name="theme-color" content="#1a1a1a" />
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --primary-dark: #1a1a1a;
-      --secondary-dark: #2d2d2d;
-      --accent: #d4af37;
-      --text-light: #f5f5f5;
-      --text-dark: #333;
-      --bg-light: #fafafa;
-      --shadow: rgba(0, 0, 0, 0.15);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-light); }
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: #f0f0f0;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
 
-    .language-selector { position: fixed; top: 20px; right: 20px; z-index: 1000; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px var(--shadow); overflow: hidden; }
-    .language-selector select { padding: 0.7rem 1.5rem; font-size: 1rem; border: none; background: #fff; color: var(--primary-dark); cursor: pointer; font-weight: 500; }
-    .language-selector select:focus { outline: 2px solid var(--accent); }
+    .language-selector {
+      position: relative;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+    }
 
-    header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%); color: var(--text-light); padding: 4rem 2rem; text-align: center; position: relative; overflow: hidden; }
-    header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 50%, rgba(212,175,55,0.1) 0%, transparent 50%); pointer-events: none; }
-    header h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 2px; position: relative; z-index: 1; }
-    header p { font-size: 1.3rem; color: rgba(255,255,255,0.85); position: relative; z-index: 1; }
+    .language-selector:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
 
-    nav { background: var(--secondary-dark); padding: 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px var(--shadow); }
-    nav ul { list-style: none; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
-    nav a { color: var(--text-light); text-decoration: none; font-size: 1.1rem; font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; transition: all 0.3s ease; position: relative; }
-    nav a::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--accent); transition: all 0.3s ease; transform: translateX(-50%); }
-    nav a:hover { color: var(--accent); }
-    nav a:hover::after { width: 80%; }
+    .language-selector select {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      color: #f0f0f0;
+      cursor: pointer;
+      font-weight: 500;
+      font-family: 'Georgia', serif;
+      width: 100%;
+    }
 
-    section { max-width: 1200px; margin: 3rem auto; padding: 2rem; }
+    .language-selector select:focus {
+      outline: 2px solid #d4af37;
+      border-radius: 8px;
+    }
 
-    h2 { font-size: 2.5rem; margin-bottom: 2rem; color: var(--primary-dark); text-align: center; position: relative; padding-bottom: 1rem; }
-    h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--accent); }
+    .language-selector select option {
+      background: #2d2d2d;
+      color: #f0f0f0;
+      padding: 10px;
+    }
 
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
-    .gallery-item { position: relative; overflow: hidden; border-radius: 16px; box-shadow: 0 6px 18px var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; cursor: zoom-in; border: 1px solid rgba(0,0,0,0.06); aspect-ratio: 4 / 5; }
-    .gallery-item::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), inset 0 0 0 2px rgba(0,0,0,0.04); }
-    .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.5s ease; }
-    .gallery-item:hover img { transform: scale(1.1); }
-    .gallery-overlay { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; padding: 0.45rem 0.85rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.25); pointer-events: none; }
+    header {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
 
-    .about-container { background: #fff; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow); max-width: 700px; margin: 2rem auto; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .about-container:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
 
-    .purchase-info { background: #fff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow); max-width: 800px; margin: 3rem auto; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .purchase-info:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
-    .purchase-info p { font-size: 1.15rem; line-height: 1.8; color: var(--text-dark); text-align: center; margin: 0; }
-    .purchase-info strong { color: var(--accent); font-weight: 700; }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+    }
 
-    footer { background: var(--primary-dark); color: var(--text-light); text-align: center; padding: 2rem; margin-top: 4rem; }
-    footer p { margin: 0; font-size: 0.95rem; }
+    .logo:hover {
+      color: #f0c748;
+    }
 
-    /* ===== Fullscreen Lightbox ===== */
-    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; touch-action: none; }
-    .lightbox.open { display: flex; }
-    /* Stage wrapper for pan/zoom */
-    #lbStage { position: relative; max-width: 92vw; max-height: 92vh; display: flex; align-items: center; justify-content: center; transform: translate3d(0,0,0) scale(1); will-change: transform; cursor: grab; touch-action: none; }
-    #lbStage:active { cursor: grabbing; }
-    #lbImg { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); user-select: none; -webkit-user-drag: none; }
-    .lightbox .close-btn { position: absolute; top: 18px; right: 18px; background: transparent; border: 2px solid rgba(255,255,255,0.6); color: #fff; font-size: 1rem; padding: 0.35rem 0.75rem; border-radius: 999px; cursor: pointer; transition: 0.2s ease; }
-    .lightbox .close-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-    .lightbox .counter { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.85); font-size: 0.95rem; }
-    .lightbox .nav { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
-    .lightbox .nav button { pointer-events: auto; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 1.25rem; padding: 0.6rem 0.9rem; margin: 0 0.75rem; border-radius: 10px; cursor: pointer; transition: 0.2s ease; backdrop-filter: blur(2px); }
-    .lightbox .nav button:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
-    body.lb-lock { overflow: hidden; }
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+      white-space: nowrap;
+      padding: 8px 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #d4af37;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .language-item {
+      margin-left: 15px;
+    }
+
+    .language-item .language-selector {
+      min-width: 140px;
+    }
+
+    /* Page Container */
+    .page-container {
+      display: none;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    .page-container.active {
+      display: block;
+    }
+
+    /* Home Page */
+    .home-page {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      background: radial-gradient(circle at center, #2d2d2d 0%, #1a1a1a 100%);
+    }
+
+    .home-content {
+      max-width: 800px;
+    }
+
+    .home-content h1 {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      color: #d4af37;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      font-weight: 300;
+      letter-spacing: 3px;
+    }
+
+    .home-content p {
+      font-size: 1.4rem;
+      margin-bottom: 3rem;
+      color: #c0c0c0;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    .home-buttons {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+
+    .page-button {
+      display: inline-block;
+      padding: 18px 45px;
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-radius: 8px;
+      transition: all 0.4s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .page-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+    }
+
+    /* Gallery Page */
+    .gallery-page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 4rem;
+      color: #d4af37;
+      position: relative;
+      padding-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s ease;
+      background: rgba(255, 255, 255, 0.05);
+      cursor: zoom-in;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      aspect-ratio: 4 / 5;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a;
+      padding: 0.6rem 1rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      backdrop-filter: blur(10px);
+      pointer-events: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .purchase-info {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3rem;
+      border-radius: 15px;
+      max-width: 900px;
+      margin: 4rem auto 0;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .purchase-info:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .purchase-info p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #e0e0e0;
+      margin: 0;
+      font-weight: 300;
+    }
+
+    .purchase-info strong {
+      color: #d4af37;
+      font-weight: 600;
+    }
+
+    /* About & Contact Page */
+    .about-contact-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .about-content {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3rem;
+      border-radius: 15px;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .about-content:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .about-content p {
+      color: #e0e0e0;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .contact-content {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3rem;
+      border-radius: 15px;
+      max-width: 800px;
+      margin: 0 auto;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .contact-content:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .contact-content p {
+      color: #e0e0e0;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .email-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a !important;
+      text-decoration: none;
+      padding: 15px 40px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      font-size: 1.1rem;
+    }
+
+    .email-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+      color: #1a1a1a !important;
+      border-color: #d4af37;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1rem;
+      touch-action: none;
+    }
+
+    .lightbox.open {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #lbStage {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate3d(0,0,0) scale(1);
+      will-change: transform;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    #lbStage:active {
+      cursor: grabbing;
+    }
+
+    #lbImg {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .lightbox .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(212, 175, 55, 0.2);
+      border: 2px solid rgba(212, 175, 55, 0.6);
+      color: #d4af37;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      backdrop-filter: blur(10px);
+    }
+
+    .lightbox .close-btn:hover {
+      background: rgba(212, 175, 55, 0.3);
+      border-color: #d4af37;
+      transform: scale(1.1);
+    }
+
+    .lightbox .counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #d4af37;
+      font-size: 1.1rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      font-weight: 600;
+    }
+
+    .lightbox .nav {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .lightbox .nav button {
+      pointer-events: auto;
+      background: rgba(212, 175, 55, 0.2);
+      border: 2px solid rgba(212, 175, 55, 0.5);
+      color: #d4af37;
+      font-size: 1.5rem;
+      padding: 1rem 1.2rem;
+      margin: 0 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      font-weight: bold;
+    }
+
+    .lightbox .nav button:hover {
+      background: rgba(212, 175, 55, 0.3);
+      border-color: #d4af37;
+      transform: scale(1.1);
+    }
+
+    body.lb-lock {
+      overflow: hidden;
+    }
+
+    /* Mobile Menu */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+      padding: 5px;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #d4af37;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
 
     @media (max-width: 768px) {
-      .language-selector { top: 10px; right: 10px; }
-      header { padding: 3rem 1.25rem; }
-      header h1 { font-size: 2.25rem; }
-      header p { font-size: 1rem; }
-      h2 { font-size: 1.75rem; }
+      .menu-toggle {
+        display: flex;
+      }
 
-      nav ul { gap: 1rem; overflow-x: auto; padding-bottom: 0.25rem; -webkit-overflow-scrolling: touch; }
-      nav ul::-webkit-scrollbar { display: none; }
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      }
 
-      .gallery { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
-      .gallery-item { aspect-ratio: 3 / 4; }
-      .about-container { padding: 1.25rem; }
-      section { padding: 1rem; }
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
 
-      /* Lightbox controls bigger for touch */
-      .lightbox .nav button { font-size: 1.35rem; padding: 0.8rem 1rem; margin: 0 0.5rem; }
-      .lightbox .close-btn { font-size: 1.1rem; padding: 0.5rem 0.9rem; top: 16px; right: 16px; }
-      .lightbox .counter { font-size: 1.05rem; bottom: 16px; }
+      .language-item {
+        margin-left: 0;
+        margin-top: 1rem;
+      }
+
+      .language-item .language-selector {
+        min-width: 100%;
+      }
+
+      .home-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .home-content p {
+        font-size: 1.1rem;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+        padding: 12px 0;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .nav-links a:last-child {
+        border-bottom: none;
+      }
+
+      .logo {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .home-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .page-button {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .gallery-item {
+        aspect-ratio: 3 / 4;
+      }
+
+      .about-content, .contact-content, .purchase-info {
+        padding: 2rem;
+      }
+
+      .lightbox .nav button {
+        font-size: 1.3rem;
+        padding: 0.8rem 1rem;
+        margin: 0 0.5rem;
+      }
+
+      .lightbox .close-btn {
+        font-size: 1rem;
+        padding: 0.5rem 0.9rem;
+        top: 15px;
+        right: 15px;
+      }
+
+      .lightbox .counter {
+        font-size: 1rem;
+        bottom: 15px;
+      }
+
+      .email-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+      }
     }
 
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; animation: none !important; }
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f0c748;
     }
   </style>
 </head>
 <body>
-  <div class="language-selector">
-    <select id="languageSelect" onchange="changeLanguage()">
-      <option value="de">Deutsch</option>
-      <option value="en">English</option>
-      <option value="fa">فارسی</option>
-    </select>
-  </div>
-
   <header>
-    <h1>Shima Galerie</h1>
-    <p id="headerSubtitle">Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️</p>
+    <nav>
+      <div class="logo" id="logoText">Shima Gallery</div>
+      
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" id="navHome" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" id="navGallery" onclick="showPage('gallery')">Gallery</a></li>
+        <li><a href="#" id="navAbout" onclick="showPage('about-contact')">About Me</a></li>
+        <li class="language-item">
+          <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage()">
+              <option value="en">English</option>
+              <option value="de">Deutsch</option>
+              <option value="fa">فارسی</option>
+            </select>
+          </div>
+        </li>
+      </ul>
+    </nav>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="#ueber" id="navAbout">Über mich</a></li>
-      <li><a href="#galerie" id="navGallery">Galerie</a></li>
-      <li><a href="#kontakt" id="navContact">Kontakt</a></li>
-    </ul>
-  </nav>
+  <!-- Home Page -->
+  <div id="home-page" class="page-container active">
+    <section class="home-page">
+      <div class="home-content">
+        <h1 id="heroTitle">Shima Gallery</h1>
+        <p id="heroSubtitle">Realistic Artwork with Pen & Pencil ✏️</p>
+        <div class="home-buttons">
+          <button class="page-button" onclick="showPage('gallery')">View Gallery</button>
+          <button class="page-button" onclick="showPage('about-contact')">About Me</button>
+        </div>
+      </div>
+    </section>
+  </div>
 
-  <section id="ueber">
-    <h2 id="aboutTitle">Über mich</h2>
-    <div class="about-container">
-      <p id="aboutText" style="text-align: center; line-height: 1.8;">
-        Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke 
-        mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision 
-        und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit 
-        des Alltäglichen und der Komplexität menschlicher Ausdrucksformen.
-      </p>
-    </div>
-  </section>
+  <!-- Gallery Page -->
+  <div id="gallery-page" class="page-container">
+    <section class="gallery-page">
+      <h2 class="section-title" id="galleryTitle">My Artworks</h2>
+      <div class="gallery" id="galleryGrid">
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Realistic portrait drawing with pen"><div class="gallery-overlay"><span>1</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing of a face"><div class="gallery-overlay"><span>2</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Pen art with shading techniques"><div class="gallery-overlay"><span>3</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Realistic eye drawing with pencil"><div class="gallery-overlay"><span>4</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Portrait art with pen technique"><div class="gallery-overlay"><span>5</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Detailed face study with pen"><div class="gallery-overlay"><span>6</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0481.JPG" alt="Artwork with shading techniques"><div class="gallery-overlay"><span>7</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0482.JPG" alt="Realistic drawing with precision"><div class="gallery-overlay"><span>8</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0485.JPG" alt="Pencil portrait with details"><div class="gallery-overlay"><span>9</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0486.JPG" alt="Pen artwork in profile"><div class="gallery-overlay"><span>10</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-09-19_01-14-34.jpg" alt="Realistic hand drawing with pen"><div class="gallery-overlay"><span>11</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-36.jpg" alt="Detailed portrait study"><div class="gallery-overlay"><span>12</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-44.jpg" alt="Pen art with depth"><div class="gallery-overlay"><span>13</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-51.jpg" alt="Pencil drawing with texture"><div class="gallery-overlay"><span>14</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-05-39.jpg" alt="Realistic facial expressions"><div class="gallery-overlay"><span>15</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-08.jpg" alt="Artwork with light and shadow"><div class="gallery-overlay"><span>16</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-39.jpg" alt="Pen art in detail"><div class="gallery-overlay"><span>17</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-52.jpg" alt="Pencil study with precision"><div class="gallery-overlay"><span>18</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-09.jpg" alt="Realistic eye area"><div class="gallery-overlay"><span>19</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-39.jpg" alt="Artwork with depth effect"><div class="gallery-overlay"><span>20</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-54.jpg" alt="Portrait drawing with pen"><div class="gallery-overlay"><span>21</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-09.jpg" alt="Realistic facial features"><div class="gallery-overlay"><span>22</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-16.jpg" alt="Detailed pencil art"><div class="gallery-overlay"><span>23</span></div></div>
+      </div>
 
-  <section id="galerie">
-    <h2 id="galleryTitle">Meine Kunstwerke</h2>
-    <div class="gallery" id="galleryGrid">
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Kunstwerk 1"><div class="gallery-overlay"><span>1</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Kunstwerk 1"><div class="gallery-overlay"><span>2</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Kunstwerk 2"><div class="gallery-overlay"><span>3</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Kunstwerk 3"><div class="gallery-overlay"><span>4</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Kunstwerk 4"><div class="gallery-overlay"><span>5</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Kunstwerk 5"><div class="gallery-overlay"><span>6</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0481.JPG" alt="Kunstwerk 6"><div class="gallery-overlay"><span>7</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0482.JPG" alt="Kunstwerk 7"><div class="gallery-overlay"><span>8</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0485.JPG" alt="Kunstwerk 8"><div class="gallery-overlay"><span>9</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0486.JPG" alt="Kunstwerk 9"><div class="gallery-overlay"><span>10</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-09-19_01-14-34.jpg" alt="Kunstwerk 10"><div class="gallery-overlay"><span>11</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-36.jpg" alt="Kunstwerk 11"><div class="gallery-overlay"><span>00</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-44.jpg" alt="Kunstwerk 12"><div class="gallery-overlay"><span>00</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-51.jpg" alt="Kunstwerk 13"><div class="gallery-overlay"><span>14</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-05-39.jpg" alt="Kunstwerk 14"><div class="gallery-overlay"><span>15</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-08.jpg" alt="Kunstwerk 15"><div class="gallery-overlay"><span>00</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-16.jpg" alt="Kunstwerk 16"><div class="gallery-overlay"><span>00</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-24.jpg" alt="Kunstwerk 17"><div class="gallery-overlay"><span>18</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-31.jpg" alt="Kunstwerk 18"><div class="gallery-overlay"><span>19</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-39.jpg" alt="Kunstwerk 19"><div class="gallery-overlay"><span>20</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-52.jpg" alt="Kunstwerk 20"><div class="gallery-overlay"><span>21</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-09.jpg" alt="Kunstwerk 21"><div class="gallery-overlay"><span>22</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-39.jpg" alt="Kunstwerk 22"><div class="gallery-overlay"><span>23</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-54.jpg" alt="Kunstwerk 23"><div class="gallery-overlay"><span>24</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-09.jpg" alt="Kunstwerk 24"><div class="gallery-overlay"><span>25</span></div></div>
-      <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-16.jpg" alt="Kunstwerk 25"><div class="gallery-overlay"><span>26</span></div></div>
-    </div>
+      <div class="purchase-info">
+        <p id="purchaseText">
+          <strong id="purchaseStrong">Interested in purchasing an artwork?</strong><br />
+          <span id="purchaseDescription">Contact me directly to discuss availability, pricing, and commission opportunities.</span>
+        </p>
+      </div>
+    </section>
+  </div>
 
-    <div class="purchase-info">
-      <p id="purchaseInfo">
-        <strong>Interessiert an einem Kunstwerk?</strong><br />
-        Für Verkauf, Ausstellungen, Entwürfe oder Zusammenarbeit kontaktieren Sie mich bitte unter: <strong>ShimaArtist1994@gmail.com</strong>
-      </p>
-    </div>
-  </section>
+  <!-- About & Contact Page -->
+  <div id="about-contact-page" class="page-container">
+    <section class="about-contact-page">
+      <h2 class="section-title" id="aboutTitle">About Me</h2>
+      <div class="about-content">
+        <p id="aboutText">
+          Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. 
+          Each piece is created with patience, precision and passion for detail. I find my inspiration 
+          in the beauty of everyday life and the complexity of human expression.
+        </p>
+      </div>
 
-  <section id="kontakt"></section>
+      <h2 class="section-title" id="contactTitle">Contact</h2>
+      <div class="contact-content">
+        <p id="contactText">
+          Interested in my artwork? For purchase, exhibitions, commissions or collaborations, 
+          feel free to reach out to me. I'd love to hear from you!
+        </p>
+        <a href="mailto:ShimaArtist1994@gmail.com" class="email-button" id="emailButton">ShimaArtist1994@gmail.com</a>
+      </div>
+    </section>
+  </div>
 
-  <footer>
-    <p id="footerText">Erstellt von Bikineh</p>
-  </footer>
-
-  <!-- ===== Fullscreen Lightbox Markup ===== -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Bild Großansicht">
-    <button class="close-btn" id="lbClose" aria-label="Schließen (Esc)">✕</button>
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image enlarged view">
+    <button class="close-btn" id="lbClose" aria-label="Close (Esc)">✕</button>
     <div class="nav">
-      <button id="lbPrev" aria-label="Vorheriges (←)">←</button>
-      <button id="lbNext" aria-label="Nächstes (→)">→</button>
+      <button id="lbPrev" aria-label="Previous (←)">←</button>
+      <button id="lbNext" aria-label="Next (→)">→</button>
     </div>
-    <div id="lbStage"><img id="lbImg" src="" alt="Großes Bild" /></div>
+    <div id="lbStage"><img id="lbImg" src="" alt="Large image" /></div>
     <div class="counter" id="lbCounter">1 / 1</div>
   </div>
 
   <script>
     const translations = {
-      de: {
-        headerSubtitle: 'Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️',
-        navAbout: 'Über mich',
-        navGallery: 'Galerie',
-        navContact: 'Kontakt',
-        aboutTitle: 'Über mich',
-        aboutText: 'Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit des Alltäglichen und der Komplexität menschlicher Ausdrucksformen.',
-        galleryTitle: 'Meine Kunstwerke',
-        purchaseInfo: '<strong>Interessiert an einem Kunstwerk?</strong><br>Für Verkauf, Ausstellungen, Entwürfe oder Zusammenarbeit kontaktieren Sie mich bitte unter: <strong>ShimaArtist1994@gmail.com</strong>',
-        footerText: 'Erstellt von Bikineh'
-      },
       en: {
-        headerSubtitle: 'Realistic Artwork with Pen & Pencil ✏️',
-        navAbout: 'About Me',
+        logoText: 'Shima Gallery',
+        navHome: 'Home',
         navGallery: 'Gallery',
-        navContact: 'Contact',
+        navAbout: 'About Me',
+        heroTitle: 'Shima Gallery',
+        heroSubtitle: 'Realistic Artwork with Pen & Pencil ✏️',
+        galleryTitle: 'My Artworks',
         aboutTitle: 'About Me',
         aboutText: 'Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. Each piece is created with patience, precision and passion for detail. I find my inspiration in the beauty of everyday life and the complexity of human expression.',
-        galleryTitle: 'My Artworks',
-        purchaseInfo: '<strong>Interested in an artwork?</strong><br>For purchase, exhibitions, commissions or collaborations, please contact me at: <strong>ShimaArtist1994@gmail.com</strong>',
-        footerText: 'Created by Bikineh'
+        contactTitle: 'Contact',
+        contactText: 'Interested in my artwork? For purchase, exhibitions, commissions or collaborations, feel free to reach out to me. I\'d love to hear from you!',
+        emailButton: 'ShimaArtist1994@gmail.com',
+        purchaseStrong: 'Interested in purchasing an artwork?',
+        purchaseDescription: 'Contact me directly to discuss availability, pricing, and commission opportunities.'
+      },
+      de: {
+        logoText: 'Shima Galerie',
+        navHome: 'Home',
+        navGallery: 'Galerie',
+        navAbout: 'Über mich',
+        heroTitle: 'Shima Galerie',
+        heroSubtitle: 'Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️',
+        galleryTitle: 'Meine Kunstwerke',
+        aboutTitle: 'Über mich',
+        aboutText: 'Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit des Alltäglichen und der Komplexität menschlicher Ausdrucksformen.',
+        contactTitle: 'Kontakt',
+        contactText: 'Interessiert an meinen Kunstwerken? Für Verkauf, Ausstellungen, Auftragsarbeiten oder Zusammenarbeit können Sie mich gerne kontaktieren. Ich freue mich von Ihnen zu hören!',
+        emailButton: 'ShimaArtist1994@gmail.com',
+        purchaseStrong: 'Interessiert an einem Kunstwerk?',
+        purchaseDescription: 'Kontaktieren Sie mich direkt, um Verfügbarkeit, Preise und Auftragsarbeiten zu besprechen.'
       },
       fa: {
-        headerSubtitle: 'آثار هنری واقع‌گرایانه با خودکار و مداد ✏️',
-        navAbout: 'درباره من',
+        logoText: 'گالری شیما',
+        navHome: 'خانه',
         navGallery: 'گالری',
-        navContact: 'تماس',
+        navAbout: 'درباره من',
+        heroTitle: 'گالری شیما',
+        heroSubtitle: 'آثار هنری واقع‌گرایانه با خودکار و مداد ✏️',
+        galleryTitle: 'آثار هنری من',
         aboutTitle: 'درباره من',
         aboutText: 'به گالری من خوش آمدید! من شیما هستم و آثار هنری واقع‌گرایانه با خودکار و مداد خلق می‌کنم. هر اثر با صبر، دقت و اشتیاق به جزئیات ایجاد می‌شود. الهام من را در زیبایی زندگی روزمره و پیچیدگی بیان انسانی می‌یابم.',
-        galleryTitle: 'آثار هنری من',
-        purchaseInfo: '<strong>به یک اثر هنری علاقه‌مند هستید؟</strong><br>برای خرید، نمایشگاه‌ها، سفارشات یا همکاری، لطفاً با من تماس بگیرید: <strong>ShimaArtist1994@gmail.com</strong>',
-        footerText: 'ساخته شده توسط بی کینه'
+        contactTitle: 'تماس',
+        contactText: 'به آثار هنری من علاقه‌مند هستید؟ برای خرید، نمایشگاه‌ها، سفارشات یا همکاری، می‌توانید با من تماس بگیرید. خوشحال می‌شوم پیام شما را دریافت کنم!',
+        emailButton: 'ShimaArtist1994@gmail.com',
+        purchaseStrong: 'علاقه‌مند به خرید یک اثر هنری هستید؟',
+        purchaseDescription: 'مستقیماً با من تماس بگیرید تا در مورد موجودی، قیمت‌ها و فرصت‌های سفارش کاری صحبت کنیم.'
       }
     };
+
+    // Page Navigation
+    function showPage(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page-container').forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      // Show selected page
+      document.getElementById(`${pageId}-page`).classList.add('active');
+      
+      // Close mobile menu if open
+      navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
 
     function changeLanguage() {
       const lang = document.getElementById('languageSelect').value;
       const t = translations[lang];
-
-      document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
-      document.getElementById('navAbout').textContent = t.navAbout;
+      
+      document.getElementById('logoText').textContent = t.logoText;
+      document.getElementById('navHome').textContent = t.navHome;
       document.getElementById('navGallery').textContent = t.navGallery;
-      document.getElementById('navContact').textContent = t.navContact;
+      document.getElementById('navAbout').textContent = t.navAbout;
+      document.getElementById('heroTitle').textContent = t.heroTitle;
+      document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
+      document.getElementById('galleryTitle').textContent = t.galleryTitle;
       document.getElementById('aboutTitle').textContent = t.aboutTitle;
       document.getElementById('aboutText').textContent = t.aboutText;
-      document.getElementById('galleryTitle').textContent = t.galleryTitle;
-      document.getElementById('purchaseInfo').innerHTML = t.purchaseInfo;
-      document.getElementById('footerText').textContent = t.footerText;
-
-      if (lang === 'fa') {
-        document.body.style.direction = 'rtl';
-      } else {
-        document.body.style.direction = 'ltr';
-      }
+      document.getElementById('contactTitle').textContent = t.contactTitle;
+      document.getElementById('contactText').textContent = t.contactText;
+      document.getElementById('emailButton').textContent = t.emailButton;
+      document.getElementById('purchaseStrong').textContent = t.purchaseStrong;
+      document.getElementById('purchaseDescription').textContent = t.purchaseDescription;
+      
+      document.body.style.direction = lang === 'fa' ? 'rtl' : 'ltr';
+      document.documentElement.lang = lang;
     }
 
-    // Smooth scroll for nav links
-    document.querySelectorAll('nav a').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
       });
     });
 
-    // ===== Lightbox Logic =====
+    // Lightbox functionality
     (function setupLightbox() {
       const lb = document.getElementById('lightbox');
       const lbStage = document.getElementById('lbStage');
@@ -281,12 +930,10 @@
       const lbPrev = document.getElementById('lbPrev');
       const lbNext = document.getElementById('lbNext');
       const lbCounter = document.getElementById('lbCounter');
-
       const grid = document.getElementById('galleryGrid');
       const items = Array.from(grid.querySelectorAll('.gallery-item img'));
       const cards = Array.from(grid.querySelectorAll('.gallery-item'));
 
-      // Lightbox state variables
       let currentIndex = 0;
       let scale = 1;
       let tx = 0;
@@ -297,7 +944,9 @@
       let baseDist = 1;
       let baseScale = 1;
 
-      // Event Delegation: Klick überall auf der Karte (auch Overlay) öffnet die Lightbox
+      const distance = (p1, p2) => Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
       grid.addEventListener('click', (e) => {
         const card = e.target.closest('.gallery-item');
         if (!card) return;
@@ -305,11 +954,10 @@
         if (i > -1) openAt(i);
       });
 
-      // Keyboard-Access: Enter auf fokussierter Karte öffnet Lightbox
       cards.forEach((card, i) => {
         card.setAttribute('tabindex', '0');
         card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', 'Großansicht öffnen');
+        card.setAttribute('aria-label', 'Open enlarged view');
         card.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
       });
 
@@ -317,104 +965,25 @@
       lbNext.addEventListener('click', () => { resetTransform(); next(); });
       lbPrev.addEventListener('click', () => { resetTransform(); prev(); });
 
-      // Close on backdrop click (ignore clicks on stage, image or buttons)
       lb.addEventListener('click', (e) => {
         const controls = [lbStage, lbImg, lbNext, lbPrev, lbClose];
-        if (!controls.includes(e.target) && !controls.some(el => el.contains(e.target))) close();
+        if (!controls.includes(e.target) && e.target === lb) {
+          close();
+        }
       });
 
-      // Keyboard support
       document.addEventListener('keydown', (e) => {
         if (!lb.classList.contains('open')) return;
         if (e.key === 'Escape') close();
-        if (e.key === 'ArrowRight') { resetTransform(); next(); }
-        if (e.key === 'ArrowLeft') { resetTransform(); prev(); }
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
       });
 
-      // Helpers
-      const distance = (p1, p2) => Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
-      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-
-      // Pointer events for pan & pinch-zoom
-      lbStage.addEventListener('pointerdown', (e) => {
-        try { lbStage.setPointerCapture(e.pointerId); } catch (_) {}
-        pointers.set(e.pointerId, e);
-        if (pointers.size === 2) {
-          const [a, b] = Array.from(pointers.values());
-          baseDist = distance(a, b) || 1; // avoid 0
-          baseScale = scale;
-        }
-      });
-
-      lbStage.addEventListener('pointermove', (e) => {
-        if (!pointers.has(e.pointerId)) return;
-        const prevEvt = pointers.get(e.pointerId);
-        pointers.set(e.pointerId, e);
-
-        if (pointers.size === 2) {
-          const [a, b] = Array.from(pointers.values());
-          const newDistRaw = distance(a, b);
-          const safeBase = baseDist || 1; // avoid division by 0
-          const newScale = clamp((newDistRaw / safeBase) * baseScale, minScale, maxScale);
-
-          // Zoom around the midpoint
-          const midX = (a.clientX + b.clientX) / 2; const midY = (a.clientY + b.clientY) / 2;
-          const dx = midX - window.innerWidth / 2; const dy = midY - window.innerHeight / 2;
-          const scaleDelta = newScale - scale;
-          tx -= dx * scaleDelta / Math.max(newScale, 0.0001);
-          ty -= dy * scaleDelta / Math.max(newScale, 0.0001);
-          scale = newScale; applyTransform();
-        } else if (pointers.size === 1 && scale > 1 && prevEvt) {
-          // Pan when zoomed
-          const dx = e.clientX - prevEvt.clientX; const dy = e.clientY - prevEvt.clientY;
-          tx += dx; ty += dy; applyTransform();
-        }
-      });
-
-      function handlePointerEnd(e) {
-        pointers.delete(e.pointerId);
-        if (pointers.size === 1) {
-          // Reset pinch baseline when a finger lifts
-          baseScale = scale; baseDist = 1;
-        }
-      }
-      lbStage.addEventListener('pointerup', handlePointerEnd);
-      lbStage.addEventListener('pointercancel', handlePointerEnd);
-
-      // Double click / double tap to toggle zoom
-      let lastTap = 0;
-      lbStage.addEventListener('click', (e) => {
-        const now = Date.now();
-        if (now - lastTap < 300) {
-          const targetScale = scale > 1 ? 1 : 2;
-          const rect = lbStage.getBoundingClientRect();
-          const cx = e.clientX - (rect.left + rect.width / 2);
-          const cy = e.clientY - (rect.top + rect.height / 2);
-          tx -= cx * (targetScale - scale) / targetScale;
-          ty -= cy * (targetScale - scale) / targetScale;
-          scale = targetScale; applyTransform();
-        }
-        lastTap = now;
-      });
-
-      // Wheel zoom (desktop)
-      lb.addEventListener('wheel', (e) => {
-        if (!lb.classList.contains('open')) return;
-        e.preventDefault();
-        const delta = Math.sign(e.deltaY);
-        const targetScale = clamp(scale + (delta < 0 ? 0.15 : -0.15), minScale, maxScale);
-        const rect = lbStage.getBoundingClientRect();
-        const cx = e.clientX - (rect.left + rect.width / 2);
-        const cy = e.clientY - (rect.top + rect.height / 2);
-        tx -= cx * (targetScale - scale) / targetScale;
-        ty -= cy * (targetScale - scale) / targetScale;
-        scale = targetScale; applyTransform();
-      }, { passive: false });
-
-      // Lightbox functions
       function openAt(index) {
         currentIndex = index;
-        updateImage();
+        lbImg.src = items[currentIndex].src;
+        lbImg.alt = items[currentIndex].alt;
+        lbCounter.textContent = `${currentIndex + 1} / ${items.length}`;
         lb.classList.add('open');
         document.body.classList.add('lb-lock');
         resetTransform();
@@ -428,31 +997,69 @@
 
       function next() {
         currentIndex = (currentIndex + 1) % items.length;
-        updateImage();
+        openAt(currentIndex);
       }
 
       function prev() {
         currentIndex = (currentIndex - 1 + items.length) % items.length;
-        updateImage();
-      }
-
-      function updateImage() {
-        lbImg.src = items[currentIndex].src;
-        lbImg.alt = items[currentIndex].alt;
-        lbCounter.textContent = `${currentIndex + 1} / ${items.length}`;
+        openAt(currentIndex);
       }
 
       function resetTransform() {
         scale = 1;
         tx = 0;
         ty = 0;
-        applyTransform();
+        updateTransform();
       }
 
-      function applyTransform() {
+      function updateTransform() {
         lbStage.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
       }
+
+      lbStage.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      });
+
+      lbStage.addEventListener('pointermove', (e) => {
+        if (pointers.size === 1) {
+          const pointer = pointers.get(e.pointerId);
+          if (pointer) {
+            tx += e.clientX - pointer.x;
+            ty += e.clientY - pointer.y;
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            updateTransform();
+          }
+        } else if (pointers.size === 2) {
+          const [p1, p2] = Array.from(pointers.values());
+          const currentDist = distance(p1, p2);
+          scale = clamp(baseScale * (currentDist / baseDist), minScale, maxScale);
+          updateTransform();
+        }
+      });
+
+      lbStage.addEventListener('pointerup', (e) => {
+        pointers.delete(e.pointerId);
+        if (pointers.size === 0) {
+          baseScale = scale;
+        }
+      });
+
+      lbStage.addEventListener('pointercancel', (e) => {
+        pointers.delete(e.pointerId);
+      });
+
+      lbStage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = -Math.sign(e.deltaY) * 0.2;
+        scale = clamp(scale + delta, minScale, maxScale);
+        updateTransform();
+      });
     })();
+
+    console.log('🎨 Website loaded with complete translations!');
+    console.log('🌐 All text now properly translated in Persian');
+    console.log('📱 Navigation: Home → Gallery → About Me');
   </script>
 </body>
 </html>
