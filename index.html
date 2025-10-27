@@ -1637,55 +1637,47 @@ ${message}
 This inquiry was sent from Shima Gallery website.
       `;
       
-      // Send email using Formspree service (free email service)
-      const formData = new FormData();
-      formData.append('name', `${firstName} ${lastName}`);
-      formData.append('email', email);
-      formData.append('message', body);
-      formData.append('_subject', subject);
+      // Create a hidden link and click it to send email
+      const mailtoLink = `mailto:ShimaArtist1994@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       
-      // Using Formspree service for email delivery
-      fetch('https://formspree.io/f/xkndekpq', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Show success message
-          document.getElementById('orderForm').style.display = 'none';
-          document.getElementById('successMessage').style.display = 'block';
-          
-          // Reset form
-          document.getElementById('firstName').value = '';
-          document.getElementById('lastName').value = '';
-          document.getElementById('email').value = '';
-          document.getElementById('message').value = '';
-          
-          // Clear cart
-          selectedArtworks.clear();
-          updateCart();
-          
-          // Reset all selection buttons
-          document.querySelectorAll('.select-btn').forEach(button => {
-            button.classList.remove('selected');
-            button.textContent = '+';
-          });
-          
-          // Reset all gallery items
-          document.querySelectorAll('.gallery-item').forEach(item => {
-            item.classList.remove('selected');
-          });
-        } else {
-          alert('There was an error sending your inquiry. Please try again or contact us directly at ShimaArtist1994@gmail.com');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error sending your inquiry. Please try again or contact us directly at ShimaArtist1994@gmail.com');
-      });
+      // Create temporary link element
+      const tempLink = document.createElement('a');
+      tempLink.href = mailtoLink;
+      tempLink.style.display = 'none';
+      document.body.appendChild(tempLink);
+      
+      // Trigger click
+      tempLink.click();
+      
+      // Remove temporary link
+      document.body.removeChild(tempLink);
+      
+      // Show success message after a short delay to allow email client to open
+      setTimeout(() => {
+        document.getElementById('orderForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        
+        // Reset form
+        document.getElementById('firstName').value = '';
+        document.getElementById('lastName').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+        
+        // Clear cart
+        selectedArtworks.clear();
+        updateCart();
+        
+        // Reset all selection buttons
+        document.querySelectorAll('.select-btn').forEach(button => {
+          button.classList.remove('selected');
+          button.textContent = '+';
+        });
+        
+        // Reset all gallery items
+        document.querySelectorAll('.gallery-item').forEach(item => {
+          item.classList.remove('selected');
+        });
+      }, 1000);
     }
 
     function getTranslation(key) {
