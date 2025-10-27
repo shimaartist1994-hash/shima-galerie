@@ -10,6 +10,20 @@
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#1a1a1a" />
   <style>
+    :root {
+      --primary-color: #d4af37;
+      --primary-dark: #b8941f;
+      --primary-light: #f0c748;
+      --bg-dark: #1a1a1a;
+      --bg-medium: #2d2d2d;
+      --text-light: #f0f0f0;
+      --text-muted: #c0c0c0;
+      --border-radius: 15px;
+      --transition: all 0.3s ease;
+      --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      --shadow-gold: 0 8px 25px rgba(212, 175, 55, 0.3);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -18,10 +32,22 @@
 
     body {
       font-family: 'Georgia', serif;
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-      color: #f0f0f0;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+      color: var(--text-light);
       line-height: 1.6;
       min-height: 100vh;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .language-selector {
@@ -30,7 +56,7 @@
       border-radius: 8px;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .language-selector:hover {
@@ -43,7 +69,7 @@
       font-size: 1rem;
       border: none;
       background: transparent;
-      color: #f0f0f0;
+      color: var(--text-light);
       cursor: pointer;
       font-weight: 500;
       font-family: 'Georgia', serif;
@@ -51,13 +77,13 @@
     }
 
     .language-selector select:focus {
-      outline: 2px solid #d4af37;
+      outline: 2px solid var(--primary-color);
       border-radius: 8px;
     }
 
     .language-selector select option {
-      background: #2d2d2d;
-      color: #f0f0f0;
+      background: var(--bg-medium);
+      color: var(--text-light);
       padding: 10px;
     }
 
@@ -84,15 +110,15 @@
     .logo {
       font-size: 24px;
       font-weight: bold;
-      color: #d4af37;
+      color: var(--primary-color);
       text-transform: uppercase;
       letter-spacing: 2px;
-      transition: color 0.3s ease;
+      transition: var(--transition);
       cursor: pointer;
     }
 
     .logo:hover {
-      color: #f0c748;
+      color: var(--primary-light);
     }
 
     .nav-links {
@@ -103,12 +129,12 @@
     }
 
     .nav-links a {
-      color: #f0f0f0;
+      color: var(--text-light);
       text-decoration: none;
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       position: relative;
       white-space: nowrap;
       padding: 8px 0;
@@ -121,13 +147,13 @@
       left: 50%;
       width: 0;
       height: 2px;
-      background: #d4af37;
-      transition: all 0.3s ease;
+      background: var(--primary-color);
+      transition: var(--transition);
       transform: translateX(-50%);
     }
 
     .nav-links a:hover {
-      color: #d4af37;
+      color: var(--primary-color);
     }
 
     .nav-links a:hover::after {
@@ -162,7 +188,7 @@
       justify-content: center;
       text-align: center;
       padding: 0 20px;
-      background: radial-gradient(circle at center, #2d2d2d 0%, #1a1a1a 100%);
+      background: radial-gradient(circle at center, var(--bg-medium) 0%, var(--bg-dark) 100%);
     }
 
     .home-content {
@@ -170,18 +196,18 @@
     }
 
     .home-content h1 {
-      font-size: 4rem;
+      font-size: clamp(2.5rem, 5vw, 4rem);
       margin-bottom: 2rem;
-      color: #d4af37;
+      color: var(--primary-color);
       text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
       font-weight: 300;
       letter-spacing: 3px;
     }
 
     .home-content p {
-      font-size: 1.4rem;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       margin-bottom: 3rem;
-      color: #c0c0c0;
+      color: var(--text-muted);
       font-weight: 300;
       letter-spacing: 1px;
     }
@@ -197,24 +223,24 @@
     .page-button {
       display: inline-block;
       padding: 18px 45px;
-      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
-      color: #1a1a1a;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+      color: var(--bg-dark);
       text-decoration: none;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 2px;
-      border-radius: 8px;
-      transition: all 0.4s ease;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
       border: none;
       cursor: pointer;
       font-size: 1rem;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      box-shadow: var(--shadow-gold);
     }
 
     .page-button:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
     }
 
     .gallery-page {
@@ -225,9 +251,9 @@
 
     .section-title {
       text-align: center;
-      font-size: 3rem;
+      font-size: clamp(2.2rem, 4vw, 3rem);
       margin-bottom: 4rem;
-      color: #d4af37;
+      color: var(--primary-color);
       position: relative;
       padding-bottom: 1.5rem;
       font-weight: 300;
@@ -241,12 +267,12 @@
       transform: translateX(-50%);
       width: 100px;
       height: 3px;
-      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
     }
 
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 2rem;
       margin-top: 3rem;
     }
@@ -254,9 +280,9 @@
     .gallery-item {
       position: relative;
       overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      transition: all 0.4s ease;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
       background: rgba(255, 255, 255, 0.05);
       cursor: pointer;
       border: 1px solid rgba(212, 175, 55, 0.2);
@@ -286,8 +312,8 @@
       position: absolute;
       top: 15px;
       right: 15px;
-      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
-      color: #1a1a1a;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+      color: var(--bg-dark);
       padding: 0.6rem 1rem;
       border-radius: 50px;
       font-weight: 700;
@@ -314,7 +340,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       font-weight: bold;
       font-size: 1.1rem;
       border: none;
@@ -322,13 +348,13 @@
     }
 
     .select-btn {
-      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
-      color: #1a1a1a;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+      color: var(--bg-dark);
     }
 
     .select-btn:hover {
       transform: scale(1.1);
-      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
     }
 
     .select-btn.selected {
@@ -338,7 +364,7 @@
 
     .zoom-btn {
       background: rgba(255, 255, 255, 0.9);
-      color: #1a1a1a;
+      color: var(--bg-dark);
     }
 
     .zoom-btn:hover {
@@ -349,11 +375,11 @@
     .purchase-info {
       background: rgba(255, 255, 255, 0.05);
       padding: 3rem;
-      border-radius: 15px;
+      border-radius: var(--border-radius);
       max-width: 900px;
       margin: 4rem auto 0;
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: all 0.4s ease;
+      transition: var(--transition);
       backdrop-filter: blur(10px);
       text-align: center;
     }
@@ -374,7 +400,7 @@
     }
 
     .purchase-info strong {
-      color: #d4af37;
+      color: var(--primary-color);
       font-weight: 600;
     }
 
@@ -387,11 +413,11 @@
     .about-content {
       background: rgba(255, 255, 255, 0.05);
       padding: 3rem;
-      border-radius: 15px;
+      border-radius: var(--border-radius);
       max-width: 800px;
       margin: 0 auto 4rem;
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: all 0.4s ease;
+      transition: var(--transition);
       backdrop-filter: blur(10px);
     }
 
@@ -413,11 +439,11 @@
     .contact-content {
       background: rgba(255, 255, 255, 0.05);
       padding: 3rem;
-      border-radius: 15px;
+      border-radius: var(--border-radius);
       max-width: 800px;
       margin: 0 auto;
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: all 0.4s ease;
+      transition: var(--transition);
       backdrop-filter: blur(10px);
       text-align: center;
     }
@@ -439,24 +465,24 @@
 
     .email-button {
       display: inline-block;
-      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
-      color: #1a1a1a !important;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+      color: var(--bg-dark) !important;
       text-decoration: none;
       padding: 15px 40px;
-      border-radius: 8px;
+      border-radius: var(--border-radius);
       font-weight: bold;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       border: 2px solid transparent;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      box-shadow: var(--shadow-gold);
       font-size: 1.1rem;
     }
 
     .email-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
-      color: #1a1a1a !important;
-      border-color: #d4af37;
+      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
+      color: var(--bg-dark) !important;
+      border-color: var(--primary-color);
     }
 
     .purchase-page {
@@ -477,9 +503,9 @@
       gap: 2rem;
       padding: 2rem;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
+      border-radius: var(--border-radius);
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: all 0.4s ease;
+      transition: var(--transition);
     }
 
     .cart-item:hover {
@@ -510,18 +536,18 @@
     .cart-item-number {
       font-size: 1.2rem;
       font-weight: bold;
-      color: #d4af37;
+      color: var(--primary-color);
       margin-bottom: 0.5rem;
     }
 
     .cart-item-remove {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #f0f0f0;
+      color: var(--text-light);
       padding: 0.5rem 1rem;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .cart-item-remove:hover {
@@ -532,7 +558,7 @@
     .empty-cart {
       text-align: center;
       padding: 4rem 2rem;
-      color: #c0c0c0;
+      color: var(--text-muted);
     }
 
     .empty-cart p {
@@ -543,9 +569,9 @@
     .order-form {
       background: rgba(255, 255, 255, 0.05);
       padding: 3rem;
-      border-radius: 15px;
+      border-radius: var(--border-radius);
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: all 0.4s ease;
+      transition: var(--transition);
       backdrop-filter: blur(10px);
     }
 
@@ -563,7 +589,7 @@
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
-      color: #d4af37;
+      color: var(--primary-color);
       font-weight: 500;
     }
 
@@ -574,16 +600,16 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
-      color: #f0f0f0;
+      color: var(--text-light);
       font-family: 'Georgia', serif;
       font-size: 1rem;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .form-group input:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #d4af37;
+      border-color: var(--primary-color);
       background: rgba(255, 255, 255, 0.15);
     }
 
@@ -600,7 +626,7 @@
     }
 
     .selected-artworks h4 {
-      color: #d4af37;
+      color: var(--primary-color);
       margin-bottom: 1rem;
     }
 
@@ -611,8 +637,8 @@
     }
 
     .artwork-number {
-      background: #d4af37;
-      color: #1a1a1a;
+      background: var(--primary-color);
+      color: var(--bg-dark);
       padding: 0.5rem 1rem;
       border-radius: 20px;
       font-weight: bold;
@@ -620,15 +646,15 @@
     }
 
     .submit-button {
-      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
-      color: #1a1a1a;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+      color: var(--bg-dark);
       border: none;
       padding: 1.2rem 3rem;
       border-radius: 8px;
       font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       width: 100%;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -637,7 +663,7 @@
     .submit-button:hover:not(:disabled) {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
     }
 
     .submit-button:disabled {
@@ -649,7 +675,7 @@
       text-align: center;
       padding: 3rem;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
+      border-radius: var(--border-radius);
       border: 1px solid rgba(212, 175, 55, 0.3);
       display: none;
     }
@@ -688,7 +714,7 @@
     }
 
     .gallery-item.selected {
-      border: 3px solid #d4af37;
+      border: 3px solid var(--primary-color);
       box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
     }
 
@@ -701,7 +727,7 @@
       background: rgba(212, 175, 55, 0.1);
       border-radius: 20px;
       border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .cart-indicator:hover {
@@ -710,8 +736,8 @@
     }
 
     .cart-count {
-      background: #d4af37;
-      color: #1a1a1a;
+      background: var(--primary-color);
+      color: var(--bg-dark);
       border-radius: 50%;
       width: 20px;
       height: 20px;
@@ -769,13 +795,13 @@
       right: 20px;
       background: rgba(212, 175, 55, 0.2);
       border: 2px solid rgba(212, 175, 55, 0.6);
-      color: #d4af37;
+      color: var(--primary-color);
       font-size: 1.5rem;
       width: 50px;
       height: 50px;
       border-radius: 50%;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       font-weight: bold;
       backdrop-filter: blur(10px);
       display: flex;
@@ -786,7 +812,7 @@
 
     .lightbox .close-btn:hover {
       background: rgba(212, 175, 55, 0.3);
-      border-color: #d4af37;
+      border-color: var(--primary-color);
       transform: scale(1.1);
     }
 
@@ -795,7 +821,7 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      color: #d4af37;
+      color: var(--primary-color);
       font-size: 1.1rem;
       background: rgba(0, 0, 0, 0.6);
       padding: 0.7rem 1.5rem;
@@ -820,14 +846,14 @@
       pointer-events: auto;
       background: rgba(212, 175, 55, 0.2);
       border: 2px solid rgba(212, 175, 55, 0.5);
-      color: #d4af37;
+      color: var(--primary-color);
       font-size: 2rem;
       width: 60px;
       height: 60px;
       margin: 0 1rem;
       border-radius: 50%;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       backdrop-filter: blur(10px);
       font-weight: bold;
       display: flex;
@@ -837,7 +863,7 @@
 
     .lightbox .nav button:hover {
       background: rgba(212, 175, 55, 0.3);
-      border-color: #d4af37;
+      border-color: var(--primary-color);
       transform: scale(1.1);
     }
 
@@ -856,7 +882,7 @@
     .menu-toggle span {
       width: 25px;
       height: 3px;
-      background: #d4af37;
+      background: var(--primary-color);
       transition: 0.3s;
       border-radius: 2px;
     }
@@ -890,7 +916,7 @@
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
-        transition: all 0.4s ease;
+        transition: var(--transition);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid rgba(212, 175, 55, 0.2);
       }
@@ -910,14 +936,6 @@
         min-width: 100%;
       }
 
-      .home-content h1 {
-        font-size: 2.5rem;
-      }
-
-      .home-content p {
-        font-size: 1.1rem;
-      }
-
       .nav-links a {
         font-size: 1.1rem;
         padding: 12px 0;
@@ -931,10 +949,6 @@
 
       .logo {
         font-size: 1.2rem;
-      }
-
-      .section-title {
-        font-size: 2.2rem;
       }
 
       .home-buttons {
@@ -1024,25 +1038,25 @@
     }
 
     ::-webkit-scrollbar-track {
-      background: #1a1a1a;
+      background: var(--bg-dark);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #d4af37;
+      background: var(--primary-color);
       border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #f0c748;
+      background: var(--primary-light);
     }
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <div class="logo" id="logoText" onclick="showPage('home')" role="button" tabindex="0">Shima Gallery</div>
+      <div class="logo" id="logoText" onclick="showPage('home')" role="button" tabindex="0" aria-label="Shima Gallery Home">Shima Gallery</div>
       
-      <div class="menu-toggle" id="menuToggle" role="button" tabindex="0" aria-label="Toggle navigation menu">
+      <div class="menu-toggle" id="menuToggle" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -1053,8 +1067,9 @@
         <li><a href="#gallery" id="navGallery" onclick="showPage('gallery'); return false;">Gallery</a></li>
         <li><a href="#purchase" id="navPurchase" onclick="showPage('purchase'); return false;">
           <div class="cart-indicator">
-            <span>🛒</span>
+            <span aria-hidden="true">🛒</span>
             <span class="cart-count" id="cartCount">0</span>
+            <span class="sr-only">Cart items count</span>
           </div>
         </a></li>
         <li><a href="#about" id="navAbout" onclick="showPage('about-contact'); return false;">About Me</a></li>
@@ -1071,196 +1086,119 @@
     </nav>
   </header>
 
-  <div id="home-page" class="page-container active">
-    <section class="home-page">
-      <div class="home-content">
-        <h1 id="heroTitle">Shima Gallery</h1>
-        <p id="heroSubtitle">Realistic Artwork with Pen & Pencil ✏️</p>
-        <div class="home-buttons">
-          <button class="page-button" onclick="showPage('gallery')">View Gallery</button>
-          <button class="page-button" onclick="showPage('about-contact')">About Me</button>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="gallery-page" class="page-container">
-    <section class="gallery-page">
-      <h2 class="section-title" id="galleryTitle">My Artworks</h2>
-      <div class="gallery" id="galleryGrid">
-        <div class="gallery-item" data-artwork="1">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(1, this)" aria-label="Select artwork 1">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(1)" aria-label="View artwork 1 in full size">🔍</button>
+  <main>
+    <div id="home-page" class="page-container active">
+      <section class="home-page">
+        <div class="home-content">
+          <h1 id="heroTitle">Shima Gallery</h1>
+          <p id="heroSubtitle">Realistic Artwork with Pen & Pencil <span aria-hidden="true">✏️</span></p>
+          <div class="home-buttons">
+            <button class="page-button" onclick="showPage('gallery')">View Gallery</button>
+            <button class="page-button" onclick="showPage('about-contact')">About Me</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Realistic portrait drawing with pen">
-          <div class="gallery-overlay"><span>1</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="gallery-page" class="page-container">
+      <section class="gallery-page">
+        <h2 class="section-title" id="galleryTitle">My Artworks</h2>
+        <div class="gallery" id="galleryGrid">
+          <!-- Gallery items will be generated by JavaScript -->
         </div>
 
-        <div class="gallery-item" data-artwork="2">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(2, this)" aria-label="Select artwork 2">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(2)" aria-label="View artwork 2 in full size">🔍</button>
+        <div class="purchase-info">
+          <p id="purchaseText">
+            <strong id="purchaseStrong">Interested in purchasing an artwork?</strong><br />
+            <span id="purchaseDescription">Use the + button to select artworks, then proceed to purchase to send your inquiry.</span>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div id="purchase-page" class="page-container">
+      <section class="purchase-page">
+        <h2 class="section-title" id="purchaseTitle">Purchase Artworks</h2>
+        
+        <div class="success-message" id="successMessage">
+          <div class="success-icon" aria-hidden="true">✓</div>
+          <h3 id="successTitle">Thank You!</h3>
+          <p id="successText">Your inquiry has been sent successfully. I will contact you soon via email.</p>
+          <button class="page-button" onclick="resetForm()">Back to Gallery</button>
+        </div>
+
+        <div id="purchaseContent">
+          <div class="cart-items" id="cartItems"></div>
+
+          <div class="order-form" id="orderForm">
+            <h3 style="color: var(--primary-color); margin-bottom: 2rem; text-align: center;" id="formTitle">Order Inquiry Form</h3>
+            
+            <form id="contactForm" onsubmit="handleSubmit(event)">
+              <div class="form-group">
+                <label for="firstName" id="firstNameLabel">First Name *</label>
+                <input type="text" id="firstName" required placeholder="Enter your first name">
+              </div>
+
+              <div class="form-group">
+                <label for="lastName" id="lastNameLabel">Last Name *</label>
+                <input type="text" id="lastName" required placeholder="Enter your last name">
+              </div>
+
+              <div class="form-group">
+                <label for="email" id="emailLabel">Email Address *</label>
+                <input type="email" id="email" required placeholder="your.email@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="phone" id="phoneLabel">Phone Number</label>
+                <input type="tel" id="phone" placeholder="+49 123 456789">
+              </div>
+
+              <div class="form-group">
+                <label for="message" id="messageLabel">Message</label>
+                <textarea id="message" rows="5" placeholder="Add any additional information or questions..."></textarea>
+              </div>
+
+              <div class="selected-artworks" id="selectedArtworksDisplay" style="display: none;">
+                <h4 id="selectedArtworksTitle">Selected Artworks:</h4>
+                <div class="artwork-numbers" id="artworkNumbers"></div>
+              </div>
+
+              <button type="submit" class="submit-button" id="submitButton">Send Inquiry</button>
+            </form>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing">
-          <div class="gallery-overlay"><span>2</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="about-contact-page" class="page-container">
+      <section class="about-contact-page">
+        <h2 class="section-title" id="aboutTitle">About Me</h2>
+        
+        <div class="about-content">
+          <p id="aboutText">
+            Hi, I'm Shima! I create realistic artwork using pen and pencil. 
+            Each piece is carefully crafted to capture detail and emotion. 
+            Thank you for visiting my gallery!
+          </p>
         </div>
 
-        <div class="gallery-item" data-artwork="3">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(3, this)" aria-label="Select artwork 3">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(3)" aria-label="View artwork 3 in full size">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0473.JPG" alt="Artistic pen sketch">
-          <div class="gallery-overlay"><span>3</span></div>
+        <h2 class="section-title" id="contactTitle">Contact</h2>
+        
+        <div class="contact-content">
+          <p id="contactText">
+            I'd love to hear from you! Whether you have questions about my artwork 
+            or want to discuss a custom piece, feel free to reach out.
+          </p>
+          <a href="mailto:shima.gallery@example.com" class="email-button" id="emailBtn">
+            <span aria-hidden="true">📧</span> Send Email
+          </a>
         </div>
+      </section>
+    </div>
+  </main>
 
-        <div class="gallery-item" data-artwork="4">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(4, this)" aria-label="Select artwork 4">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(4)" aria-label="View artwork 4 in full size">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Realistic artwork">
-          <div class="gallery-overlay"><span>4</span></div>
-        </div>
-
-        <div class="gallery-item" data-artwork="5">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(5, this)" aria-label="Select artwork 5">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(5)" aria-label="View artwork 5 in full size">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0475.JPG" alt="Fine art drawing">
-          <div class="gallery-overlay"><span>5</span></div>
-        </div>
-
-        <div class="gallery-item" data-artwork="6">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(6, this)" aria-label="Select artwork 6">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(6)" aria-label="View artwork 6 in full size">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Pen and pencil art">
-          <div class="gallery-overlay"><span>6</span></div>
-        </div>
-
-        <div class="gallery-item" data-artwork="7">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(7, this)" aria-label="Select artwork 7">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(7)" aria-label="View artwork 7 in full size">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Realistic portrait artwork">
-          <div class="gallery-overlay"><span>7</span></div>
-        </div>
-
-        <div class="gallery-item" data-artwork="8">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(8, this)" aria-label="Select artwork 8">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(8)" aria-label="View artwork 8 in full size">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0478.JPG" alt="Detailed pen drawing">
-          <div class="gallery-overlay"><span>8</span></div>
-        </div>
-
-        <div class="gallery-item" data-artwork="9">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(9, this)" aria-label="Select artwork 9">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(9)" aria-label="View artwork 9 in full size">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Artistic pencil sketch">
-          <div class="gallery-overlay"><span>9</span></div>
-        </div>
-      </div>
-
-      <div class="purchase-info">
-        <p id="purchaseText">
-          <strong id="purchaseStrong">Interested in purchasing an artwork?</strong><br />
-          <span id="purchaseDescription">Use the + button to select artworks, then proceed to purchase to send your inquiry.</span>
-        </p>
-      </div>
-    </section>
-  </div>
-
-  <div id="purchase-page" class="page-container">
-    <section class="purchase-page">
-      <h2 class="section-title" id="purchaseTitle">Purchase Artworks</h2>
-      
-      <div class="success-message" id="successMessage">
-        <div class="success-icon">✓</div>
-        <h3 id="successTitle">Thank You!</h3>
-        <p id="successText">Your inquiry has been sent successfully. I will contact you soon via email.</p>
-        <button class="page-button" onclick="resetForm()">Back to Gallery</button>
-      </div>
-
-      <div id="purchaseContent">
-        <div class="cart-items" id="cartItems"></div>
-
-        <div class="order-form" id="orderForm">
-          <h3 style="color: #d4af37; margin-bottom: 2rem; text-align: center;" id="formTitle">Order Inquiry Form</h3>
-          
-          <form id="contactForm" onsubmit="handleSubmit(event)">
-            <div class="form-group">
-              <label for="firstName" id="firstNameLabel">First Name *</label>
-              <input type="text" id="firstName" required placeholder="Enter your first name">
-            </div>
-
-            <div class="form-group">
-              <label for="lastName" id="lastNameLabel">Last Name *</label>
-              <input type="text" id="lastName" required placeholder="Enter your last name">
-            </div>
-
-            <div class="form-group">
-              <label for="email" id="emailLabel">Email Address *</label>
-              <input type="email" id="email" required placeholder="your.email@example.com">
-            </div>
-
-            <div class="form-group">
-              <label for="phone" id="phoneLabel">Phone Number</label>
-              <input type="tel" id="phone" placeholder="+49 123 456789">
-            </div>
-
-            <div class="form-group">
-              <label for="message" id="messageLabel">Message</label>
-              <textarea id="message" rows="5" placeholder="Add any additional information or questions..."></textarea>
-            </div>
-
-            <div class="selected-artworks" id="selectedArtworksDisplay" style="display: none;">
-              <h4 id="selectedArtworksTitle">Selected Artworks:</h4>
-              <div class="artwork-numbers" id="artworkNumbers"></div>
-            </div>
-
-            <button type="submit" class="submit-button" id="submitButton">Send Inquiry</button>
-          </form>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="about-contact-page" class="page-container">
-    <section class="about-contact-page">
-      <h2 class="section-title" id="aboutTitle">About Me</h2>
-      
-      <div class="about-content">
-        <p id="aboutText">
-          Hi, I'm Shima! I create realistic artwork using pen and pencil. 
-          Each piece is carefully crafted to capture detail and emotion. 
-          Thank you for visiting my gallery!
-        </p>
-      </div>
-
-      <h2 class="section-title" id="contactTitle">Contact</h2>
-      
-      <div class="contact-content">
-        <p id="contactText">
-          I'd love to hear from you! Whether you have questions about my artwork 
-          or want to discuss a custom piece, feel free to reach out.
-        </p>
-        <a href="mailto:shima.gallery@example.com" class="email-button" id="emailBtn">
-          📧 Send Email
-        </a>
-      </div>
-    </section>
-  </div>
-
-  <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()">
+  <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()" role="dialog" aria-modal="true" aria-label="Artwork lightbox">
     <button class="close-btn" onclick="closeLightbox()" aria-label="Close lightbox">✕</button>
     <div class="lightbox-content">
       <img src="" alt="Artwork preview" class="lightbox-img" id="lightboxImg">
@@ -1273,6 +1211,27 @@
   </div>
 
   <script>
+    // Configuration
+    const CONFIG = {
+      artworkImages: [
+        'IMG_0471.JPG', 'IMG_0472.JPG', 'IMG_0473.JPG', 
+        'IMG_0474.JPG', 'IMG_0475.JPG', 'IMG_0476.JPG',
+        'IMG_0477.JPG', 'IMG_0478.JPG', 'IMG_0479.JPG'
+      ],
+      artworkAltTexts: [
+        'Realistic portrait drawing with pen',
+        'Detailed pencil drawing',
+        'Artistic pen sketch',
+        'Realistic artwork',
+        'Fine art drawing',
+        'Pen and pencil art',
+        'Realistic portrait artwork',
+        'Detailed pen drawing',
+        'Artistic pencil sketch'
+      ]
+    };
+
+    // Translations
     const translations = {
       en: {
         logoText: "Shima Gallery",
@@ -1369,82 +1328,178 @@
       }
     };
 
-    let currentLanguage = 'en';
-    let selectedArtworks = [];
-    let currentLightboxIndex = 0;
-    const artworkImages = [
-      'IMG_0471.JPG', 'IMG_0472.JPG', 'IMG_0473.JPG', 
-      'IMG_0474.JPG', 'IMG_0475.JPG', 'IMG_0476.JPG',
-      'IMG_0477.JPG', 'IMG_0478.JPG', 'IMG_0479.JPG'
-    ];
+    // State management
+    const state = {
+      currentLanguage: 'en',
+      selectedArtworks: [],
+      currentLightboxIndex: 0,
+      isMenuOpen: false
+    };
 
+    // DOM Elements cache
+    const elements = {
+      menuToggle: document.getElementById('menuToggle'),
+      navLinks: document.getElementById('navLinks'),
+      languageSelect: document.getElementById('languageSelect'),
+      galleryGrid: document.getElementById('galleryGrid'),
+      cartCount: document.getElementById('cartCount'),
+      cartItems: document.getElementById('cartItems'),
+      orderForm: document.getElementById('orderForm'),
+      selectedArtworksDisplay: document.getElementById('selectedArtworksDisplay'),
+      artworkNumbers: document.getElementById('artworkNumbers'),
+      contactForm: document.getElementById('contactForm'),
+      successMessage: document.getElementById('successMessage'),
+      purchaseContent: document.getElementById('purchaseContent'),
+      lightbox: document.getElementById('lightbox'),
+      lightboxImg: document.getElementById('lightboxImg'),
+      lightboxCounter: document.getElementById('lightboxCounter')
+    };
+
+    // Initialize the application
+    function init() {
+      generateGallery();
+      setupEventListeners();
+      changeLanguage(); // Initialize translations
+    }
+
+    // Generate gallery items dynamically
+    function generateGallery() {
+      elements.galleryGrid.innerHTML = CONFIG.artworkImages.map((image, index) => {
+        const artworkId = index + 1;
+        return `
+          <div class="gallery-item" data-artwork="${artworkId}">
+            <div class="gallery-actions">
+              <button class="action-btn select-btn" onclick="toggleArtworkSelection(${artworkId}, this)" aria-label="Select artwork ${artworkId}">+</button>
+              <button class="action-btn zoom-btn" onclick="openLightbox(${artworkId})" aria-label="View artwork ${artworkId} in full size">🔍</button>
+            </div>
+            <img loading="lazy" decoding="async" src="${image}" alt="${CONFIG.artworkAltTexts[index]}">
+            <div class="gallery-overlay"><span>${artworkId}</span></div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Menu toggle
+      elements.menuToggle.addEventListener('click', toggleMenu);
+      elements.menuToggle.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleMenu();
+        }
+      });
+
+      // Logo navigation
+      document.getElementById('logoText').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showPage('home');
+        }
+      });
+
+      // Keyboard navigation for lightbox
+      document.addEventListener('keydown', (e) => {
+        if (elements.lightbox.classList.contains('open')) {
+          if (e.key === 'Escape') {
+            closeLightbox();
+          } else if (e.key === 'ArrowRight') {
+            nextImage();
+          } else if (e.key === 'ArrowLeft') {
+            prevImage();
+          }
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (state.isMenuOpen && 
+            !elements.navLinks.contains(e.target) && 
+            !elements.menuToggle.contains(e.target)) {
+          closeMenu();
+        }
+      });
+    }
+
+    // Menu functions
+    function toggleMenu() {
+      if (state.isMenuOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    function openMenu() {
+      elements.menuToggle.classList.add('active');
+      elements.navLinks.classList.add('active');
+      elements.menuToggle.setAttribute('aria-expanded', 'true');
+      state.isMenuOpen = true;
+    }
+
+    function closeMenu() {
+      elements.menuToggle.classList.remove('active');
+      elements.navLinks.classList.remove('active');
+      elements.menuToggle.setAttribute('aria-expanded', 'false');
+      state.isMenuOpen = false;
+    }
+
+    // Language functions
     function changeLanguage() {
-      const select = document.getElementById('languageSelect');
-      currentLanguage = select.value;
-      const t = translations[currentLanguage];
+      state.currentLanguage = elements.languageSelect.value;
+      const t = translations[state.currentLanguage];
 
-      document.getElementById('logoText').textContent = t.logoText;
-      document.getElementById('navHome').textContent = t.navHome;
-      document.getElementById('navGallery').textContent = t.navGallery;
-      document.getElementById('navAbout').textContent = t.navAbout;
-      document.getElementById('heroTitle').textContent = t.heroTitle;
-      document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
-      document.getElementById('galleryTitle').textContent = t.galleryTitle;
-      document.getElementById('purchaseStrong').textContent = t.purchaseStrong;
-      document.getElementById('purchaseDescription').textContent = t.purchaseDescription;
-      document.getElementById('purchaseTitle').textContent = t.purchaseTitle;
-      document.getElementById('formTitle').textContent = t.formTitle;
-      document.getElementById('firstNameLabel').textContent = t.firstNameLabel;
-      document.getElementById('lastNameLabel').textContent = t.lastNameLabel;
-      document.getElementById('emailLabel').textContent = t.emailLabel;
-      document.getElementById('phoneLabel').textContent = t.phoneLabel;
-      document.getElementById('messageLabel').textContent = t.messageLabel;
-      document.getElementById('selectedArtworksTitle').textContent = t.selectedArtworksTitle;
-      document.getElementById('submitButton').textContent = t.submitButton;
-      document.getElementById('aboutTitle').textContent = t.aboutTitle;
-      document.getElementById('aboutText').textContent = t.aboutText;
-      document.getElementById('contactTitle').textContent = t.contactTitle;
-      document.getElementById('contactText').textContent = t.contactText;
-      document.getElementById('emailBtn').textContent = t.emailBtn;
-      document.getElementById('successTitle').textContent = t.successTitle;
-      document.getElementById('successText').textContent = t.successText;
+      // Update all translatable elements
+      Object.keys(t).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = t[key];
+          } else {
+            element.textContent = t[key];
+          }
+        }
+      });
 
       updateCartDisplay();
     }
 
+    // Page navigation
     function showPage(pageName) {
+      // Hide all pages
       document.querySelectorAll('.page-container').forEach(page => {
         page.classList.remove('active');
       });
       
-      const pageId = pageName + '-page';
+      // Show target page
+      const pageId = `${pageName}-page`;
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
         targetPage.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      const menuToggle = document.getElementById('menuToggle');
-      const navLinks = document.getElementById('navLinks');
-      menuToggle.classList.remove('active');
-      navLinks.classList.remove('active');
+      // Close menu
+      closeMenu();
 
+      // Update cart display if on purchase page
       if (pageName === 'purchase') {
         updateCartDisplay();
       }
     }
 
+    // Artwork selection
     function toggleArtworkSelection(artworkId, button) {
-      const index = selectedArtworks.indexOf(artworkId);
+      const index = state.selectedArtworks.indexOf(artworkId);
       const galleryItem = button.closest('.gallery-item');
       
       if (index > -1) {
-        selectedArtworks.splice(index, 1);
+        state.selectedArtworks.splice(index, 1);
         button.classList.remove('selected');
         button.textContent = '+';
         galleryItem.classList.remove('selected');
       } else {
-        selectedArtworks.push(artworkId);
+        state.selectedArtworks.push(artworkId);
         button.classList.add('selected');
         button.textContent = '✓';
         galleryItem.classList.add('selected');
@@ -1455,41 +1510,38 @@
     }
 
     function updateCartCount() {
-      document.getElementById('cartCount').textContent = selectedArtworks.length;
+      elements.cartCount.textContent = state.selectedArtworks.length;
     }
 
     function updateSelectedArtworksDisplay() {
-      const container = document.getElementById('selectedArtworksDisplay');
-      const numbersContainer = document.getElementById('artworkNumbers');
-      
-      if (selectedArtworks.length > 0) {
-        container.style.display = 'block';
-        numbersContainer.innerHTML = selectedArtworks
+      if (state.selectedArtworks.length > 0) {
+        elements.selectedArtworksDisplay.style.display = 'block';
+        elements.artworkNumbers.innerHTML = state.selectedArtworks
           .sort((a, b) => a - b)
           .map(id => `<span class="artwork-number">#${id}</span>`)
           .join('');
       } else {
-        container.style.display = 'none';
+        elements.selectedArtworksDisplay.style.display = 'none';
       }
     }
 
+    // Cart management
     function updateCartDisplay() {
-      const cartItems = document.getElementById('cartItems');
-      const t = translations[currentLanguage];
+      const t = translations[state.currentLanguage];
       
-      if (selectedArtworks.length === 0) {
-        cartItems.innerHTML = `
+      if (state.selectedArtworks.length === 0) {
+        elements.cartItems.innerHTML = `
           <div class="empty-cart">
             <p>${t.emptyCart}</p>
             <button class="page-button" onclick="showPage('gallery')">${t.backToGallery}</button>
           </div>
         `;
-        document.getElementById('orderForm').style.display = 'none';
+        elements.orderForm.style.display = 'none';
       } else {
-        cartItems.innerHTML = selectedArtworks.sort((a, b) => a - b).map(id => `
+        elements.cartItems.innerHTML = state.selectedArtworks.sort((a, b) => a - b).map(id => `
           <div class="cart-item">
             <div class="cart-item-image">
-              <img src="${artworkImages[id-1]}" alt="Artwork ${id}">
+              <img src="${CONFIG.artworkImages[id-1]}" alt="Artwork ${id}">
             </div>
             <div class="cart-item-details">
               <div class="cart-item-number">Artwork #${id}</div>
@@ -1497,15 +1549,15 @@
             <button class="cart-item-remove" onclick="removeFromCart(${id})">${t.removeBtn}</button>
           </div>
         `).join('');
-        document.getElementById('orderForm').style.display = 'block';
+        elements.orderForm.style.display = 'block';
         updateSelectedArtworksDisplay();
       }
     }
 
     function removeFromCart(artworkId) {
-      const index = selectedArtworks.indexOf(artworkId);
+      const index = state.selectedArtworks.indexOf(artworkId);
       if (index > -1) {
-        selectedArtworks.splice(index, 1);
+        state.selectedArtworks.splice(index, 1);
         
         const button = document.querySelector(`[data-artwork="${artworkId}"] .select-btn`);
         if (button) {
@@ -1519,12 +1571,13 @@
       }
     }
 
+    // Form handling
     function handleSubmit(event) {
       event.preventDefault();
       
       const submitButton = document.getElementById('submitButton');
       submitButton.disabled = true;
-      submitButton.textContent = translations[currentLanguage].sending || 'Sending...';
+      submitButton.textContent = translations[state.currentLanguage].sending || 'Sending...';
       
       const firstName = document.getElementById('firstName').value.trim();
       const lastName = document.getElementById('lastName').value.trim();
@@ -1532,9 +1585,9 @@
       const phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
       
-      const artworksList = selectedArtworks.sort((a, b) => a - b).join(', ');
+      const artworksList = state.selectedArtworks.sort((a, b) => a - b).join(', ');
       
-      // Simuliere E-Mail-Versand (In Produktion: Server-seitiger E-Mail-Versand erforderlich)
+      // Simulate email sending (In production: server-side email delivery required)
       console.log('Order submitted:', {
         name: `${firstName} ${lastName}`,
         email: email,
@@ -1543,22 +1596,21 @@
         message: message || 'No message'
       });
       
-      // Simuliere Verzögerung für realistisches Feedback
+      // Simulate delay for realistic feedback
       setTimeout(() => {
-        document.getElementById('purchaseContent').style.display = 'none';
-        const successMessage = document.getElementById('successMessage');
-        successMessage.style.display = 'block';
-        successMessage.classList.add('show');
+        elements.purchaseContent.style.display = 'none';
+        elements.successMessage.style.display = 'block';
+        elements.successMessage.classList.add('show');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
         submitButton.disabled = false;
-        submitButton.textContent = translations[currentLanguage].submitButton;
+        submitButton.textContent = translations[state.currentLanguage].submitButton;
       }, 1000);
     }
 
     function resetForm() {
-      document.getElementById('contactForm').reset();
-      selectedArtworks = [];
+      elements.contactForm.reset();
+      state.selectedArtworks = [];
       
       document.querySelectorAll('.select-btn').forEach(btn => {
         btn.classList.remove('selected');
@@ -1569,91 +1621,49 @@
       });
       
       updateCartCount();
-      document.getElementById('successMessage').classList.remove('show');
-      document.getElementById('successMessage').style.display = 'none';
-      document.getElementById('purchaseContent').style.display = 'block';
+      elements.successMessage.classList.remove('show');
+      elements.successMessage.style.display = 'none';
+      elements.purchaseContent.style.display = 'block';
       
       showPage('gallery');
     }
 
+    // Lightbox functions
     function openLightbox(index) {
-      currentLightboxIndex = index - 1;
-      const lightbox = document.getElementById('lightbox');
-      const img = document.getElementById('lightboxImg');
-      
-      img.src = artworkImages[currentLightboxIndex];
-      lightbox.classList.add('open');
+      state.currentLightboxIndex = index - 1;
+      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
+      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
+      elements.lightbox.classList.add('open');
       document.body.classList.add('lb-lock');
       updateLightboxCounter();
     }
 
     function closeLightbox() {
-      const lightbox = document.getElementById('lightbox');
-      lightbox.classList.remove('open');
+      elements.lightbox.classList.remove('open');
       document.body.classList.remove('lb-lock');
     }
 
     function nextImage() {
-      currentLightboxIndex = (currentLightboxIndex + 1) % artworkImages.length;
-      document.getElementById('lightboxImg').src = artworkImages[currentLightboxIndex];
+      state.currentLightboxIndex = (state.currentLightboxIndex + 1) % CONFIG.artworkImages.length;
+      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
+      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
       updateLightboxCounter();
     }
 
     function prevImage() {
-      currentLightboxIndex = (currentLightboxIndex - 1 + artworkImages.length) % artworkImages.length;
-      document.getElementById('lightboxImg').src = artworkImages[currentLightboxIndex];
+      state.currentLightboxIndex = (state.currentLightboxIndex - 1 + CONFIG.artworkImages.length) % CONFIG.artworkImages.length;
+      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
+      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
       updateLightboxCounter();
     }
 
     function updateLightboxCounter() {
-      document.getElementById('lightboxCounter').textContent = 
-        `${currentLightboxIndex + 1} / ${artworkImages.length}`;
+      elements.lightboxCounter.textContent = 
+        `${state.currentLightboxIndex + 1} / ${CONFIG.artworkImages.length}`;
     }
 
-    document.getElementById('menuToggle').addEventListener('click', function() {
-      this.classList.toggle('active');
-      document.getElementById('navLinks').classList.toggle('active');
-    });
-
-    document.getElementById('menuToggle').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.click();
-      }
-    });
-
-    document.getElementById('logoText').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        showPage('home');
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      const lightbox = document.getElementById('lightbox');
-      if (lightbox.classList.contains('open')) {
-        if (e.key === 'Escape') {
-          closeLightbox();
-        } else if (e.key === 'ArrowRight') {
-          nextImage();
-        } else if (e.key === 'ArrowLeft') {
-          prevImage();
-        }
-      }
-    });
-
-    window.addEventListener('load', function() {
-      document.querySelectorAll('.page-container').forEach(page => {
-        if (!page.classList.contains('active')) {
-          page.style.display = 'none';
-        }
-      });
-      setTimeout(() => {
-        document.querySelectorAll('.page-container').forEach(page => {
-          page.style.display = '';
-        });
-      }, 100);
-    });
+    // Initialize the application when DOM is loaded
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
