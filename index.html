@@ -9,1047 +9,9 @@
   <meta property="og:description" content="Pen & pencil art by Shima. Gallery & contact." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#1a1a1a" />
-  <style>
-    :root {
-      --primary-color: #d4af37;
-      --primary-dark: #b8941f;
-      --primary-light: #f0c748;
-      --bg-dark: #1a1a1a;
-      --bg-medium: #2d2d2d;
-      --text-light: #f0f0f0;
-      --text-muted: #c0c0c0;
-      --border-radius: 15px;
-      --transition: all 0.3s ease;
-      --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      --shadow-gold: 0 8px 25px rgba(212, 175, 55, 0.3);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Georgia', serif;
-      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
-      color: var(--text-light);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    .language-selector {
-      position: relative;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: var(--transition);
-    }
-
-    .language-selector:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(212, 175, 55, 0.5);
-    }
-
-    .language-selector select {
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      background: transparent;
-      color: var(--text-light);
-      cursor: pointer;
-      font-weight: 500;
-      font-family: 'Georgia', serif;
-      width: 100%;
-    }
-
-    .language-selector select:focus {
-      outline: 2px solid var(--primary-color);
-      border-radius: 8px;
-    }
-
-    .language-selector select option {
-      background: var(--bg-medium);
-      color: var(--text-light);
-      padding: 10px;
-    }
-
-    header {
-      background: rgba(0, 0, 0, 0.9);
-      padding: 15px 0;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-    }
-
-    nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--primary-color);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    .logo:hover {
-      color: var(--primary-light);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 25px;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: var(--transition);
-      position: relative;
-      white-space: nowrap;
-      padding: 8px 0;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--primary-color);
-      transition: var(--transition);
-      transform: translateX(-50%);
-    }
-
-    .nav-links a:hover {
-      color: var(--primary-color);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .language-item {
-      margin-left: 15px;
-    }
-
-    .language-item .language-selector {
-      min-width: 140px;
-    }
-
-    .page-container {
-      display: none;
-      min-height: 100vh;
-      padding-top: 80px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .page-container.active {
-      display: block;
-      opacity: 1;
-    }
-
-    .home-page {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 20px;
-      background: radial-gradient(circle at center, var(--bg-medium) 0%, var(--bg-dark) 100%);
-    }
-
-    .home-content {
-      max-width: 800px;
-    }
-
-    .home-content h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      margin-bottom: 2rem;
-      color: var(--primary-color);
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-      font-weight: 300;
-      letter-spacing: 3px;
-    }
-
-    .home-content p {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      margin-bottom: 3rem;
-      color: var(--text-muted);
-      font-weight: 300;
-      letter-spacing: 1px;
-    }
-
-    .home-buttons {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 3rem;
-    }
-
-    .page-button {
-      display: inline-block;
-      padding: 18px 45px;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
-      text-decoration: none;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border-radius: var(--border-radius);
-      transition: var(--transition);
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      box-shadow: var(--shadow-gold);
-    }
-
-    .page-button:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
-    }
-
-    .gallery-page {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      margin-bottom: 4rem;
-      color: var(--primary-color);
-      position: relative;
-      padding-bottom: 1.5rem;
-      font-weight: 300;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      background: rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      aspect-ratio: 4 / 5;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.08);
-    }
-
-    .gallery-overlay {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
-      padding: 0.6rem 1rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      backdrop-filter: blur(10px);
-      pointer-events: none;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .gallery-actions {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      display: flex;
-      gap: 10px;
-      z-index: 10;
-    }
-
-    .action-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-      font-weight: bold;
-      font-size: 1.1rem;
-      border: none;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .select-btn {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
-    }
-
-    .select-btn:hover {
-      transform: scale(1.1);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
-    }
-
-    .select-btn.selected {
-      background: #4CAF50;
-      color: white;
-    }
-
-    .zoom-btn {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--bg-dark);
-    }
-
-    .zoom-btn:hover {
-      transform: scale(1.1);
-      background: white;
-    }
-
-    .purchase-info {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3rem;
-      border-radius: var(--border-radius);
-      max-width: 900px;
-      margin: 4rem auto 0;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-      text-align: center;
-    }
-
-    .purchase-info:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .purchase-info p {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      color: #e0e0e0;
-      margin: 0;
-      font-weight: 300;
-    }
-
-    .purchase-info strong {
-      color: var(--primary-color);
-      font-weight: 600;
-    }
-
-    .about-contact-page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-    }
-
-    .about-content {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3rem;
-      border-radius: var(--border-radius);
-      max-width: 800px;
-      margin: 0 auto 4rem;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-    }
-
-    .about-content:hover {
-      transform: translateY(-10px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .about-content p {
-      color: #e0e0e0;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      text-align: center;
-      font-weight: 300;
-    }
-
-    .contact-content {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3rem;
-      border-radius: var(--border-radius);
-      max-width: 800px;
-      margin: 0 auto;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-      text-align: center;
-    }
-
-    .contact-content:hover {
-      transform: translateY(-10px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .contact-content p {
-      color: #e0e0e0;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      margin-bottom: 2rem;
-      font-weight: 300;
-    }
-
-    .email-button {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark) !important;
-      text-decoration: none;
-      padding: 15px 40px;
-      border-radius: var(--border-radius);
-      font-weight: bold;
-      transition: var(--transition);
-      border: 2px solid transparent;
-      box-shadow: var(--shadow-gold);
-      font-size: 1.1rem;
-    }
-
-    .email-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
-      color: var(--bg-dark) !important;
-      border-color: var(--primary-color);
-    }
-
-    .purchase-page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-    }
-
-    .cart-items {
-      display: grid;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
-    }
-
-    .cart-item:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .cart-item-image {
-      width: 120px;
-      height: 150px;
-      border-radius: 12px;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .cart-item-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .cart-item-details {
-      flex: 1;
-    }
-
-    .cart-item-number {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .cart-item-remove {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: var(--text-light);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .cart-item-remove:hover {
-      background: rgba(255, 0, 0, 0.2);
-      border-color: rgba(255, 0, 0, 0.5);
-    }
-
-    .empty-cart {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--text-muted);
-    }
-
-    .empty-cart p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .order-form {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3rem;
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-    }
-
-    .order-form:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .form-group {
-      margin-bottom: 2rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--primary-color);
-      font-weight: 500;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      color: var(--text-light);
-      font-family: 'Georgia', serif;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .selected-artworks {
-      background: rgba(212, 175, 55, 0.1);
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-
-    .selected-artworks h4 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-    }
-
-    .artwork-numbers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .artwork-number {
-      background: var(--primary-color);
-      color: var(--bg-dark);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    .submit-button {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
-      border: none;
-      padding: 1.2rem 3rem;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: var(--transition);
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .submit-button:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
-    }
-
-    .submit-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .success-message {
-      text-align: center;
-      padding: 3rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      display: none;
-    }
-
-    .success-message.show {
-      display: block;
-      animation: slideDown 0.5s ease;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .success-message h3 {
-      color: #4CAF50;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .success-message p {
-      color: #e0e0e0;
-      margin-bottom: 2rem;
-    }
-
-    .success-icon {
-      font-size: 4rem;
-      color: #4CAF50;
-      margin-bottom: 1.5rem;
-    }
-
-    .gallery-item.selected {
-      border: 3px solid var(--primary-color);
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-    }
-
-    .cart-indicator {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: 20px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: var(--transition);
-    }
-
-    .cart-indicator:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.5);
-    }
-
-    .cart-count {
-      background: var(--primary-color);
-      color: var(--bg-dark);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
-
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      padding: 20px;
-    }
-
-    .lightbox.open {
-      display: flex;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .lightbox-content {
-      position: relative;
-      max-width: 90%;
-      max-height: 90%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox-img {
-      max-width: 100%;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .lightbox .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(212, 175, 55, 0.2);
-      border: 2px solid rgba(212, 175, 55, 0.6);
-      color: var(--primary-color);
-      font-size: 1.5rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: var(--transition);
-      font-weight: bold;
-      backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2001;
-    }
-
-    .lightbox .close-btn:hover {
-      background: rgba(212, 175, 55, 0.3);
-      border-color: var(--primary-color);
-      transform: scale(1.1);
-    }
-
-    .lightbox .counter {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--primary-color);
-      font-size: 1.1rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 0.7rem 1.5rem;
-      border-radius: 50px;
-      backdrop-filter: blur(10px);
-      font-weight: 600;
-    }
-
-    .lightbox .nav {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .lightbox .nav button {
-      pointer-events: auto;
-      background: rgba(212, 175, 55, 0.2);
-      border: 2px solid rgba(212, 175, 55, 0.5);
-      color: var(--primary-color);
-      font-size: 2rem;
-      width: 60px;
-      height: 60px;
-      margin: 0 1rem;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox .nav button:hover {
-      background: rgba(212, 175, 55, 0.3);
-      border-color: var(--primary-color);
-      transform: scale(1.1);
-    }
-
-    body.lb-lock {
-      overflow: hidden;
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 4px;
-      padding: 5px;
-    }
-
-    .menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background: var(--primary-color);
-      transition: 0.3s;
-      border-radius: 2px;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
-
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: flex;
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        padding: 2rem;
-        gap: 1rem;
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: var(--transition);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      }
-
-      .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .language-item {
-        margin-left: 0;
-        margin-top: 1rem;
-      }
-
-      .language-item .language-selector {
-        min-width: 100%;
-      }
-
-      .nav-links a {
-        font-size: 1.1rem;
-        padding: 12px 0;
-        text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-      }
-
-      .nav-links a:last-child {
-        border-bottom: none;
-      }
-
-      .logo {
-        font-size: 1.2rem;
-      }
-
-      .home-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .page-button {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .gallery-item {
-        aspect-ratio: 3 / 4;
-      }
-
-      .about-content, .contact-content, .purchase-info {
-        padding: 2rem;
-      }
-
-      .lightbox .nav button {
-        font-size: 1.5rem;
-        width: 50px;
-        height: 50px;
-        margin: 0 0.5rem;
-      }
-
-      .lightbox .close-btn {
-        font-size: 1.2rem;
-        width: 40px;
-        height: 40px;
-        top: 15px;
-        right: 15px;
-      }
-
-      .lightbox .counter {
-        font-size: 1rem;
-        bottom: 15px;
-      }
-
-      .email-button {
-        padding: 12px 30px;
-        font-size: 1rem;
-      }
-
-      .cart-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-      }
-
-      .cart-item-image {
-        width: 100%;
-        height: 200px;
-      }
-
-      .order-form {
-        padding: 2rem;
-      }
-
-      .cart-indicator {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-      }
-
-      .action-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        transition: none !important;
-        animation: none !important;
-      }
-    }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary-color);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--primary-light);
-    }
-  </style>
+  
+  <!-- Externe CSS Datei -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header>
@@ -1104,12 +66,13 @@
       <section class="gallery-page">
         <h2 class="section-title" id="galleryTitle">My Artworks</h2>
         <div class="gallery" id="galleryGrid">
+          <!-- Gallery items with all 23 images -->
           <div class="gallery-item" data-artwork="1">
             <div class="gallery-actions">
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(1, this)" aria-label="Select artwork 1">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(1)" aria-label="View artwork 1 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Realistic portrait drawing with pen">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0471.JPG" alt="Realistic portrait drawing with pen">
             <div class="gallery-overlay"><span>1</span></div>
           </div>
           <div class="gallery-item" data-artwork="2">
@@ -1117,7 +80,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(2, this)" aria-label="Select artwork 2">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(2)" aria-label="View artwork 2 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing of a face">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0472.JPG" alt="Detailed pencil drawing of a face">
             <div class="gallery-overlay"><span>2</span></div>
           </div>
           <div class="gallery-item" data-artwork="3">
@@ -1125,7 +88,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(3, this)" aria-label="Select artwork 3">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(3)" aria-label="View artwork 3 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Pen art with shading techniques">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0474.JPG" alt="Pen art with shading techniques">
             <div class="gallery-overlay"><span>3</span></div>
           </div>
           <div class="gallery-item" data-artwork="4">
@@ -1133,7 +96,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(4, this)" aria-label="Select artwork 4">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(4)" aria-label="View artwork 4 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Realistic eye drawing with pencil">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0476.JPG" alt="Realistic eye drawing with pencil">
             <div class="gallery-overlay"><span>4</span></div>
           </div>
           <div class="gallery-item" data-artwork="5">
@@ -1141,7 +104,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(5, this)" aria-label="Select artwork 5">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(5)" aria-label="View artwork 5 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Portrait art with pen technique">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0477.JPG" alt="Portrait art with pen technique">
             <div class="gallery-overlay"><span>5</span></div>
           </div>
           <div class="gallery-item" data-artwork="6">
@@ -1149,7 +112,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(6, this)" aria-label="Select artwork 6">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(6)" aria-label="View artwork 6 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Detailed face study with pen">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0479.JPG" alt="Detailed face study with pen">
             <div class="gallery-overlay"><span>6</span></div>
           </div>
           <div class="gallery-item" data-artwork="7">
@@ -1157,7 +120,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(7, this)" aria-label="Select artwork 7">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(7)" aria-label="View artwork 7 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0481.JPG" alt="Artwork with shading techniques">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0481.JPG" alt="Artwork with shading techniques">
             <div class="gallery-overlay"><span>7</span></div>
           </div>
           <div class="gallery-item" data-artwork="8">
@@ -1165,7 +128,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(8, this)" aria-label="Select artwork 8">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(8)" aria-label="View artwork 8 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0482.JPG" alt="Realistic drawing with precision">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0482.JPG" alt="Realistic drawing with precision">
             <div class="gallery-overlay"><span>8</span></div>
           </div>
           <div class="gallery-item" data-artwork="9">
@@ -1173,7 +136,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(9, this)" aria-label="Select artwork 9">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(9)" aria-label="View artwork 9 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0485.JPG" alt="Pencil portrait with details">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0485.JPG" alt="Pencil portrait with details">
             <div class="gallery-overlay"><span>9</span></div>
           </div>
           <div class="gallery-item" data-artwork="10">
@@ -1181,7 +144,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(10, this)" aria-label="Select artwork 10">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(10)" aria-label="View artwork 10 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="IMG_0486.JPG" alt="Pen artwork in profile">
+            <img loading="lazy" decoding="async" src="assets/images/IMG_0486.JPG" alt="Pen artwork in profile">
             <div class="gallery-overlay"><span>10</span></div>
           </div>
           <div class="gallery-item" data-artwork="11">
@@ -1189,7 +152,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(11, this)" aria-label="Select artwork 11">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(11)" aria-label="View artwork 11 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-09-19_01-14-34.jpg" alt="Realistic hand drawing with pen">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-09-19_01-14-34.jpg" alt="Realistic hand drawing with pen">
             <div class="gallery-overlay"><span>11</span></div>
           </div>
           <div class="gallery-item" data-artwork="12">
@@ -1197,7 +160,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(12, this)" aria-label="Select artwork 12">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(12)" aria-label="View artwork 12 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-36.jpg" alt="Detailed portrait study">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-04-36.jpg" alt="Detailed portrait study">
             <div class="gallery-overlay"><span>12</span></div>
           </div>
           <div class="gallery-item" data-artwork="13">
@@ -1205,7 +168,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(13, this)" aria-label="Select artwork 13">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(13)" aria-label="View artwork 13 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-44.jpg" alt="Pen art with depth">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-04-44.jpg" alt="Pen art with depth">
             <div class="gallery-overlay"><span>13</span></div>
           </div>
           <div class="gallery-item" data-artwork="14">
@@ -1213,7 +176,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(14, this)" aria-label="Select artwork 14">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(14)" aria-label="View artwork 14 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-51.jpg" alt="Pencil drawing with texture">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-04-51.jpg" alt="Pencil drawing with texture">
             <div class="gallery-overlay"><span>14</span></div>
           </div>
           <div class="gallery-item" data-artwork="15">
@@ -1221,7 +184,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(15, this)" aria-label="Select artwork 15">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(15)" aria-label="View artwork 15 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-05-39.jpg" alt="Realistic facial expressions">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-05-39.jpg" alt="Realistic facial expressions">
             <div class="gallery-overlay"><span>15</span></div>
           </div>
           <div class="gallery-item" data-artwork="16">
@@ -1229,7 +192,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(16, this)" aria-label="Select artwork 16">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(16)" aria-label="View artwork 16 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-08.jpg" alt="Artwork with light and shadow">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-06-08.jpg" alt="Artwork with light and shadow">
             <div class="gallery-overlay"><span>16</span></div>
           </div>
           <div class="gallery-item" data-artwork="17">
@@ -1237,7 +200,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(17, this)" aria-label="Select artwork 17">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(17)" aria-label="View artwork 17 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-39.jpg" alt="Pen art in detail">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-06-39.jpg" alt="Pen art in detail">
             <div class="gallery-overlay"><span>17</span></div>
           </div>
           <div class="gallery-item" data-artwork="18">
@@ -1245,7 +208,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(18, this)" aria-label="Select artwork 18">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(18)" aria-label="View artwork 18 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-52.jpg" alt="Pencil study with precision">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-06-52.jpg" alt="Pencil study with precision">
             <div class="gallery-overlay"><span>18</span></div>
           </div>
           <div class="gallery-item" data-artwork="19">
@@ -1253,7 +216,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(19, this)" aria-label="Select artwork 19">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(19)" aria-label="View artwork 19 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-09.jpg" alt="Realistic eye area">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-07-09.jpg" alt="Realistic eye area">
             <div class="gallery-overlay"><span>19</span></div>
           </div>
           <div class="gallery-item" data-artwork="20">
@@ -1261,7 +224,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(20, this)" aria-label="Select artwork 20">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(20)" aria-label="View artwork 20 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-39.jpg" alt="Artwork with depth effect">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-07-39.jpg" alt="Artwork with depth effect">
             <div class="gallery-overlay"><span>20</span></div>
           </div>
           <div class="gallery-item" data-artwork="21">
@@ -1269,7 +232,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(21, this)" aria-label="Select artwork 21">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(21)" aria-label="View artwork 21 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-54.jpg" alt="Portrait drawing with pen">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-07-54.jpg" alt="Portrait drawing with pen">
             <div class="gallery-overlay"><span>21</span></div>
           </div>
           <div class="gallery-item" data-artwork="22">
@@ -1277,7 +240,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(22, this)" aria-label="Select artwork 22">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(22)" aria-label="View artwork 22 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-09.jpg" alt="Realistic facial features">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-08-09.jpg" alt="Realistic facial features">
             <div class="gallery-overlay"><span>22</span></div>
           </div>
           <div class="gallery-item" data-artwork="23">
@@ -1285,7 +248,7 @@
               <button class="action-btn select-btn" onclick="toggleArtworkSelection(23, this)" aria-label="Select artwork 23">+</button>
               <button class="action-btn zoom-btn" onclick="openLightbox(23)" aria-label="View artwork 23 in full size">🔍</button>
             </div>
-            <img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-16.jpg" alt="Detailed pencil art">
+            <img loading="lazy" decoding="async" src="assets/images/photo_2025-10-02_19-08-16.jpg" alt="Detailed pencil art">
             <div class="gallery-overlay"><span>23</span></div>
           </div>
         </div>
@@ -1313,34 +276,38 @@
         <div id="purchaseContent">
           <div class="cart-items" id="cartItems"></div>
 
+          <!-- VERCEL + RESEND INTEGRATION -->
           <div class="order-form" id="orderForm">
             <h3 style="color: var(--primary-color); margin-bottom: 2rem; text-align: center;" id="formTitle">Order Inquiry Form</h3>
             
-            <form id="contactForm" onsubmit="handleSubmit(event)">
+            <form id="contactForm">
               <div class="form-group">
                 <label for="firstName" id="firstNameLabel">First Name *</label>
-                <input type="text" id="firstName" required placeholder="Enter your first name">
+                <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
               </div>
 
               <div class="form-group">
                 <label for="lastName" id="lastNameLabel">Last Name *</label>
-                <input type="text" id="lastName" required placeholder="Enter your last name">
+                <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name">
               </div>
 
               <div class="form-group">
                 <label for="email" id="emailLabel">Email Address *</label>
-                <input type="email" id="email" required placeholder="your.email@example.com">
+                <input type="email" id="email" name="email" required placeholder="your.email@example.com">
               </div>
 
               <div class="form-group">
                 <label for="phone" id="phoneLabel">Phone Number</label>
-                <input type="tel" id="phone" placeholder="+49 123 456789">
+                <input type="tel" id="phone" name="phone" placeholder="+49 123 456789">
               </div>
 
               <div class="form-group">
                 <label for="message" id="messageLabel">Message</label>
-                <textarea id="message" rows="5" placeholder="Add any additional information or questions..."></textarea>
+                <textarea id="message" name="message" rows="5" placeholder="Add any additional information or questions..."></textarea>
               </div>
+
+              <!-- Hidden field for selected artworks -->
+              <input type="hidden" id="selectedArtworks" name="selectedArtworks" value="">
 
               <div class="selected-artworks" id="selectedArtworksDisplay" style="display: none;">
                 <h4 id="selectedArtworksTitle">Selected Artworks:</h4>
@@ -1393,460 +360,7 @@
     </div>
   </div>
 
-  <script>
-    // Configuration
-    const CONFIG = {
-      artworkImages: [
-        'IMG_0471.JPG', 'IMG_0472.JPG', 'IMG_0474.JPG', 
-        'IMG_0476.JPG', 'IMG_0477.JPG', 'IMG_0479.JPG',
-        'IMG_0481.JPG', 'IMG_0482.JPG', 'IMG_0485.JPG',
-        'IMG_0486.JPG', 'photo_2025-09-19_01-14-34.jpg', 'photo_2025-10-02_19-04-36.jpg',
-        'photo_2025-10-02_19-04-44.jpg', 'photo_2025-10-02_19-04-51.jpg', 'photo_2025-10-02_19-05-39.jpg',
-        'photo_2025-10-02_19-06-08.jpg', 'photo_2025-10-02_19-06-39.jpg', 'photo_2025-10-02_19-06-52.jpg',
-        'photo_2025-10-02_19-07-09.jpg', 'photo_2025-10-02_19-07-39.jpg', 'photo_2025-10-02_19-07-54.jpg',
-        'photo_2025-10-02_19-08-09.jpg', 'photo_2025-10-02_19-08-16.jpg'
-      ],
-      artworkAltTexts: [
-        'Realistic portrait drawing with pen',
-        'Detailed pencil drawing of a face',
-        'Pen art with shading techniques',
-        'Realistic eye drawing with pencil',
-        'Portrait art with pen technique',
-        'Detailed face study with pen',
-        'Artwork with shading techniques',
-        'Realistic drawing with precision',
-        'Pencil portrait with details',
-        'Pen artwork in profile',
-        'Realistic hand drawing with pen',
-        'Detailed portrait study',
-        'Pen art with depth',
-        'Pencil drawing with texture',
-        'Realistic facial expressions',
-        'Artwork with light and shadow',
-        'Pen art in detail',
-        'Pencil study with precision',
-        'Realistic eye area',
-        'Artwork with depth effect',
-        'Portrait drawing with pen',
-        'Realistic facial features',
-        'Detailed pencil art'
-      ]
-    };
-
-    // Translations
-    const translations = {
-      en: {
-        logoText: "Shima Gallery",
-        navHome: "Home",
-        navGallery: "Gallery",
-        navAbout: "About Me",
-        heroTitle: "Shima Gallery",
-        heroSubtitle: "Realistic Artwork with Pen & Pencil ✏️",
-        galleryTitle: "My Artworks",
-        purchaseStrong: "Interested in purchasing an artwork?",
-        purchaseDescription: "Use the + button to select artworks, then proceed to purchase to send your inquiry.",
-        purchaseTitle: "Purchase Artworks",
-        formTitle: "Order Inquiry Form",
-        firstNameLabel: "First Name *",
-        lastNameLabel: "Last Name *",
-        emailLabel: "Email Address *",
-        phoneLabel: "Phone Number",
-        messageLabel: "Message",
-        selectedArtworksTitle: "Selected Artworks:",
-        submitButton: "Send Inquiry",
-        sending: "Sending...",
-        aboutTitle: "About Me",
-        aboutText: "Hi, I'm Shima! I create realistic artwork using pen and pencil. Each piece is carefully crafted to capture detail and emotion. Thank you for visiting my gallery!",
-        contactTitle: "Contact",
-        contactText: "I'd love to hear from you! Whether you have questions about my artwork or want to discuss a custom piece, feel free to reach out.",
-        emailBtn: "📧 Send Email",
-        successTitle: "✓ Email Sent Successfully!",
-        successText: "Your inquiry has been delivered. I will contact you soon via email.",
-        emptyCart: "Your cart is empty. Please select artworks from the gallery.",
-        backToGallery: "Back to Gallery",
-        removeBtn: "Remove"
-      },
-      de: {
-        logoText: "Shima Galerie",
-        navHome: "Startseite",
-        navGallery: "Galerie",
-        navAbout: "Über Mich",
-        heroTitle: "Shima Galerie",
-        heroSubtitle: "Realistische Kunstwerke mit Stift & Bleistift ✏️",
-        galleryTitle: "Meine Kunstwerke",
-        purchaseStrong: "Interessiert an einem Kunstwerk?",
-        purchaseDescription: "Verwenden Sie die + Schaltfläche, um Kunstwerke auszuwählen, und fahren Sie dann mit dem Kauf fort, um Ihre Anfrage zu senden.",
-        purchaseTitle: "Kunstwerke Kaufen",
-        formTitle: "Anfrage-Formular",
-        firstNameLabel: "Vorname *",
-        lastNameLabel: "Nachname *",
-        emailLabel: "E-Mail-Adresse *",
-        phoneLabel: "Telefonnummer",
-        messageLabel: "Nachricht",
-        selectedArtworksTitle: "Ausgewählte Kunstwerke:",
-        submitButton: "Anfrage Senden",
-        sending: "Wird gesendet...",
-        aboutTitle: "Über Mich",
-        aboutText: "Hallo, ich bin Shima! Ich erstelle realistische Kunstwerke mit Stift und Bleistift. Jedes Stück wird sorgfältig gefertigt, um Details und Emotionen einzufangen. Vielen Dank für Ihren Besuch in meiner Galerie!",
-        contactTitle: "Kontakt",
-        contactText: "Ich würde gerne von Ihnen hören! Ob Sie Fragen zu meinen Kunstwerken haben oder ein individuelles Stück besprechen möchten, zögern Sie nicht, mich zu kontaktieren.",
-        emailBtn: "📧 E-Mail Senden",
-        successTitle: "✓ E-Mail erfolgreich gesendet!",
-        successText: "Ihre Anfrage wurde zugestellt. Ich werde Sie bald per E-Mail kontaktieren.",
-        emptyCart: "Ihr Warenkorb ist leer. Bitte wählen Sie Kunstwerke aus der Galerie aus.",
-        backToGallery: "Zurück zur Galerie",
-        removeBtn: "Entfernen"
-      },
-      fa: {
-        logoText: "گالری شیما",
-        navHome: "خانه",
-        navGallery: "گالری",
-        navAbout: "درباره من",
-        heroTitle: "گالری شیما",
-        heroSubtitle: "آثار هنری واقع‌گرایانه با قلم و مداد ✏️",
-        galleryTitle: "آثار هنری من",
-        purchaseStrong: "علاقه‌مند به خرید یک اثر هنری هستید؟",
-        purchaseDescription: "از دکمه + برای انتخاب آثار هنری استفاده کنید، سپس برای ارسال درخواست خود به بخش خرید بروید.",
-        purchaseTitle: "خرید آثار هنری",
-        formTitle: "فرم درخواست سفارش",
-        firstNameLabel: "نام *",
-        lastNameLabel: "نام خانوادگی *",
-        emailLabel: "آدرس ایمیل *",
-        phoneLabel: "شماره تلفن",
-        messageLabel: "پیام",
-        selectedArtworksTitle: "آثار هنری انتخاب شده:",
-        submitButton: "ارسال درخواست",
-        sending: "در حال ارسال...",
-        aboutTitle: "درباره من",
-        aboutText: "سلام، من شیما هستم! من آثار هنری واقع‌گرایانه با استفاده از قلم و مداد می‌سازم. هر اثر با دقت ساخته شده تا جزئیات و احساسات را به تصویر بکشد. از بازدید شما از گالری من متشکرم!",
-        contactTitle: "تماس",
-        contactText: "دوست دارم از شما بشنوم! خواه سوالاتی درباره آثار هنری من داشته باشید یا بخواهید درباره یک قطعه سفارشی صحبت کنید، با من در تماس باشید.",
-        emailBtn: "📧 ارسال ایمیل",
-        successTitle: "✓ ایمیل با موفقیت ارسال شد!",
-        successText: "درخواست شما تحویل داده شد. به زودی از طریق ایمیل با شما تماس خواهم گرفت.",
-        emptyCart: "سبد خرید شما خالی است. لطفاً آثار هنری را از گالری انتخاب کنید.",
-        backToGallery: "بازگشت به گالری",
-        removeBtn: "حذف"
-      }
-    };
-
-    // State management
-    const state = {
-      currentLanguage: 'en',
-      selectedArtworks: [],
-      currentLightboxIndex: 0,
-      isMenuOpen: false
-    };
-
-    // DOM Elements cache
-    const elements = {
-      menuToggle: document.getElementById('menuToggle'),
-      navLinks: document.getElementById('navLinks'),
-      languageSelect: document.getElementById('languageSelect'),
-      cartCount: document.getElementById('cartCount'),
-      cartItems: document.getElementById('cartItems'),
-      orderForm: document.getElementById('orderForm'),
-      selectedArtworksDisplay: document.getElementById('selectedArtworksDisplay'),
-      artworkNumbers: document.getElementById('artworkNumbers'),
-      contactForm: document.getElementById('contactForm'),
-      successMessage: document.getElementById('successMessage'),
-      purchaseContent: document.getElementById('purchaseContent'),
-      lightbox: document.getElementById('lightbox'),
-      lightboxImg: document.getElementById('lightboxImg'),
-      lightboxCounter: document.getElementById('lightboxCounter')
-    };
-
-    // Initialize the application
-    function init() {
-      setupEventListeners();
-      changeLanguage(); // Initialize translations
-    }
-
-    // Setup event listeners
-    function setupEventListeners() {
-      // Menu toggle
-      elements.menuToggle.addEventListener('click', toggleMenu);
-      elements.menuToggle.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleMenu();
-        }
-      });
-
-      // Logo navigation
-      document.getElementById('logoText').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          showPage('home');
-        }
-      });
-
-      // Keyboard navigation for lightbox
-      document.addEventListener('keydown', (e) => {
-        if (elements.lightbox.classList.contains('open')) {
-          if (e.key === 'Escape') {
-            closeLightbox();
-          } else if (e.key === 'ArrowRight') {
-            nextImage();
-          } else if (e.key === 'ArrowLeft') {
-            prevImage();
-          }
-        }
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (state.isMenuOpen && 
-            !elements.navLinks.contains(e.target) && 
-            !elements.menuToggle.contains(e.target)) {
-          closeMenu();
-        }
-      });
-    }
-
-    // Menu functions
-    function toggleMenu() {
-      if (state.isMenuOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    }
-
-    function openMenu() {
-      elements.menuToggle.classList.add('active');
-      elements.navLinks.classList.add('active');
-      elements.menuToggle.setAttribute('aria-expanded', 'true');
-      state.isMenuOpen = true;
-    }
-
-    function closeMenu() {
-      elements.menuToggle.classList.remove('active');
-      elements.navLinks.classList.remove('active');
-      elements.menuToggle.setAttribute('aria-expanded', 'false');
-      state.isMenuOpen = false;
-    }
-
-    // Language functions
-    function changeLanguage() {
-      state.currentLanguage = elements.languageSelect.value;
-      const t = translations[state.currentLanguage];
-
-      // Update all translatable elements
-      Object.keys(t).forEach(key => {
-        const element = document.getElementById(key);
-        if (element) {
-          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-            element.placeholder = t[key];
-          } else {
-            element.textContent = t[key];
-          }
-        }
-      });
-
-      updateCartDisplay();
-    }
-
-    // Page navigation
-    function showPage(pageName) {
-      // Hide all pages
-      document.querySelectorAll('.page-container').forEach(page => {
-        page.classList.remove('active');
-      });
-      
-      // Show target page
-      const pageId = `${pageName}-page`;
-      const targetPage = document.getElementById(pageId);
-      if (targetPage) {
-        targetPage.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      // Close menu
-      closeMenu();
-
-      // Update cart display if on purchase page
-      if (pageName === 'purchase') {
-        updateCartDisplay();
-      }
-    }
-
-    // Artwork selection
-    function toggleArtworkSelection(artworkId, button) {
-      const index = state.selectedArtworks.indexOf(artworkId);
-      const galleryItem = button.closest('.gallery-item');
-      
-      if (index > -1) {
-        state.selectedArtworks.splice(index, 1);
-        button.classList.remove('selected');
-        button.textContent = '+';
-        galleryItem.classList.remove('selected');
-      } else {
-        state.selectedArtworks.push(artworkId);
-        button.classList.add('selected');
-        button.textContent = '✓';
-        galleryItem.classList.add('selected');
-      }
-      
-      updateCartCount();
-      updateSelectedArtworksDisplay();
-    }
-
-    function updateCartCount() {
-      elements.cartCount.textContent = state.selectedArtworks.length;
-    }
-
-    function updateSelectedArtworksDisplay() {
-      if (state.selectedArtworks.length > 0) {
-        elements.selectedArtworksDisplay.style.display = 'block';
-        elements.artworkNumbers.innerHTML = state.selectedArtworks
-          .sort((a, b) => a - b)
-          .map(id => `<span class="artwork-number">#${id}</span>`)
-          .join('');
-      } else {
-        elements.selectedArtworksDisplay.style.display = 'none';
-      }
-    }
-
-    // Cart management
-    function updateCartDisplay() {
-      const t = translations[state.currentLanguage];
-      
-      if (state.selectedArtworks.length === 0) {
-        elements.cartItems.innerHTML = `
-          <div class="empty-cart">
-            <p>${t.emptyCart}</p>
-            <button class="page-button" onclick="showPage('gallery')">${t.backToGallery}</button>
-          </div>
-        `;
-        elements.orderForm.style.display = 'none';
-      } else {
-        elements.cartItems.innerHTML = state.selectedArtworks.sort((a, b) => a - b).map(id => `
-          <div class="cart-item">
-            <div class="cart-item-image">
-              <img src="${CONFIG.artworkImages[id-1]}" alt="Artwork ${id}">
-            </div>
-            <div class="cart-item-details">
-              <div class="cart-item-number">Artwork #${id}</div>
-            </div>
-            <button class="cart-item-remove" onclick="removeFromCart(${id})">${t.removeBtn}</button>
-          </div>
-        `).join('');
-        elements.orderForm.style.display = 'block';
-        updateSelectedArtworksDisplay();
-      }
-    }
-
-    function removeFromCart(artworkId) {
-      const index = state.selectedArtworks.indexOf(artworkId);
-      if (index > -1) {
-        state.selectedArtworks.splice(index, 1);
-        
-        const button = document.querySelector(`[data-artwork="${artworkId}"] .select-btn`);
-        if (button) {
-          button.classList.remove('selected');
-          button.textContent = '+';
-          button.closest('.gallery-item').classList.remove('selected');
-        }
-        
-        updateCartCount();
-        updateCartDisplay();
-      }
-    }
-
-    // Form handling
-    function handleSubmit(event) {
-      event.preventDefault();
-      
-      const submitButton = document.getElementById('submitButton');
-      submitButton.disabled = true;
-      submitButton.textContent = translations[state.currentLanguage].sending || 'Sending...';
-      
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const message = document.getElementById('message').value.trim();
-      
-      const artworksList = state.selectedArtworks.sort((a, b) => a - b).join(', ');
-      
-      // Simulate email sending (In production: server-side email delivery required)
-      console.log('Order submitted:', {
-        name: `${firstName} ${lastName}`,
-        email: email,
-        phone: phone || 'Not provided',
-        artworks: artworksList,
-        message: message || 'No message'
-      });
-      
-      // Simulate delay for realistic feedback
-      setTimeout(() => {
-        elements.purchaseContent.style.display = 'none';
-        elements.successMessage.style.display = 'block';
-        elements.successMessage.classList.add('show');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        submitButton.disabled = false;
-        submitButton.textContent = translations[state.currentLanguage].submitButton;
-      }, 1000);
-    }
-
-    function resetForm() {
-      elements.contactForm.reset();
-      state.selectedArtworks = [];
-      
-      document.querySelectorAll('.select-btn').forEach(btn => {
-        btn.classList.remove('selected');
-        btn.textContent = '+';
-      });
-      document.querySelectorAll('.gallery-item').forEach(item => {
-        item.classList.remove('selected');
-      });
-      
-      updateCartCount();
-      elements.successMessage.classList.remove('show');
-      elements.successMessage.style.display = 'none';
-      elements.purchaseContent.style.display = 'block';
-      
-      showPage('gallery');
-    }
-
-    // Lightbox functions
-    function openLightbox(index) {
-      state.currentLightboxIndex = index - 1;
-      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
-      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
-      elements.lightbox.classList.add('open');
-      document.body.classList.add('lb-lock');
-      updateLightboxCounter();
-    }
-
-    function closeLightbox() {
-      elements.lightbox.classList.remove('open');
-      document.body.classList.remove('lb-lock');
-    }
-
-    function nextImage() {
-      state.currentLightboxIndex = (state.currentLightboxIndex + 1) % CONFIG.artworkImages.length;
-      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
-      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
-      updateLightboxCounter();
-    }
-
-    function prevImage() {
-      state.currentLightboxIndex = (state.currentLightboxIndex - 1 + CONFIG.artworkImages.length) % CONFIG.artworkImages.length;
-      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
-      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
-      updateLightboxCounter();
-    }
-
-    function updateLightboxCounter() {
-      elements.lightboxCounter.textContent = 
-        `${state.currentLightboxIndex + 1} / ${CONFIG.artworkImages.length}`;
-    }
-
-    // Initialize the application when DOM is loaded
-    document.addEventListener('DOMContentLoaded', init);
-  </script>
+  <!-- Externe JavaScript Dateien -->
+  <script src="js/app.js"></script>
 </body>
 </html>
