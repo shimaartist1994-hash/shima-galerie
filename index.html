@@ -10,20 +10,6 @@
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#1a1a1a" />
   <style>
-    :root {
-      --primary-color: #d4af37;
-      --primary-dark: #b8941f;
-      --primary-light: #f0c748;
-      --bg-dark: #1a1a1a;
-      --bg-medium: #2d2d2d;
-      --text-light: #f0f0f0;
-      --text-muted: #c0c0c0;
-      --border-radius: 15px;
-      --transition: all 0.3s ease;
-      --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      --shadow-gold: 0 8px 25px rgba(212, 175, 55, 0.3);
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -32,36 +18,51 @@
 
     body {
       font-family: 'Georgia', serif;
-      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
-      color: var(--text-light);
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d2d2d 100%);
+      color: #f0f0f0;
       line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .language-selector {
       position: relative;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: var(--transition);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .language-selector::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .language-selector:hover::before {
+      opacity: 1;
     }
 
     .language-selector:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
       border-color: rgba(212, 175, 55, 0.5);
+      transform: translateY(-2px);
     }
 
     .language-selector select {
@@ -69,33 +70,37 @@
       font-size: 1rem;
       border: none;
       background: transparent;
-      color: var(--text-light);
+      color: #f0f0f0;
       cursor: pointer;
       font-weight: 500;
       font-family: 'Georgia', serif;
       width: 100%;
+      position: relative;
+      z-index: 1;
     }
 
     .language-selector select:focus {
-      outline: 2px solid var(--primary-color);
-      border-radius: 8px;
+      outline: 2px solid #d4af37;
+      outline-offset: 2px;
+      border-radius: 12px;
     }
 
     .language-selector select option {
-      background: var(--bg-medium);
-      color: var(--text-light);
+      background: #2d2d2d;
+      color: #f0f0f0;
       padding: 10px;
     }
 
     header {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.85);
       padding: 15px 0;
       position: fixed;
       width: 100%;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     nav {
@@ -105,20 +110,24 @@
       justify-content: space-between;
       align-items: center;
       padding: 0 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .logo {
       font-size: 24px;
       font-weight: bold;
-      color: var(--primary-color);
+      color: #d4af37;
       text-transform: uppercase;
       letter-spacing: 2px;
-      transition: var(--transition);
-      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
     }
 
     .logo:hover {
-      color: var(--primary-light);
+      color: #f0c748;
+      text-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
+      transform: scale(1.05);
     }
 
     .nav-links {
@@ -129,12 +138,12 @@
     }
 
     .nav-links a {
-      color: var(--text-light);
+      color: #f0f0f0;
       text-decoration: none;
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: var(--transition);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       white-space: nowrap;
       padding: 8px 0;
@@ -147,13 +156,14 @@
       left: 50%;
       width: 0;
       height: 2px;
-      background: var(--primary-color);
-      transition: var(--transition);
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       transform: translateX(-50%);
     }
 
     .nav-links a:hover {
-      color: var(--primary-color);
+      color: #d4af37;
+      transform: translateY(-2px);
     }
 
     .nav-links a:hover::after {
@@ -172,13 +182,24 @@
       display: none;
       min-height: 100vh;
       padding-top: 80px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .page-container.active {
       display: block;
-      opacity: 1;
     }
 
     .home-page {
@@ -188,26 +209,48 @@
       justify-content: center;
       text-align: center;
       padding: 0 20px;
-      background: radial-gradient(circle at center, var(--bg-medium) 0%, var(--bg-dark) 100%);
+      background: radial-gradient(circle at center, rgba(45, 45, 45, 0.3) 0%, transparent 70%);
     }
 
     .home-content {
       max-width: 800px;
+      animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .home-content h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: 4rem;
       margin-bottom: 2rem;
-      color: var(--primary-color);
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      color: #d4af37;
+      text-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
       font-weight: 300;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+      }
+      50% {
+        text-shadow: 0 4px 30px rgba(212, 175, 55, 0.6);
+      }
     }
 
     .home-content p {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-size: 1.4rem;
       margin-bottom: 3rem;
-      color: var(--text-muted);
+      color: #c0c0c0;
       font-weight: 300;
       letter-spacing: 1px;
     }
@@ -223,40 +266,61 @@
     .page-button {
       display: inline-block;
       padding: 18px 45px;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a;
       text-decoration: none;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 2px;
-      border-radius: var(--border-radius);
-      transition: var(--transition);
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
       cursor: pointer;
       font-size: 1rem;
-      box-shadow: var(--shadow-gold);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .page-button:hover::before {
+      opacity: 1;
     }
 
     .page-button:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
+      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+    }
+
+    .page-button:active {
+      transform: translateY(-2px);
     }
 
     .gallery-page {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 20px 80px;
+      padding: 40px 20px;
     }
 
     .section-title {
       text-align: center;
-      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-size: 3rem;
       margin-bottom: 4rem;
-      color: var(--primary-color);
+      color: #d4af37;
       position: relative;
       padding-bottom: 1.5rem;
       font-weight: 300;
+      letter-spacing: 2px;
+      animation: slideUp 0.8s ease;
     }
 
     .section-title::after {
@@ -267,12 +331,22 @@
       transform: translateX(-50%);
       width: 100px;
       height: 3px;
-      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      animation: expandWidth 1s ease 0.3s backwards;
+    }
+
+    @keyframes expandWidth {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100px;
+      }
     }
 
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2rem;
       margin-top: 3rem;
     }
@@ -280,18 +354,51 @@
     .gallery-item {
       position: relative;
       overflow: hidden;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      background: rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(255, 255, 255, 0.03);
+      cursor: zoom-in;
+      border: 1px solid rgba(212, 175, 55, 0.15);
       aspect-ratio: 4 / 5;
+      animation: fadeInUp 0.6s ease backwards;
+    }
+
+    .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+    .gallery-item:nth-child(2) { animation-delay: 0.15s; }
+    .gallery-item:nth-child(3) { animation-delay: 0.2s; }
+    .gallery-item:nth-child(4) { animation-delay: 0.25s; }
+    .gallery-item:nth-child(5) { animation-delay: 0.3s; }
+    .gallery-item:nth-child(6) { animation-delay: 0.35s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .gallery-item:hover::before {
+      opacity: 1;
     }
 
     .gallery-item:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
       border-color: rgba(212, 175, 55, 0.4);
     }
 
@@ -301,93 +408,52 @@
       object-fit: cover;
       object-position: center;
       display: block;
-      transition: transform 0.6s ease;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .gallery-item:hover img {
-      transform: scale(1.08);
+      transform: scale(1.1);
     }
 
     .gallery-overlay {
       position: absolute;
       top: 15px;
       right: 15px;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a;
       padding: 0.6rem 1rem;
       border-radius: 50px;
       font-weight: 700;
       font-size: 0.9rem;
       backdrop-filter: blur(10px);
       pointer-events: none;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      transition: all 0.3s ease;
     }
 
-    .gallery-actions {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      display: flex;
-      gap: 10px;
-      z-index: 10;
-    }
-
-    .action-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-      font-weight: bold;
-      font-size: 1.1rem;
-      border: none;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .select-btn {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
-    }
-
-    .select-btn:hover {
+    .gallery-item:hover .gallery-overlay {
       transform: scale(1.1);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
-    }
-
-    .select-btn.selected {
-      background: #4CAF50;
-      color: white;
-    }
-
-    .zoom-btn {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--bg-dark);
-    }
-
-    .zoom-btn:hover {
-      transform: scale(1.1);
-      background: white;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
     }
 
     .purchase-info {
       background: rgba(255, 255, 255, 0.05);
       padding: 3rem;
-      border-radius: var(--border-radius);
+      border-radius: 16px;
       max-width: 900px;
       margin: 4rem auto 0;
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter: blur(10px);
       text-align: center;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
     }
 
     .purchase-info:hover {
-      transform: translateY(-8px);
+      transform: translateY(-10px);
       background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25);
       border-color: rgba(212, 175, 55, 0.4);
     }
 
@@ -400,38 +466,39 @@
     }
 
     .purchase-info strong {
-      color: var(--primary-color);
+      color: #d4af37;
       font-weight: 600;
     }
 
     .about-contact-page {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px 80px;
+      padding: 40px 20px;
     }
 
     .about-content {
       background: rgba(255, 255, 255, 0.05);
       padding: 3rem;
-      border-radius: var(--border-radius);
+      border-radius: 16px;
       max-width: 800px;
       margin: 0 auto 4rem;
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter: blur(10px);
+      animation: fadeInUp 0.8s ease 0.2s backwards;
     }
 
     .about-content:hover {
-      transform: translateY(-10px);
+      transform: translateY(-12px);
       background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25);
       border-color: rgba(212, 175, 55, 0.4);
     }
 
     .about-content p {
       color: #e0e0e0;
       font-size: 1.2rem;
-      line-height: 1.8;
+      line-height: 1.9;
       text-align: center;
       font-weight: 300;
     }
@@ -439,327 +506,79 @@
     .contact-content {
       background: rgba(255, 255, 255, 0.05);
       padding: 3rem;
-      border-radius: var(--border-radius);
+      border-radius: 16px;
       max-width: 800px;
       margin: 0 auto;
       border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter: blur(10px);
       text-align: center;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
     }
 
     .contact-content:hover {
-      transform: translateY(-10px);
+      transform: translateY(-12px);
       background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25);
       border-color: rgba(212, 175, 55, 0.4);
     }
 
     .contact-content p {
       color: #e0e0e0;
       font-size: 1.2rem;
-      line-height: 1.8;
+      line-height: 1.9;
       margin-bottom: 2rem;
       font-weight: 300;
     }
 
     .email-button {
       display: inline-block;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark) !important;
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a !important;
       text-decoration: none;
-      padding: 15px 40px;
-      border-radius: var(--border-radius);
+      padding: 16px 40px;
+      border-radius: 12px;
       font-weight: bold;
-      transition: var(--transition);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border: 2px solid transparent;
-      box-shadow: var(--shadow-gold);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
       font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .email-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .email-button:hover::before {
+      opacity: 1;
     }
 
     .email-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
-      color: var(--bg-dark) !important;
-      border-color: var(--primary-color);
-    }
-
-    .purchase-page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-    }
-
-    .cart-items {
-      display: grid;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
-    }
-
-    .cart-item:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .cart-item-image {
-      width: 120px;
-      height: 150px;
-      border-radius: 12px;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .cart-item-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .cart-item-details {
-      flex: 1;
-    }
-
-    .cart-item-number {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .cart-item-remove {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: var(--text-light);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .cart-item-remove:hover {
-      background: rgba(255, 0, 0, 0.2);
-      border-color: rgba(255, 0, 0, 0.5);
-    }
-
-    .empty-cart {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--text-muted);
-    }
-
-    .empty-cart p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .order-form {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3rem;
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-    }
-
-    .order-form:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .form-group {
-      margin-bottom: 2rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--primary-color);
-      font-weight: 500;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      color: var(--text-light);
-      font-family: 'Georgia', serif;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .selected-artworks {
-      background: rgba(212, 175, 55, 0.1);
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-
-    .selected-artworks h4 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-    }
-
-    .artwork-numbers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .artwork-number {
-      background: var(--primary-color);
-      color: var(--bg-dark);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    .submit-button {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-      color: var(--bg-dark);
-      border: none;
-      padding: 1.2rem 3rem;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: var(--transition);
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .submit-button:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-      background: linear-gradient(135deg, var(--primary-light) 0%, #ffd700 100%);
-    }
-
-    .submit-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .success-message {
-      text-align: center;
-      padding: 3rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      display: none;
-    }
-
-    .success-message.show {
-      display: block;
-      animation: slideDown 0.5s ease;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .success-message h3 {
-      color: #4CAF50;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .success-message p {
-      color: #e0e0e0;
-      margin-bottom: 2rem;
-    }
-
-    .success-icon {
-      font-size: 4rem;
-      color: #4CAF50;
-      margin-bottom: 1.5rem;
-    }
-
-    .gallery-item.selected {
-      border: 3px solid var(--primary-color);
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-    }
-
-    .cart-indicator {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: 20px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: var(--transition);
-    }
-
-    .cart-indicator:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.5);
-    }
-
-    .cart-count {
-      background: var(--primary-color);
-      color: var(--bg-dark);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: bold;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+      color: #1a1a1a !important;
+      border-color: #d4af37;
     }
 
     .lightbox {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
+      inset: 0;
+      background: rgba(0, 0, 0, 0.96);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 2000;
-      padding: 20px;
+      padding: 1rem;
+      touch-action: none;
+      backdrop-filter: blur(10px);
     }
 
     .lightbox.open {
@@ -767,53 +586,54 @@
       animation: fadeIn 0.3s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .lightbox-content {
+    #lbStage {
       position: relative;
-      max-width: 90%;
-      max-height: 90%;
+      max-width: 90vw;
+      max-height: 90vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      transform: translate3d(0,0,0) scale(1);
+      will-change: transform;
+      cursor: grab;
+      touch-action: none;
     }
 
-    .lightbox-img {
+    #lbStage:active {
+      cursor: grabbing;
+    }
+
+    #lbImg {
       max-width: 100%;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .lightbox .close-btn {
       position: absolute;
       top: 20px;
       right: 20px;
-      background: rgba(212, 175, 55, 0.2);
+      background: rgba(212, 175, 55, 0.15);
       border: 2px solid rgba(212, 175, 55, 0.6);
-      color: var(--primary-color);
-      font-size: 1.5rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+      color: #d4af37;
+      font-size: 1.1rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
       cursor: pointer;
-      transition: var(--transition);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       font-weight: bold;
-      backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2001;
+      backdrop-filter: blur(15px);
     }
 
     .lightbox .close-btn:hover {
-      background: rgba(212, 175, 55, 0.3);
-      border-color: var(--primary-color);
-      transform: scale(1.1);
+      background: rgba(212, 175, 55, 0.25);
+      border-color: #d4af37;
+      transform: scale(1.1) rotate(90deg);
     }
 
     .lightbox .counter {
@@ -821,21 +641,19 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      color: var(--primary-color);
+      color: #d4af37;
       font-size: 1.1rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 0.7rem 1.5rem;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 0.8rem 1.8rem;
       border-radius: 50px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       font-weight: 600;
+      border: 1px solid rgba(212, 175, 55, 0.3);
     }
 
     .lightbox .nav {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -844,27 +662,27 @@
 
     .lightbox .nav button {
       pointer-events: auto;
-      background: rgba(212, 175, 55, 0.2);
+      background: rgba(212, 175, 55, 0.15);
       border: 2px solid rgba(212, 175, 55, 0.5);
-      color: var(--primary-color);
-      font-size: 2rem;
-      width: 60px;
-      height: 60px;
+      color: #d4af37;
+      font-size: 1.5rem;
+      padding: 1rem 1.3rem;
       margin: 0 1rem;
-      border-radius: 50%;
+      border-radius: 12px;
       cursor: pointer;
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(15px);
       font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .lightbox .nav button:hover {
-      background: rgba(212, 175, 55, 0.3);
-      border-color: var(--primary-color);
-      transform: scale(1.1);
+      background: rgba(212, 175, 55, 0.25);
+      border-color: #d4af37;
+      transform: scale(1.15);
+    }
+
+    .lightbox .nav button:active {
+      transform: scale(0.95);
     }
 
     body.lb-lock {
@@ -875,28 +693,29 @@
       display: none;
       flex-direction: column;
       cursor: pointer;
-      gap: 4px;
+      gap: 5px;
       padding: 5px;
     }
 
     .menu-toggle span {
       width: 25px;
       height: 3px;
-      background: var(--primary-color);
-      transition: 0.3s;
+      background: #d4af37;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border-radius: 2px;
     }
 
     .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
+      transform: rotate(45deg) translate(7px, 7px);
     }
 
     .menu-toggle.active span:nth-child(2) {
       opacity: 0;
+      transform: translateX(-10px);
     }
 
     .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
+      transform: rotate(-45deg) translate(7px, -7px);
     }
 
     @media (max-width: 768px) {
@@ -916,7 +735,7 @@
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
-        transition: var(--transition);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid rgba(212, 175, 55, 0.2);
       }
@@ -936,6 +755,15 @@
         min-width: 100%;
       }
 
+      .home-content h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+      }
+
+      .home-content p {
+        font-size: 1.1rem;
+      }
+
       .nav-links a {
         font-size: 1.1rem;
         padding: 12px 0;
@@ -949,6 +777,10 @@
 
       .logo {
         font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
       }
 
       .home-buttons {
@@ -975,16 +807,14 @@
       }
 
       .lightbox .nav button {
-        font-size: 1.5rem;
-        width: 50px;
-        height: 50px;
+        font-size: 1.3rem;
+        padding: 0.8rem 1rem;
         margin: 0 0.5rem;
       }
 
       .lightbox .close-btn {
-        font-size: 1.2rem;
-        width: 40px;
-        height: 40px;
+        font-size: 1rem;
+        padding: 0.5rem 0.9rem;
         top: 15px;
         right: 15px;
       }
@@ -998,32 +828,6 @@
         padding: 12px 30px;
         font-size: 1rem;
       }
-
-      .cart-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-      }
-
-      .cart-item-image {
-        width: 100%;
-        height: 200px;
-      }
-
-      .order-form {
-        padding: 2rem;
-      }
-
-      .cart-indicator {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-      }
-
-      .action-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1034,48 +838,41 @@
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
+      background: #1a1a1a;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--primary-color);
-      border-radius: 4px;
+      background: linear-gradient(180deg, #d4af37, #f0c748);
+      border-radius: 5px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--primary-light);
+      background: linear-gradient(180deg, #f0c748, #ffd700);
     }
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <div class="logo" id="logoText" onclick="showPage('home')" role="button" tabindex="0" aria-label="Shima Gallery Home">Shima Gallery</div>
+      <div class="logo" id="logoText">Shima Gallery</div>
       
-      <div class="menu-toggle" id="menuToggle" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false">
+      <div class="menu-toggle" id="menuToggle">
         <span></span>
         <span></span>
         <span></span>
       </div>
 
       <ul class="nav-links" id="navLinks">
-        <li><a href="#home" id="navHome" onclick="showPage('home'); return false;">Home</a></li>
-        <li><a href="#gallery" id="navGallery" onclick="showPage('gallery'); return false;">Gallery</a></li>
-        <li><a href="#purchase" id="navPurchase" onclick="showPage('purchase'); return false;">
-          <div class="cart-indicator">
-            <span aria-hidden="true">🛒</span>
-            <span class="cart-count" id="cartCount">0</span>
-            <span class="sr-only">Cart items count</span>
-          </div>
-        </a></li>
-        <li><a href="#about" id="navAbout" onclick="showPage('about-contact'); return false;">About Me</a></li>
+        <li><a href="#" id="navHome" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" id="navGallery" onclick="showPage('gallery')">Gallery</a></li>
+        <li><a href="#" id="navAbout" onclick="showPage('about-contact')">About Me</a></li>
         <li class="language-item">
           <div class="language-selector">
-            <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <select id="languageSelect" onchange="changeLanguage()">
               <option value="en">English</option>
               <option value="de">Deutsch</option>
               <option value="fa">فارسی</option>
@@ -1086,584 +883,326 @@
     </nav>
   </header>
 
-  <main>
-    <div id="home-page" class="page-container active">
-      <section class="home-page">
-        <div class="home-content">
-          <h1 id="heroTitle">Shima Gallery</h1>
-          <p id="heroSubtitle">Realistic Artwork with Pen & Pencil <span aria-hidden="true">✏️</span></p>
-          <div class="home-buttons">
-            <button class="page-button" onclick="showPage('gallery')">View Gallery</button>
-            <button class="page-button" onclick="showPage('about-contact')">About Me</button>
-          </div>
+  <div id="home-page" class="page-container active">
+    <section class="home-page">
+      <div class="home-content">
+        <h1 id="heroTitle">Shima Gallery</h1>
+        <p id="heroSubtitle">Realistic Artwork with Pen & Pencil ✏️</p>
+        <div class="home-buttons">
+          <button class="page-button" onclick="showPage('gallery')">View Gallery</button>
+          <button class="page-button" onclick="showPage('about-contact')">About Me</button>
         </div>
-      </section>
-    </div>
-
-    <div id="gallery-page" class="page-container">
-      <section class="gallery-page">
-        <h2 class="section-title" id="galleryTitle">My Artworks</h2>
-        <div class="gallery" id="galleryGrid">
-          <!-- Gallery items will be generated by JavaScript -->
-        </div>
-
-        <div class="purchase-info">
-          <p id="purchaseText">
-            <strong id="purchaseStrong">Interested in purchasing an artwork?</strong><br />
-            <span id="purchaseDescription">Use the + button to select artworks, then proceed to purchase to send your inquiry.</span>
-          </p>
-        </div>
-      </section>
-    </div>
-
-    <div id="purchase-page" class="page-container">
-      <section class="purchase-page">
-        <h2 class="section-title" id="purchaseTitle">Purchase Artworks</h2>
-        
-        <div class="success-message" id="successMessage">
-          <div class="success-icon" aria-hidden="true">✓</div>
-          <h3 id="successTitle">Thank You!</h3>
-          <p id="successText">Your inquiry has been sent successfully. I will contact you soon via email.</p>
-          <button class="page-button" onclick="resetForm()">Back to Gallery</button>
-        </div>
-
-        <div id="purchaseContent">
-          <div class="cart-items" id="cartItems"></div>
-
-          <div class="order-form" id="orderForm">
-            <h3 style="color: var(--primary-color); margin-bottom: 2rem; text-align: center;" id="formTitle">Order Inquiry Form</h3>
-            
-            <form id="contactForm" onsubmit="handleSubmit(event)">
-              <div class="form-group">
-                <label for="firstName" id="firstNameLabel">First Name *</label>
-                <input type="text" id="firstName" required placeholder="Enter your first name">
-              </div>
-
-              <div class="form-group">
-                <label for="lastName" id="lastNameLabel">Last Name *</label>
-                <input type="text" id="lastName" required placeholder="Enter your last name">
-              </div>
-
-              <div class="form-group">
-                <label for="email" id="emailLabel">Email Address *</label>
-                <input type="email" id="email" required placeholder="your.email@example.com">
-              </div>
-
-              <div class="form-group">
-                <label for="phone" id="phoneLabel">Phone Number</label>
-                <input type="tel" id="phone" placeholder="+49 123 456789">
-              </div>
-
-              <div class="form-group">
-                <label for="message" id="messageLabel">Message</label>
-                <textarea id="message" rows="5" placeholder="Add any additional information or questions..."></textarea>
-              </div>
-
-              <div class="selected-artworks" id="selectedArtworksDisplay" style="display: none;">
-                <h4 id="selectedArtworksTitle">Selected Artworks:</h4>
-                <div class="artwork-numbers" id="artworkNumbers"></div>
-              </div>
-
-              <button type="submit" class="submit-button" id="submitButton">Send Inquiry</button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div id="about-contact-page" class="page-container">
-      <section class="about-contact-page">
-        <h2 class="section-title" id="aboutTitle">About Me</h2>
-        
-        <div class="about-content">
-          <p id="aboutText">
-            Hi, I'm Shima! I create realistic artwork using pen and pencil. 
-            Each piece is carefully crafted to capture detail and emotion. 
-            Thank you for visiting my gallery!
-          </p>
-        </div>
-
-        <h2 class="section-title" id="contactTitle">Contact</h2>
-        
-        <div class="contact-content">
-          <p id="contactText">
-            I'd love to hear from you! Whether you have questions about my artwork 
-            or want to discuss a custom piece, feel free to reach out.
-          </p>
-          <a href="mailto:shima.gallery@example.com" class="email-button" id="emailBtn">
-            <span aria-hidden="true">📧</span> Send Email
-          </a>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()" role="dialog" aria-modal="true" aria-label="Artwork lightbox">
-    <button class="close-btn" onclick="closeLightbox()" aria-label="Close lightbox">✕</button>
-    <div class="lightbox-content">
-      <img src="" alt="Artwork preview" class="lightbox-img" id="lightboxImg">
-      <div class="counter" id="lightboxCounter">1 / 6</div>
-      <div class="nav">
-        <button onclick="prevImage(); event.stopPropagation();" aria-label="Previous image">‹</button>
-        <button onclick="nextImage(); event.stopPropagation();" aria-label="Next image">›</button>
       </div>
+    </section>
+  </div>
+
+  <div id="gallery-page" class="page-container">
+    <section class="gallery-page">
+      <h2 class="section-title" id="galleryTitle">My Artworks</h2>
+      <div class="gallery" id="galleryGrid">
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Realistic portrait drawing with pen"><div class="gallery-overlay"><span>1</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing of a face"><div class="gallery-overlay"><span>2</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Pen art with shading techniques"><div class="gallery-overlay"><span>3</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Realistic eye drawing with pencil"><div class="gallery-overlay"><span>4</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Portrait art with pen technique"><div class="gallery-overlay"><span>5</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Detailed face study with pen"><div class="gallery-overlay"><span>6</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0481.JPG" alt="Artwork with shading techniques"><div class="gallery-overlay"><span>7</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0482.JPG" alt="Realistic drawing with precision"><div class="gallery-overlay"><span>8</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0485.JPG" alt="Pencil portrait with details"><div class="gallery-overlay"><span>9</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0486.JPG" alt="Pen artwork in profile"><div class="gallery-overlay"><span>10</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-09-19_01-14-34.jpg" alt="Realistic hand drawing with pen"><div class="gallery-overlay"><span>11</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-36.jpg" alt="Detailed portrait study"><div class="gallery-overlay"><span>12</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-44.jpg" alt="Pen art with depth"><div class="gallery-overlay"><span>13</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-51.jpg" alt="Pencil drawing with texture"><div class="gallery-overlay"><span>14</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-05-39.jpg" alt="Realistic facial expressions"><div class="gallery-overlay"><span>15</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-08.jpg" alt="Artwork with light and shadow"><div class="gallery-overlay"><span>16</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-39.jpg" alt="Pen art in detail"><div class="gallery-overlay"><span>17</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-52.jpg" alt="Pencil study with precision"><div class="gallery-overlay"><span>18</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-09.jpg" alt="Realistic eye area"><div class="gallery-overlay"><span>19</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-39.jpg" alt="Artwork with depth effect"><div class="gallery-overlay"><span>20</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-54.jpg" alt="Portrait drawing with pen"><div class="gallery-overlay"><span>21</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-09.jpg" alt="Realistic facial features"><div class="gallery-overlay"><span>22</span></div></div>
+        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-16.jpg" alt="Detailed pencil art"><div class="gallery-overlay"><span>23</span></div></div>
+      </div>
+
+      <div class="purchase-info">
+        <p id="purchaseText">
+          <strong id="purchaseStrong">Interested in purchasing an artwork?</strong><br />
+          <span id="purchaseDescription">Contact me directly to discuss availability, pricing, and commission opportunities.</span>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <div id="about-contact-page" class="page-container">
+    <section class="about-contact-page">
+      <h2 class="section-title" id="aboutTitle">About Me</h2>
+      <div class="about-content">
+        <p id="aboutText">
+          Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. 
+          Each piece is created with patience, precision and passion for detail. I find my inspiration 
+          in the beauty of everyday life and the complexity of human expression.
+        </p>
+      </div>
+
+      <h2 class="section-title" id="contactTitle">Contact</h2>
+      <div class="contact-content">
+        <p id="contactText">
+          Interested in my artwork? For purchase, exhibitions, commissions or collaborations, 
+          feel free to reach out to me. I'd love to hear from you!
+        </p>
+        <a href="mailto:ShimaArtist1994@gmail.com" class="email-button" id="emailButton">ShimaArtist1994@gmail.com</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image enlarged view">
+    <button class="close-btn" id="lbClose" aria-label="Close (Esc)">✕</button>
+    <div class="nav">
+      <button id="lbPrev" aria-label="Previous (←)">←</button>
+      <button id="lbNext" aria-label="Next (→)">→</button>
     </div>
+    <div id="lbStage"><img id="lbImg" src="" alt="Large image" /></div>
+    <div class="counter" id="lbCounter">1 / 1</div>
   </div>
 
   <script>
-    // Configuration
-    const CONFIG = {
-      artworkImages: [
-        'IMG_0471.JPG', 'IMG_0472.JPG', 'IMG_0473.JPG', 
-        'IMG_0474.JPG', 'IMG_0475.JPG', 'IMG_0476.JPG',
-        'IMG_0477.JPG', 'IMG_0478.JPG', 'IMG_0479.JPG'
-      ],
-      artworkAltTexts: [
-        'Realistic portrait drawing with pen',
-        'Detailed pencil drawing',
-        'Artistic pen sketch',
-        'Realistic artwork',
-        'Fine art drawing',
-        'Pen and pencil art',
-        'Realistic portrait artwork',
-        'Detailed pen drawing',
-        'Artistic pencil sketch'
-      ]
-    };
-
-    // Translations
     const translations = {
       en: {
-        logoText: "Shima Gallery",
-        navHome: "Home",
-        navGallery: "Gallery",
-        navAbout: "About Me",
-        heroTitle: "Shima Gallery",
-        heroSubtitle: "Realistic Artwork with Pen & Pencil ✏️",
-        galleryTitle: "My Artworks",
-        purchaseStrong: "Interested in purchasing an artwork?",
-        purchaseDescription: "Use the + button to select artworks, then proceed to purchase to send your inquiry.",
-        purchaseTitle: "Purchase Artworks",
-        formTitle: "Order Inquiry Form",
-        firstNameLabel: "First Name *",
-        lastNameLabel: "Last Name *",
-        emailLabel: "Email Address *",
-        phoneLabel: "Phone Number",
-        messageLabel: "Message",
-        selectedArtworksTitle: "Selected Artworks:",
-        submitButton: "Send Inquiry",
-        sending: "Sending...",
-        aboutTitle: "About Me",
-        aboutText: "Hi, I'm Shima! I create realistic artwork using pen and pencil. Each piece is carefully crafted to capture detail and emotion. Thank you for visiting my gallery!",
-        contactTitle: "Contact",
-        contactText: "I'd love to hear from you! Whether you have questions about my artwork or want to discuss a custom piece, feel free to reach out.",
-        emailBtn: "📧 Send Email",
-        successTitle: "✓ Email Sent Successfully!",
-        successText: "Your inquiry has been delivered. I will contact you soon via email.",
-        emptyCart: "Your cart is empty. Please select artworks from the gallery.",
-        backToGallery: "Back to Gallery",
-        removeBtn: "Remove"
+        logoText: 'Shima Gallery',
+        navHome: 'Home',
+        navGallery: 'Gallery',
+        navAbout: 'About Me',
+        heroTitle: 'Shima Gallery',
+        heroSubtitle: 'Realistic Artwork with Pen & Pencil ✏️',
+        galleryTitle: 'My Artworks',
+        aboutTitle: 'About Me',
+        aboutText: 'Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. Each piece is created with patience, precision and passion for detail. I find my inspiration in the beauty of everyday life and the complexity of human expression.',
+        contactTitle: 'Contact',
+        contactText: 'Interested in my artwork? For purchase, exhibitions, commissions or collaborations, feel free to reach out to me. I\'d love to hear from you!',
+        emailButton: 'ShimaArtist1994@gmail.com',
+        purchaseStrong: 'Interested in purchasing an artwork?',
+        purchaseDescription: 'Contact me directly to discuss availability, pricing, and commission opportunities.'
       },
       de: {
-        logoText: "Shima Galerie",
-        navHome: "Startseite",
-        navGallery: "Galerie",
-        navAbout: "Über Mich",
-        heroTitle: "Shima Galerie",
-        heroSubtitle: "Realistische Kunstwerke mit Stift & Bleistift ✏️",
-        galleryTitle: "Meine Kunstwerke",
-        purchaseStrong: "Interessiert an einem Kunstwerk?",
-        purchaseDescription: "Verwenden Sie die + Schaltfläche, um Kunstwerke auszuwählen, und fahren Sie dann mit dem Kauf fort, um Ihre Anfrage zu senden.",
-        purchaseTitle: "Kunstwerke Kaufen",
-        formTitle: "Anfrage-Formular",
-        firstNameLabel: "Vorname *",
-        lastNameLabel: "Nachname *",
-        emailLabel: "E-Mail-Adresse *",
-        phoneLabel: "Telefonnummer",
-        messageLabel: "Nachricht",
-        selectedArtworksTitle: "Ausgewählte Kunstwerke:",
-        submitButton: "Anfrage Senden",
-        sending: "Wird gesendet...",
-        aboutTitle: "Über Mich",
-        aboutText: "Hallo, ich bin Shima! Ich erstelle realistische Kunstwerke mit Stift und Bleistift. Jedes Stück wird sorgfältig gefertigt, um Details und Emotionen einzufangen. Vielen Dank für Ihren Besuch in meiner Galerie!",
-        contactTitle: "Kontakt",
-        contactText: "Ich würde gerne von Ihnen hören! Ob Sie Fragen zu meinen Kunstwerken haben oder ein individuelles Stück besprechen möchten, zögern Sie nicht, mich zu kontaktieren.",
-        emailBtn: "📧 E-Mail Senden",
-        successTitle: "✓ E-Mail erfolgreich gesendet!",
-        successText: "Ihre Anfrage wurde zugestellt. Ich werde Sie bald per E-Mail kontaktieren.",
-        emptyCart: "Ihr Warenkorb ist leer. Bitte wählen Sie Kunstwerke aus der Galerie aus.",
-        backToGallery: "Zurück zur Galerie",
-        removeBtn: "Entfernen"
+        logoText: 'Shima Galerie',
+        navHome: 'Home',
+        navGallery: 'Galerie',
+        navAbout: 'Über mich',
+        heroTitle: 'Shima Galerie',
+        heroSubtitle: 'Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️',
+        galleryTitle: 'Meine Kunstwerke',
+        aboutTitle: 'Über mich',
+        aboutText: 'Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit des Alltäglichen und der Komplexität menschlicher Ausdrucksformen.',
+        contactTitle: 'Kontakt',
+        contactText: 'Interessiert an meinen Kunstwerken? Für Verkauf, Ausstellungen, Auftragsarbeiten oder Zusammenarbeit können Sie mich gerne kontaktieren. Ich freue mich von Ihnen zu hören!',
+        emailButton: 'ShimaArtist1994@gmail.com',
+        purchaseStrong: 'Interessiert an einem Kunstwerk?',
+        purchaseDescription: 'Kontaktieren Sie mich direkt, um Verfügbarkeit, Preise und Auftragsarbeiten zu besprechen.'
       },
       fa: {
-        logoText: "گالری شیما",
-        navHome: "خانه",
-        navGallery: "گالری",
-        navAbout: "درباره من",
-        heroTitle: "گالری شیما",
-        heroSubtitle: "آثار هنری واقع‌گرایانه با قلم و مداد ✏️",
-        galleryTitle: "آثار هنری من",
-        purchaseStrong: "علاقه‌مند به خرید یک اثر هنری هستید؟",
-        purchaseDescription: "از دکمه + برای انتخاب آثار هنری استفاده کنید، سپس برای ارسال درخواست خود به بخش خرید بروید.",
-        purchaseTitle: "خرید آثار هنری",
-        formTitle: "فرم درخواست سفارش",
-        firstNameLabel: "نام *",
-        lastNameLabel: "نام خانوادگی *",
-        emailLabel: "آدرس ایمیل *",
-        phoneLabel: "شماره تلفن",
-        messageLabel: "پیام",
-        selectedArtworksTitle: "آثار هنری انتخاب شده:",
-        submitButton: "ارسال درخواست",
-        sending: "در حال ارسال...",
-        aboutTitle: "درباره من",
-        aboutText: "سلام، من شیما هستم! من آثار هنری واقع‌گرایانه با استفاده از قلم و مداد می‌سازم. هر اثر با دقت ساخته شده تا جزئیات و احساسات را به تصویر بکشد. از بازدید شما از گالری من متشکرم!",
-        contactTitle: "تماس",
-        contactText: "دوست دارم از شما بشنوم! خواه سوالاتی درباره آثار هنری من داشته باشید یا بخواهید درباره یک قطعه سفارشی صحبت کنید، با من در تماس باشید.",
-        emailBtn: "📧 ارسال ایمیل",
-        successTitle: "✓ ایمیل با موفقیت ارسال شد!",
-        successText: "درخواست شما تحویل داده شد. به زودی از طریق ایمیل با شما تماس خواهم گرفت.",
-        emptyCart: "سبد خرید شما خالی است. لطفاً آثار هنری را از گالری انتخاب کنید.",
-        backToGallery: "بازگشت به گالری",
-        removeBtn: "حذف"
+        logoText: 'گالری شیما',
+        navHome: 'خانه',
+        navGallery: 'گالری',
+        navAbout: 'درباره من',
+        heroTitle: 'گالری شیما',
+        heroSubtitle: 'آثار هنری واقع‌گرایانه با خودکار و مداد ✏️',
+        galleryTitle: 'آثار هنری من',
+        aboutTitle: 'درباره من',
+        aboutText: 'به گالری من خوش آمدید! من شیما هستم و آثار هنری واقع‌گرایانه با خودکار و مداد خلق می‌کنم. هر اثر با صبر، دقت و اشتیاق به جزئیات ایجاد می‌شود. الهام من را در زیبایی زندگی روزمره و پیچیدگی بیان انسانی می‌یابم.',
+        contactTitle: 'تماس',
+        contactText: 'به آثار هنری من علاقه‌مند هستید؟ برای خرید، نمایشگاه‌ها، سفارشات یا همکاری، می‌توانید با من تماس بگیرید. خوشحال می‌شوم پیام شما را دریافت کنم!',
+        emailButton: 'ShimaArtist1994@gmail.com',
+        purchaseStrong: 'علاقه‌مند به خرید یک اثر هنری هستید؟',
+        purchaseDescription: 'مستقیماً با من تماس بگیرید تا در مورد موجودی، قیمت‌ها و فرصت‌های سفارش کاری صحبت کنیم.'
       }
     };
 
-    // State management
-    const state = {
-      currentLanguage: 'en',
-      selectedArtworks: [],
-      currentLightboxIndex: 0,
-      isMenuOpen: false
-    };
-
-    // DOM Elements cache
-    const elements = {
-      menuToggle: document.getElementById('menuToggle'),
-      navLinks: document.getElementById('navLinks'),
-      languageSelect: document.getElementById('languageSelect'),
-      galleryGrid: document.getElementById('galleryGrid'),
-      cartCount: document.getElementById('cartCount'),
-      cartItems: document.getElementById('cartItems'),
-      orderForm: document.getElementById('orderForm'),
-      selectedArtworksDisplay: document.getElementById('selectedArtworksDisplay'),
-      artworkNumbers: document.getElementById('artworkNumbers'),
-      contactForm: document.getElementById('contactForm'),
-      successMessage: document.getElementById('successMessage'),
-      purchaseContent: document.getElementById('purchaseContent'),
-      lightbox: document.getElementById('lightbox'),
-      lightboxImg: document.getElementById('lightboxImg'),
-      lightboxCounter: document.getElementById('lightboxCounter')
-    };
-
-    // Initialize the application
-    function init() {
-      generateGallery();
-      setupEventListeners();
-      changeLanguage(); // Initialize translations
-    }
-
-    // Generate gallery items dynamically
-    function generateGallery() {
-      elements.galleryGrid.innerHTML = CONFIG.artworkImages.map((image, index) => {
-        const artworkId = index + 1;
-        return `
-          <div class="gallery-item" data-artwork="${artworkId}">
-            <div class="gallery-actions">
-              <button class="action-btn select-btn" onclick="toggleArtworkSelection(${artworkId}, this)" aria-label="Select artwork ${artworkId}">+</button>
-              <button class="action-btn zoom-btn" onclick="openLightbox(${artworkId})" aria-label="View artwork ${artworkId} in full size">🔍</button>
-            </div>
-            <img loading="lazy" decoding="async" src="${image}" alt="${CONFIG.artworkAltTexts[index]}">
-            <div class="gallery-overlay"><span>${artworkId}</span></div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Setup event listeners
-    function setupEventListeners() {
-      // Menu toggle
-      elements.menuToggle.addEventListener('click', toggleMenu);
-      elements.menuToggle.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleMenu();
-        }
-      });
-
-      // Logo navigation
-      document.getElementById('logoText').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          showPage('home');
-        }
-      });
-
-      // Keyboard navigation for lightbox
-      document.addEventListener('keydown', (e) => {
-        if (elements.lightbox.classList.contains('open')) {
-          if (e.key === 'Escape') {
-            closeLightbox();
-          } else if (e.key === 'ArrowRight') {
-            nextImage();
-          } else if (e.key === 'ArrowLeft') {
-            prevImage();
-          }
-        }
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (state.isMenuOpen && 
-            !elements.navLinks.contains(e.target) && 
-            !elements.menuToggle.contains(e.target)) {
-          closeMenu();
-        }
-      });
-    }
-
-    // Menu functions
-    function toggleMenu() {
-      if (state.isMenuOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    }
-
-    function openMenu() {
-      elements.menuToggle.classList.add('active');
-      elements.navLinks.classList.add('active');
-      elements.menuToggle.setAttribute('aria-expanded', 'true');
-      state.isMenuOpen = true;
-    }
-
-    function closeMenu() {
-      elements.menuToggle.classList.remove('active');
-      elements.navLinks.classList.remove('active');
-      elements.menuToggle.setAttribute('aria-expanded', 'false');
-      state.isMenuOpen = false;
-    }
-
-    // Language functions
-    function changeLanguage() {
-      state.currentLanguage = elements.languageSelect.value;
-      const t = translations[state.currentLanguage];
-
-      // Update all translatable elements
-      Object.keys(t).forEach(key => {
-        const element = document.getElementById(key);
-        if (element) {
-          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-            element.placeholder = t[key];
-          } else {
-            element.textContent = t[key];
-          }
-        }
-      });
-
-      updateCartDisplay();
-    }
-
-    // Page navigation
-    function showPage(pageName) {
-      // Hide all pages
+    function showPage(pageId) {
       document.querySelectorAll('.page-container').forEach(page => {
         page.classList.remove('active');
       });
       
-      // Show target page
-      const pageId = `${pageName}-page`;
-      const targetPage = document.getElementById(pageId);
-      if (targetPage) {
-        targetPage.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      // Close menu
-      closeMenu();
-
-      // Update cart display if on purchase page
-      if (pageName === 'purchase') {
-        updateCartDisplay();
-      }
-    }
-
-    // Artwork selection
-    function toggleArtworkSelection(artworkId, button) {
-      const index = state.selectedArtworks.indexOf(artworkId);
-      const galleryItem = button.closest('.gallery-item');
+      document.getElementById(`${pageId}-page`).classList.add('active');
       
-      if (index > -1) {
-        state.selectedArtworks.splice(index, 1);
-        button.classList.remove('selected');
-        button.textContent = '+';
-        galleryItem.classList.remove('selected');
-      } else {
-        state.selectedArtworks.push(artworkId);
-        button.classList.add('selected');
-        button.textContent = '✓';
-        galleryItem.classList.add('selected');
-      }
+      navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
       
-      updateCartCount();
-      updateSelectedArtworksDisplay();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function updateCartCount() {
-      elements.cartCount.textContent = state.selectedArtworks.length;
-    }
-
-    function updateSelectedArtworksDisplay() {
-      if (state.selectedArtworks.length > 0) {
-        elements.selectedArtworksDisplay.style.display = 'block';
-        elements.artworkNumbers.innerHTML = state.selectedArtworks
-          .sort((a, b) => a - b)
-          .map(id => `<span class="artwork-number">#${id}</span>`)
-          .join('');
-      } else {
-        elements.selectedArtworksDisplay.style.display = 'none';
-      }
-    }
-
-    // Cart management
-    function updateCartDisplay() {
-      const t = translations[state.currentLanguage];
+    function changeLanguage() {
+      const lang = document.getElementById('languageSelect').value;
+      const t = translations[lang];
       
-      if (state.selectedArtworks.length === 0) {
-        elements.cartItems.innerHTML = `
-          <div class="empty-cart">
-            <p>${t.emptyCart}</p>
-            <button class="page-button" onclick="showPage('gallery')">${t.backToGallery}</button>
-          </div>
-        `;
-        elements.orderForm.style.display = 'none';
-      } else {
-        elements.cartItems.innerHTML = state.selectedArtworks.sort((a, b) => a - b).map(id => `
-          <div class="cart-item">
-            <div class="cart-item-image">
-              <img src="${CONFIG.artworkImages[id-1]}" alt="Artwork ${id}">
-            </div>
-            <div class="cart-item-details">
-              <div class="cart-item-number">Artwork #${id}</div>
-            </div>
-            <button class="cart-item-remove" onclick="removeFromCart(${id})">${t.removeBtn}</button>
-          </div>
-        `).join('');
-        elements.orderForm.style.display = 'block';
-        updateSelectedArtworksDisplay();
-      }
+      document.getElementById('logoText').textContent = t.logoText;
+      document.getElementById('navHome').textContent = t.navHome;
+      document.getElementById('navGallery').textContent = t.navGallery;
+      document.getElementById('navAbout').textContent = t.navAbout;
+      document.getElementById('heroTitle').textContent = t.heroTitle;
+      document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
+      document.getElementById('galleryTitle').textContent = t.galleryTitle;
+      document.getElementById('aboutTitle').textContent = t.aboutTitle;
+      document.getElementById('aboutText').textContent = t.aboutText;
+      document.getElementById('contactTitle').textContent = t.contactTitle;
+      document.getElementById('contactText').textContent = t.contactText;
+      document.getElementById('emailButton').textContent = t.emailButton;
+      document.getElementById('purchaseStrong').textContent = t.purchaseStrong;
+      document.getElementById('purchaseDescription').textContent = t.purchaseDescription;
+      
+      document.body.style.direction = lang === 'fa' ? 'rtl' : 'ltr';
+      document.documentElement.lang = lang;
     }
 
-    function removeFromCart(artworkId) {
-      const index = state.selectedArtworks.indexOf(artworkId);
-      if (index > -1) {
-        state.selectedArtworks.splice(index, 1);
-        
-        const button = document.querySelector(`[data-artwork="${artworkId}"] .select-btn`);
-        if (button) {
-          button.classList.remove('selected');
-          button.textContent = '+';
-          button.closest('.gallery-item').classList.remove('selected');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+      });
+    });
+
+    (function setupLightbox() {
+      const lb = document.getElementById('lightbox');
+      const lbStage = document.getElementById('lbStage');
+      const lbImg = document.getElementById('lbImg');
+      const lbClose = document.getElementById('lbClose');
+      const lbPrev = document.getElementById('lbPrev');
+      const lbNext = document.getElementById('lbNext');
+      const lbCounter = document.getElementById('lbCounter');
+      const grid = document.getElementById('galleryGrid');
+      const items = Array.from(grid.querySelectorAll('.gallery-item img'));
+      const cards = Array.from(grid.querySelectorAll('.gallery-item'));
+
+      let currentIndex = 0;
+      let scale = 1;
+      let tx = 0;
+      let ty = 0;
+      const minScale = 1;
+      const maxScale = 5;
+      const pointers = new Map();
+      let baseDist = 1;
+      let baseScale = 1;
+
+      const distance = (p1, p2) => Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
+      grid.addEventListener('click', (e) => {
+        const card = e.target.closest('.gallery-item');
+        if (!card) return;
+        const i = cards.indexOf(card);
+        if (i > -1) openAt(i);
+      });
+
+      cards.forEach((card, i) => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', 'Open enlarged view');
+        card.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
+      });
+
+      lbClose.addEventListener('click', close);
+      lbNext.addEventListener('click', () => { resetTransform(); next(); });
+      lbPrev.addEventListener('click', () => { resetTransform(); prev(); });
+
+      lb.addEventListener('click', (e) => {
+        const controls = [lbStage, lbImg, lbNext, lbPrev, lbClose];
+        if (!controls.includes(e.target) && e.target === lb) {
+          close();
         }
-        
-        updateCartCount();
-        updateCartDisplay();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+      });
+
+      function openAt(index) {
+        currentIndex = index;
+        lbImg.src = items[currentIndex].src;
+        lbImg.alt = items[currentIndex].alt;
+        lbCounter.textContent = `${currentIndex + 1} / ${items.length}`;
+        lb.classList.add('open');
+        document.body.classList.add('lb-lock');
+        resetTransform();
       }
-    }
 
-    // Form handling
-    function handleSubmit(event) {
-      event.preventDefault();
-      
-      const submitButton = document.getElementById('submitButton');
-      submitButton.disabled = true;
-      submitButton.textContent = translations[state.currentLanguage].sending || 'Sending...';
-      
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const message = document.getElementById('message').value.trim();
-      
-      const artworksList = state.selectedArtworks.sort((a, b) => a - b).join(', ');
-      
-      // Simulate email sending (In production: server-side email delivery required)
-      console.log('Order submitted:', {
-        name: `${firstName} ${lastName}`,
-        email: email,
-        phone: phone || 'Not provided',
-        artworks: artworksList,
-        message: message || 'No message'
+      function close() {
+        lb.classList.remove('open');
+        document.body.classList.remove('lb-lock');
+        resetTransform();
+      }
+
+      function next() {
+        currentIndex = (currentIndex + 1) % items.length;
+        openAt(currentIndex);
+      }
+
+      function prev() {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        openAt(currentIndex);
+      }
+
+      function resetTransform() {
+        scale = 1;
+        tx = 0;
+        ty = 0;
+        updateTransform();
+      }
+
+      function updateTransform() {
+        lbStage.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
+      }
+
+      lbStage.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
       });
-      
-      // Simulate delay for realistic feedback
-      setTimeout(() => {
-        elements.purchaseContent.style.display = 'none';
-        elements.successMessage.style.display = 'block';
-        elements.successMessage.classList.add('show');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        submitButton.disabled = false;
-        submitButton.textContent = translations[state.currentLanguage].submitButton;
-      }, 1000);
-    }
 
-    function resetForm() {
-      elements.contactForm.reset();
-      state.selectedArtworks = [];
-      
-      document.querySelectorAll('.select-btn').forEach(btn => {
-        btn.classList.remove('selected');
-        btn.textContent = '+';
+      lbStage.addEventListener('pointermove', (e) => {
+        if (pointers.size === 1) {
+          const pointer = pointers.get(e.pointerId);
+          if (pointer) {
+            tx += e.clientX - pointer.x;
+            ty += e.clientY - pointer.y;
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            updateTransform();
+          }
+        } else if (pointers.size === 2) {
+          const [p1, p2] = Array.from(pointers.values());
+          const currentDist = distance(p1, p2);
+          scale = clamp(baseScale * (currentDist / baseDist), minScale, maxScale);
+          updateTransform();
+        }
       });
-      document.querySelectorAll('.gallery-item').forEach(item => {
-        item.classList.remove('selected');
+
+      lbStage.addEventListener('pointerup', (e) => {
+        pointers.delete(e.pointerId);
+        if (pointers.size === 0) {
+          baseScale = scale;
+        }
       });
-      
-      updateCartCount();
-      elements.successMessage.classList.remove('show');
-      elements.successMessage.style.display = 'none';
-      elements.purchaseContent.style.display = 'block';
-      
-      showPage('gallery');
-    }
 
-    // Lightbox functions
-    function openLightbox(index) {
-      state.currentLightboxIndex = index - 1;
-      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
-      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
-      elements.lightbox.classList.add('open');
-      document.body.classList.add('lb-lock');
-      updateLightboxCounter();
-    }
+      lbStage.addEventListener('pointercancel', (e) => {
+        pointers.delete(e.pointerId);
+      });
 
-    function closeLightbox() {
-      elements.lightbox.classList.remove('open');
-      document.body.classList.remove('lb-lock');
-    }
-
-    function nextImage() {
-      state.currentLightboxIndex = (state.currentLightboxIndex + 1) % CONFIG.artworkImages.length;
-      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
-      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
-      updateLightboxCounter();
-    }
-
-    function prevImage() {
-      state.currentLightboxIndex = (state.currentLightboxIndex - 1 + CONFIG.artworkImages.length) % CONFIG.artworkImages.length;
-      elements.lightboxImg.src = CONFIG.artworkImages[state.currentLightboxIndex];
-      elements.lightboxImg.alt = CONFIG.artworkAltTexts[state.currentLightboxIndex];
-      updateLightboxCounter();
-    }
-
-    function updateLightboxCounter() {
-      elements.lightboxCounter.textContent = 
-        `${state.currentLightboxIndex + 1} / ${CONFIG.artworkImages.length}`;
-    }
-
-    // Initialize the application when DOM is loaded
-    document.addEventListener('DOMContentLoaded', init);
+      lbStage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = -Math.sign(e.deltaY) * 0.2;
+        scale = clamp(scale + delta, minScale, maxScale);
+        updateTransform();
+      });
+    })();
   </script>
 </body>
 </html>
