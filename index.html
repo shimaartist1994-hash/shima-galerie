@@ -88,6 +88,7 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       transition: color 0.3s ease;
+      cursor: pointer;
     }
 
     .logo:hover {
@@ -141,18 +142,19 @@
       min-width: 140px;
     }
 
-    /* Page Container */
     .page-container {
       display: none;
       min-height: 100vh;
       padding-top: 80px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .page-container.active {
       display: block;
+      opacity: 1;
     }
 
-    /* Home Page */
     .home-page {
       height: 100vh;
       display: flex;
@@ -215,11 +217,10 @@
       background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
     }
 
-    /* Gallery Page */
     .gallery-page {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 20px 80px;
     }
 
     .section-title {
@@ -257,6 +258,7 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
       transition: all 0.4s ease;
       background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
       border: 1px solid rgba(212, 175, 55, 0.2);
       aspect-ratio: 4 / 5;
     }
@@ -295,7 +297,6 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
-    /* Action buttons */
     .gallery-actions {
       position: absolute;
       top: 15px;
@@ -377,11 +378,10 @@
       font-weight: 600;
     }
 
-    /* About & Contact Page */
     .about-contact-page {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 20px 80px;
     }
 
     .about-content {
@@ -459,11 +459,10 @@
       border-color: #d4af37;
     }
 
-    /* NEW PURCHASE PAGE STYLES - Matching original design */
     .purchase-page {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 20px 80px;
     }
 
     .cart-items {
@@ -588,6 +587,11 @@
       background: rgba(255, 255, 255, 0.15);
     }
 
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
     .selected-artworks {
       background: rgba(212, 175, 55, 0.1);
       padding: 1.5rem;
@@ -630,9 +634,15 @@
       letter-spacing: 1px;
     }
 
-    .submit-button:hover {
+    .submit-button:hover:not(:disabled) {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+    }
+
+    .submit-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .success-message {
@@ -642,6 +652,22 @@
       border-radius: 15px;
       border: 1px solid rgba(212, 175, 55, 0.3);
       display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .success-message h3 {
@@ -661,7 +687,6 @@
       margin-bottom: 1.5rem;
     }
 
-    /* Gallery item selection */
     .gallery-item.selected {
       border: 3px solid #d4af37;
       box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
@@ -697,7 +722,6 @@
       font-weight: bold;
     }
 
-    /* Lightbox */
     .lightbox {
       position: fixed;
       top: 0;
@@ -821,7 +845,6 @@
       overflow: hidden;
     }
 
-    /* Mobile Menu */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -996,7 +1019,6 @@
       }
     }
 
-    /* Scrollbar Styling */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -1018,27 +1040,27 @@
 <body>
   <header>
     <nav>
-      <div class="logo" id="logoText">Shima Gallery</div>
+      <div class="logo" id="logoText" onclick="showPage('home')" role="button" tabindex="0">Shima Gallery</div>
       
-      <div class="menu-toggle" id="menuToggle">
+      <div class="menu-toggle" id="menuToggle" role="button" tabindex="0" aria-label="Toggle navigation menu">
         <span></span>
         <span></span>
         <span></span>
       </div>
 
       <ul class="nav-links" id="navLinks">
-        <li><a href="#" id="navHome" onclick="showPage('home')">Home</a></li>
-        <li><a href="#" id="navGallery" onclick="showPage('gallery')">Gallery</a></li>
-        <li><a href="#" id="navPurchase" onclick="showPage('purchase')">
+        <li><a href="#home" id="navHome" onclick="showPage('home'); return false;">Home</a></li>
+        <li><a href="#gallery" id="navGallery" onclick="showPage('gallery'); return false;">Gallery</a></li>
+        <li><a href="#purchase" id="navPurchase" onclick="showPage('purchase'); return false;">
           <div class="cart-indicator">
             <span>🛒</span>
             <span class="cart-count" id="cartCount">0</span>
           </div>
         </a></li>
-        <li><a href="#" id="navAbout" onclick="showPage('about-contact')">About Me</a></li>
+        <li><a href="#about" id="navAbout" onclick="showPage('about-contact'); return false;">About Me</a></li>
         <li class="language-item">
           <div class="language-selector">
-            <select id="languageSelect" onchange="changeLanguage()">
+            <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
               <option value="en">English</option>
               <option value="de">Deutsch</option>
               <option value="fa">فارسی</option>
@@ -1049,7 +1071,6 @@
     </nav>
   </header>
 
-  <!-- Home Page -->
   <div id="home-page" class="page-container active">
     <section class="home-page">
       <div class="home-content">
@@ -1063,195 +1084,89 @@
     </section>
   </div>
 
-  <!-- Gallery Page -->
   <div id="gallery-page" class="page-container">
     <section class="gallery-page">
       <h2 class="section-title" id="galleryTitle">My Artworks</h2>
       <div class="gallery" id="galleryGrid">
-        <!-- Gallery items with separate zoom and selection buttons -->
         <div class="gallery-item" data-artwork="1">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(1, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(1)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(1, this)" aria-label="Select artwork 1">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(1)" aria-label="View artwork 1 in full size">🔍</button>
           </div>
           <img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Realistic portrait drawing with pen">
           <div class="gallery-overlay"><span>1</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="2">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(2, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(2)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(2, this)" aria-label="Select artwork 2">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(2)" aria-label="View artwork 2 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing of a face">
+          <img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing">
           <div class="gallery-overlay"><span>2</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="3">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(3, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(3)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(3, this)" aria-label="Select artwork 3">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(3)" aria-label="View artwork 3 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Pen art with shading techniques">
+          <img loading="lazy" decoding="async" src="IMG_0473.JPG" alt="Artistic pen sketch">
           <div class="gallery-overlay"><span>3</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="4">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(4, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(4)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(4, this)" aria-label="Select artwork 4">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(4)" aria-label="View artwork 4 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Realistic eye drawing with pencil">
+          <img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Realistic artwork">
           <div class="gallery-overlay"><span>4</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="5">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(5, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(5)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(5, this)" aria-label="Select artwork 5">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(5)" aria-label="View artwork 5 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Portrait art with pen technique">
+          <img loading="lazy" decoding="async" src="IMG_0475.JPG" alt="Fine art drawing">
           <div class="gallery-overlay"><span>5</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="6">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(6, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(6)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(6, this)" aria-label="Select artwork 6">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(6)" aria-label="View artwork 6 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Detailed face study with pen">
+          <img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Pen and pencil art">
           <div class="gallery-overlay"><span>6</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="7">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(7, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(7)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(7, this)" aria-label="Select artwork 7">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(7)" aria-label="View artwork 7 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0481.JPG" alt="Artwork with shading techniques">
+          <img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Realistic portrait artwork">
           <div class="gallery-overlay"><span>7</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="8">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(8, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(8)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(8, this)" aria-label="Select artwork 8">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(8)" aria-label="View artwork 8 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0482.JPG" alt="Realistic drawing with precision">
+          <img loading="lazy" decoding="async" src="IMG_0478.JPG" alt="Detailed pen drawing">
           <div class="gallery-overlay"><span>8</span></div>
         </div>
+
         <div class="gallery-item" data-artwork="9">
           <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(9, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(9)">🔍</button>
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(9, this)" aria-label="Select artwork 9">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(9)" aria-label="View artwork 9 in full size">🔍</button>
           </div>
-          <img loading="lazy" decoding="async" src="IMG_0485.JPG" alt="Pencil portrait with details">
+          <img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Artistic pencil sketch">
           <div class="gallery-overlay"><span>9</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="10">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(10, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(10)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="IMG_0486.JPG" alt="Pen artwork in profile">
-          <div class="gallery-overlay"><span>10</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="11">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(11, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(11)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-09-19_01-14-34.jpg" alt="Realistic hand drawing with pen">
-          <div class="gallery-overlay"><span>11</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="12">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(12, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(12)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-36.jpg" alt="Detailed portrait study">
-          <div class="gallery-overlay"><span>12</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="13">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(13, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(13)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-44.jpg" alt="Pen art with depth">
-          <div class="gallery-overlay"><span>13</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="14">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(14, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(14)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-51.jpg" alt="Pencil drawing with texture">
-          <div class="gallery-overlay"><span>14</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="15">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(15, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(15)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-05-39.jpg" alt="Realistic facial expressions">
-          <div class="gallery-overlay"><span>15</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="16">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(16, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(16)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-08.jpg" alt="Artwork with light and shadow">
-          <div class="gallery-overlay"><span>16</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="17">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(17, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(17)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-39.jpg" alt="Pen art in detail">
-          <div class="gallery-overlay"><span>17</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="18">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(18, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(18)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-52.jpg" alt="Pencil study with precision">
-          <div class="gallery-overlay"><span>18</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="19">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(19, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(19)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-09.jpg" alt="Realistic eye area">
-          <div class="gallery-overlay"><span>19</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="20">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(20, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(20)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-39.jpg" alt="Artwork with depth effect">
-          <div class="gallery-overlay"><span>20</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="21">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(21, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(21)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-54.jpg" alt="Portrait drawing with pen">
-          <div class="gallery-overlay"><span>21</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="22">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(22, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(22)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-09.jpg" alt="Realistic facial features">
-          <div class="gallery-overlay"><span>22</span></div>
-        </div>
-        <div class="gallery-item" data-artwork="23">
-          <div class="gallery-actions">
-            <button class="action-btn select-btn" onclick="toggleArtworkSelection(23, this)">+</button>
-            <button class="action-btn zoom-btn" onclick="openLightbox(23)">🔍</button>
-          </div>
-          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-16.jpg" alt="Detailed pencil art">
-          <div class="gallery-overlay"><span>23</span></div>
         </div>
       </div>
 
@@ -1264,432 +1179,207 @@
     </section>
   </div>
 
-  <!-- NEW PURCHASE PAGE -->
   <div id="purchase-page" class="page-container">
     <section class="purchase-page">
       <h2 class="section-title" id="purchaseTitle">Purchase Artworks</h2>
       
-      <div class="cart-items" id="cartItems">
-        <!-- Cart items will be dynamically added here -->
-      </div>
-
-      <div class="order-form" id="orderForm">
-        <h3 style="color: #d4af37; margin-bottom: 2rem; text-align: center;">Order Inquiry Form</h3>
-        
-        <div class="form-group">
-          <label for="firstName" id="firstNameLabel">First Name *</label>
-          <input type="text" id="firstName" required placeholder="Enter your first name">
-        </div>
-
-        <div class="form-group">
-          <label for="lastName" id="lastNameLabel">Last Name *</label>
-          <input type="text" id="lastName" required placeholder="Enter your last name">
-        </div>
-
-        <div class="form-group">
-          <label for="email" id="emailLabel">Email Address *</label>
-          <input type="email" id="email" required placeholder="Enter your email address">
-        </div>
-
-        <div class="form-group">
-          <label for="message" id="messageLabel">Additional Message</label>
-          <textarea id="message" rows="4" placeholder="Any additional information or questions..."></textarea>
-        </div>
-
-        <div class="selected-artworks">
-          <h4>Selected Artworks:</h4>
-          <div class="artwork-numbers" id="selectedArtworksList">
-            <!-- Selected artworks will be shown here -->
-          </div>
-        </div>
-
-        <button class="submit-button" onclick="submitOrder()" id="submitButton">
-          Send Purchase Inquiry
-        </button>
-      </div>
-
       <div class="success-message" id="successMessage">
         <div class="success-icon">✓</div>
-        <h3>Thank You for Your Interest!</h3>
-        <p>Your purchase inquiry has been successfully sent to Shima. You will receive a confirmation email shortly.</p>
-        <button class="page-button" onclick="showPage('home')">Return to Home</button>
+        <h3 id="successTitle">Thank You!</h3>
+        <p id="successText">Your inquiry has been sent successfully. I will contact you soon via email.</p>
+        <button class="page-button" onclick="resetForm()">Back to Gallery</button>
+      </div>
+
+      <div id="purchaseContent">
+        <div class="cart-items" id="cartItems"></div>
+
+        <div class="order-form" id="orderForm">
+          <h3 style="color: #d4af37; margin-bottom: 2rem; text-align: center;" id="formTitle">Order Inquiry Form</h3>
+          
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label for="firstName" id="firstNameLabel">First Name *</label>
+              <input type="text" id="firstName" required placeholder="Enter your first name">
+            </div>
+
+            <div class="form-group">
+              <label for="lastName" id="lastNameLabel">Last Name *</label>
+              <input type="text" id="lastName" required placeholder="Enter your last name">
+            </div>
+
+            <div class="form-group">
+              <label for="email" id="emailLabel">Email Address *</label>
+              <input type="email" id="email" required placeholder="your.email@example.com">
+            </div>
+
+            <div class="form-group">
+              <label for="phone" id="phoneLabel">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+49 123 456789">
+            </div>
+
+            <div class="form-group">
+              <label for="message" id="messageLabel">Message</label>
+              <textarea id="message" rows="5" placeholder="Add any additional information or questions..."></textarea>
+            </div>
+
+            <div class="selected-artworks" id="selectedArtworksDisplay" style="display: none;">
+              <h4 id="selectedArtworksTitle">Selected Artworks:</h4>
+              <div class="artwork-numbers" id="artworkNumbers"></div>
+            </div>
+
+            <button type="submit" class="submit-button" id="submitButton">Send Inquiry</button>
+          </form>
+        </div>
       </div>
     </section>
   </div>
 
-  <!-- About & Contact Page -->
   <div id="about-contact-page" class="page-container">
     <section class="about-contact-page">
       <h2 class="section-title" id="aboutTitle">About Me</h2>
+      
       <div class="about-content">
         <p id="aboutText">
-          Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. 
-          Each piece is created with patience, precision and passion for detail. I find my inspiration 
-          in the beauty of everyday life and the complexity of human expression.
+          Hi, I'm Shima! I create realistic artwork using pen and pencil. 
+          Each piece is carefully crafted to capture detail and emotion. 
+          Thank you for visiting my gallery!
         </p>
       </div>
 
       <h2 class="section-title" id="contactTitle">Contact</h2>
+      
       <div class="contact-content">
         <p id="contactText">
-          Interested in my artwork? For purchase, exhibitions, commissions or collaborations, 
-          feel free to reach out to me. I'd love to hear from you!
+          I'd love to hear from you! Whether you have questions about my artwork 
+          or want to discuss a custom piece, feel free to reach out.
         </p>
-        <a href="mailto:ShimaArtist1994@gmail.com" class="email-button" id="emailButton">ShimaArtist1994@gmail.com</a>
+        <a href="mailto:shima.gallery@example.com" class="email-button" id="emailBtn">
+          📧 Send Email
+        </a>
       </div>
     </section>
   </div>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button class="close-btn" id="lbClose">✕</button>
-    <div class="nav">
-      <button id="lbPrev">←</button>
-      <button id="lbNext">→</button>
-    </div>
+  <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()">
+    <button class="close-btn" onclick="closeLightbox()" aria-label="Close lightbox">✕</button>
     <div class="lightbox-content">
-      <img class="lightbox-img" id="lbImg" src="" alt="Large image view">
+      <img src="" alt="Artwork preview" class="lightbox-img" id="lightboxImg">
+      <div class="counter" id="lightboxCounter">1 / 6</div>
+      <div class="nav">
+        <button onclick="prevImage(); event.stopPropagation();" aria-label="Previous image">‹</button>
+        <button onclick="nextImage(); event.stopPropagation();" aria-label="Next image">›</button>
+      </div>
     </div>
-    <div class="counter" id="lbCounter">1 / 23</div>
   </div>
 
   <script>
-    // Shopping Cart Functionality
-    let selectedArtworks = new Set();
-
-    // Lightbox functionality
-    let currentImageIndex = 0;
-    const totalImages = 23;
-
-    function openLightbox(imageIndex) {
-      currentImageIndex = imageIndex;
-      updateLightboxImage();
-      document.getElementById('lightbox').classList.add('open');
-      document.body.classList.add('lb-lock');
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.classList.remove('lb-lock');
-    }
-
-    function updateLightboxImage() {
-      const imageMap = {
-        1: 'IMG_0471.JPG', 2: 'IMG_0472.JPG', 3: 'IMG_0474.JPG', 4: 'IMG_0476.JPG', 5: 'IMG_0477.JPG',
-        6: 'IMG_0479.JPG', 7: 'IMG_0481.JPG', 8: 'IMG_0482.JPG', 9: 'IMG_0485.JPG', 10: 'IMG_0486.JPG',
-        11: 'photo_2025-09-19_01-14-34.jpg', 12: 'photo_2025-10-02_19-04-36.jpg', 13: 'photo_2025-10-02_19-04-44.jpg',
-        14: 'photo_2025-10-02_19-04-51.jpg', 15: 'photo_2025-10-02_19-05-39.jpg', 16: 'photo_2025-10-02_19-06-08.jpg',
-        17: 'photo_2025-10-02_19-06-39.jpg', 18: 'photo_2025-10-02_19-06-52.jpg', 19: 'photo_2025-10-02_19-07-09.jpg',
-        20: 'photo_2025-10-02_19-07-39.jpg', 21: 'photo_2025-10-02_19-07-54.jpg', 22: 'photo_2025-10-02_19-08-09.jpg',
-        23: 'photo_2025-10-02_19-08-16.jpg'
-      };
-      
-      const imageSrc = imageMap[currentImageIndex] || 'IMG_0471.JPG';
-      document.getElementById('lbImg').src = imageSrc;
-      document.getElementById('lbCounter').textContent = `${currentImageIndex} / ${totalImages}`;
-    }
-
-    function nextImage() {
-      currentImageIndex = currentImageIndex >= totalImages ? 1 : currentImageIndex + 1;
-      updateLightboxImage();
-    }
-
-    function prevImage() {
-      currentImageIndex = currentImageIndex <= 1 ? totalImages : currentImageIndex - 1;
-      updateLightboxImage();
-    }
-
-    // Event listeners for lightbox
-    document.getElementById('lbClose').addEventListener('click', closeLightbox);
-    document.getElementById('lbNext').addEventListener('click', nextImage);
-    document.getElementById('lbPrev').addEventListener('click', prevImage);
-
-    // Close lightbox when clicking on the background
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeLightbox();
-      }
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-      if (document.getElementById('lightbox').classList.contains('open')) {
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowRight') nextImage();
-        if (e.key === 'ArrowLeft') prevImage();
-      }
-    });
-
-    // Update translations for new content
     const translations = {
       en: {
-        logoText: 'Shima Gallery',
-        navHome: 'Home',
-        navGallery: 'Gallery',
-        navAbout: 'About Me',
-        heroTitle: 'Shima Gallery',
-        heroSubtitle: 'Realistic Artwork with Pen & Pencil ✏️',
-        galleryTitle: 'My Artworks',
-        aboutTitle: 'About Me',
-        aboutText: 'Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. Each piece is created with patience, precision and passion for detail. I find my inspiration in the beauty of everyday life and the complexity of human expression.',
-        contactTitle: 'Contact',
-        contactText: 'Interested in my artwork? For purchase, exhibitions, commissions or collaborations, feel free to reach out to me. I\'d love to hear from you!',
-        emailButton: 'ShimaArtist1994@gmail.com',
-        purchaseStrong: 'Interested in purchasing an artwork?',
-        purchaseDescription: 'Use the + button to select artworks, then proceed to purchase to send your inquiry.',
-        purchaseTitle: 'Purchase Artworks',
-        selectedArtworks: 'Selected Artworks',
-        sendInquiry: 'Send Purchase Inquiry',
-        thankYou: 'Thank You for Your Interest!',
-        confirmationMessage: 'Your purchase inquiry has been successfully sent to Shima. You will receive a confirmation email shortly.',
-        emptyCart: 'No artworks selected yet.',
-        selectFromGallery: 'Please select artworks from the gallery first.',
-        remove: 'Remove',
-        firstNameLabel: 'First Name *',
-        lastNameLabel: 'Last Name *',
-        emailLabel: 'Email Address *',
-        messageLabel: 'Additional Message'
+        logoText: "Shima Gallery",
+        navHome: "Home",
+        navGallery: "Gallery",
+        navAbout: "About Me",
+        heroTitle: "Shima Gallery",
+        heroSubtitle: "Realistic Artwork with Pen & Pencil ✏️",
+        galleryTitle: "My Artworks",
+        purchaseStrong: "Interested in purchasing an artwork?",
+        purchaseDescription: "Use the + button to select artworks, then proceed to purchase to send your inquiry.",
+        purchaseTitle: "Purchase Artworks",
+        formTitle: "Order Inquiry Form",
+        firstNameLabel: "First Name *",
+        lastNameLabel: "Last Name *",
+        emailLabel: "Email Address *",
+        phoneLabel: "Phone Number",
+        messageLabel: "Message",
+        selectedArtworksTitle: "Selected Artworks:",
+        submitButton: "Send Inquiry",
+        aboutTitle: "About Me",
+        aboutText: "Hi, I'm Shima! I create realistic artwork using pen and pencil. Each piece is carefully crafted to capture detail and emotion. Thank you for visiting my gallery!",
+        contactTitle: "Contact",
+        contactText: "I'd love to hear from you! Whether you have questions about my artwork or want to discuss a custom piece, feel free to reach out.",
+        emailBtn: "📧 Send Email",
+        successTitle: "Thank You!",
+        successText: "Your inquiry has been sent successfully. I will contact you soon via email.",
+        emptyCart: "Your cart is empty. Please select artworks from the gallery.",
+        backToGallery: "Back to Gallery",
+        removeBtn: "Remove"
       },
       de: {
-        logoText: 'Shima Galerie',
-        navHome: 'Home',
-        navGallery: 'Galerie',
-        navAbout: 'Über mich',
-        heroTitle: 'Shima Galerie',
-        heroSubtitle: 'Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️',
-        galleryTitle: 'Meine Kunstwerke',
-        aboutTitle: 'Über mich',
-        aboutText: 'Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit des Alltäglichen und der Komplexität menschlicher Ausdrucksformen.',
-        contactTitle: 'Kontakt',
-        contactText: 'Interessiert an meinen Kunstwerken? Für Verkauf, Ausstellungen, Auftragsarbeiten oder Zusammenarbeit können Sie mich gerne kontaktieren. Ich freue mich von Ihnen zu hören!',
-        emailButton: 'ShimaArtist1994@gmail.com',
-        purchaseStrong: 'Interessiert an einem Kunstwerk?',
-        purchaseDescription: 'Verwenden Sie die + Schaltfläche, um Kunstwerke auszuwählen, und fahren Sie dann mit dem Kauf fort, um Ihre Anfrage zu senden.',
-        purchaseTitle: 'Kunstwerke Kaufen',
-        selectedArtworks: 'Ausgewählte Kunstwerke',
-        sendInquiry: 'Kaufanfrage Senden',
-        thankYou: 'Vielen Dank für Ihr Interesse!',
-        confirmationMessage: 'Ihre Kaufanfrage wurde erfolgreich an Shima gesendet. Sie erhalten in Kürze eine Bestätigungs-E-Mail.',
-        emptyCart: 'Noch keine Kunstwerke ausgewählt.',
-        selectFromGallery: 'Bitte wählen Sie zuerst Kunstwerke aus der Galerie aus.',
-        remove: 'Entfernen',
-        firstNameLabel: 'Vorname *',
-        lastNameLabel: 'Nachname *',
-        emailLabel: 'E-Mail-Adresse *',
-        messageLabel: 'Zusätzliche Nachricht'
+        logoText: "Shima Galerie",
+        navHome: "Startseite",
+        navGallery: "Galerie",
+        navAbout: "Über Mich",
+        heroTitle: "Shima Galerie",
+        heroSubtitle: "Realistische Kunstwerke mit Stift & Bleistift ✏️",
+        galleryTitle: "Meine Kunstwerke",
+        purchaseStrong: "Interessiert an einem Kunstwerk?",
+        purchaseDescription: "Verwenden Sie die + Schaltfläche, um Kunstwerke auszuwählen, und fahren Sie dann mit dem Kauf fort, um Ihre Anfrage zu senden.",
+        purchaseTitle: "Kunstwerke Kaufen",
+        formTitle: "Anfrage-Formular",
+        firstNameLabel: "Vorname *",
+        lastNameLabel: "Nachname *",
+        emailLabel: "E-Mail-Adresse *",
+        phoneLabel: "Telefonnummer",
+        messageLabel: "Nachricht",
+        selectedArtworksTitle: "Ausgewählte Kunstwerke:",
+        submitButton: "Anfrage Senden",
+        aboutTitle: "Über Mich",
+        aboutText: "Hallo, ich bin Shima! Ich erstelle realistische Kunstwerke mit Stift und Bleistift. Jedes Stück wird sorgfältig gefertigt, um Details und Emotionen einzufangen. Vielen Dank für Ihren Besuch in meiner Galerie!",
+        contactTitle: "Kontakt",
+        contactText: "Ich würde gerne von Ihnen hören! Ob Sie Fragen zu meinen Kunstwerken haben oder ein individuelles Stück besprechen möchten, zögern Sie nicht, mich zu kontaktieren.",
+        emailBtn: "📧 E-Mail Senden",
+        successTitle: "Vielen Dank!",
+        successText: "Ihre Anfrage wurde erfolgreich gesendet. Ich werde Sie bald per E-Mail kontaktieren.",
+        emptyCart: "Ihr Warenkorb ist leer. Bitte wählen Sie Kunstwerke aus der Galerie aus.",
+        backToGallery: "Zurück zur Galerie",
+        removeBtn: "Entfernen"
       },
       fa: {
-        logoText: 'گالری شیما',
-        navHome: 'خانه',
-        navGallery: 'گالری',
-        navAbout: 'درباره من',
-        heroTitle: 'گالری شیما',
-        heroSubtitle: 'آثار هنری واقع‌گرایانه با خودکار و مداد ✏️',
-        galleryTitle: 'آثار هنری من',
-        aboutTitle: 'درباره من',
-        aboutText: 'به گالری من خوش آمدید! من شیما هستم و آثار هنری واقع‌گرایانه با خودکار و مداد خلق می‌کنم. هر اثر با صبر، دقت و اشتیاق به جزئیات ایجاد می‌شود. الهام من را در زیبایی زندگی روزمره و پیچیدگی بیان انسانی می‌یابم.',
-        contactTitle: 'تماس',
-        contactText: 'به آثار هنری من علاقه‌مند هستید؟ برای خرید، نمایشگاه‌ها، سفارشات یا همکاری، می‌توانید با من تماس بگیرید. خوشحال می‌شوم پیام شما را دریافت کنم!',
-        emailButton: 'ShimaArtist1994@gmail.com',
-        purchaseStrong: 'علاقه‌مند به خرید یک اثر هنری هستید؟',
-        purchaseDescription: 'از دکمه + برای انتخاب آثار هنری استفاده کنید، سپس برای ارسال درخواست خود به بخش خرید بروید.',
-        purchaseTitle: 'خرید آثار هنری',
-        selectedArtworks: 'آثار هنری انتخاب شده',
-        sendInquiry: 'ارسال درخواست خرید',
-        thankYou: 'از علاقه شما سپاسگزاریم!',
-        confirmationMessage: 'درخواست خرید شما با موفقیت به شیما ارسال شد. به زودی ایمیل تأیید دریافت خواهید کرد.',
-        emptyCart: 'هنوز هیچ اثر هنری انتخاب نشده است.',
-        selectFromGallery: 'لطفاً ابتدا آثار هنری را از گالری انتخاب کنید.',
-        remove: 'حذف',
-        firstNameLabel: 'نام *',
-        lastNameLabel: 'نام خانوادگی *',
-        emailLabel: 'آدرس ایمیل *',
-        messageLabel: 'پیام اضافی'
+        logoText: "گالری شیما",
+        navHome: "خانه",
+        navGallery: "گالری",
+        navAbout: "درباره من",
+        heroTitle: "گالری شیما",
+        heroSubtitle: "آثار هنری واقع‌گرایانه با قلم و مداد ✏️",
+        galleryTitle: "آثار هنری من",
+        purchaseStrong: "علاقه‌مند به خرید یک اثر هنری هستید؟",
+        purchaseDescription: "از دکمه + برای انتخاب آثار هنری استفاده کنید، سپس برای ارسال درخواست خود به بخش خرید بروید.",
+        purchaseTitle: "خرید آثار هنری",
+        formTitle: "فرم درخواست سفارش",
+        firstNameLabel: "نام *",
+        lastNameLabel: "نام خانوادگی *",
+        emailLabel: "آدرس ایمیل *",
+        phoneLabel: "شماره تلفن",
+        messageLabel: "پیام",
+        selectedArtworksTitle: "آثار هنری انتخاب شده:",
+        submitButton: "ارسال درخواست",
+        aboutTitle: "درباره من",
+        aboutText: "سلام، من شیما هستم! من آثار هنری واقع‌گرایانه با استفاده از قلم و مداد می‌سازم. هر اثر با دقت ساخته شده تا جزئیات و احساسات را به تصویر بکشد. از بازدید شما از گالری من متشکرم!",
+        contactTitle: "تماس",
+        contactText: "دوست دارم از شما بشنوم! خواه سوالاتی درباره آثار هنری من داشته باشید یا بخواهید درباره یک قطعه سفارشی صحبت کنید، با من در تماس باشید.",
+        emailBtn: "📧 ارسال ایمیل",
+        successTitle: "متشکرم!",
+        successText: "درخواست شما با موفقیت ارسال شد. به زودی از طریق ایمیل با شما تماس خواهم گرفت.",
+        emptyCart: "سبد خرید شما خالی است. لطفاً آثار هنری را از گالری انتخاب کنید.",
+        backToGallery: "بازگشت به گالری",
+        removeBtn: "حذف"
       }
     };
 
-    function toggleArtworkSelection(artworkNumber, button) {
-      const item = document.querySelector(`[data-artwork="${artworkNumber}"]`);
-      
-      if (selectedArtworks.has(artworkNumber)) {
-        selectedArtworks.delete(artworkNumber);
-        item.classList.remove('selected');
-        button.classList.remove('selected');
-        button.textContent = '+';
-      } else {
-        selectedArtworks.add(artworkNumber);
-        item.classList.add('selected');
-        button.classList.add('selected');
-        button.textContent = '✓';
-      }
-      
-      updateCart();
-    }
-
-    function updateCart() {
-      const cartCount = document.getElementById('cartCount');
-      cartCount.textContent = selectedArtworks.size;
-      
-      updateCartPage();
-    }
-
-    function updateCartPage() {
-      const cartItemsContainer = document.getElementById('cartItems');
-      const selectedArtworksList = document.getElementById('selectedArtworksList');
-      
-      // Update selected artworks list
-      selectedArtworksList.innerHTML = '';
-      Array.from(selectedArtworks).forEach(artworkNumber => {
-        const numberElement = document.createElement('div');
-        numberElement.className = 'artwork-number';
-        numberElement.textContent = artworkNumber;
-        selectedArtworksList.appendChild(numberElement);
-      });
-      
-      // Update cart items
-      cartItemsContainer.innerHTML = '';
-      
-      if (selectedArtworks.size === 0) {
-        cartItemsContainer.innerHTML = `
-          <div class="empty-cart">
-            <p>${getTranslation('emptyCart')}</p>
-            <button class="page-button" onclick="showPage('gallery')">
-              ${getTranslation('selectFromGallery')}
-            </button>
-          </div>
-        `;
-      } else {
-        Array.from(selectedArtworks).forEach(artworkNumber => {
-          const cartItem = document.createElement('div');
-          cartItem.className = 'cart-item';
-          cartItem.innerHTML = `
-            <div class="cart-item-image">
-              <img src="${getArtworkImage(artworkNumber)}" alt="Artwork ${artworkNumber}">
-            </div>
-            <div class="cart-item-details">
-              <div class="cart-item-number">Artwork #${artworkNumber}</div>
-              <p>Realistic pen and pencil drawing</p>
-            </div>
-            <button class="cart-item-remove" onclick="removeFromCart(${artworkNumber})">
-              ${getTranslation('remove')}
-            </button>
-          `;
-          cartItemsContainer.appendChild(cartItem);
-        });
-      }
-    }
-
-    function removeFromCart(artworkNumber) {
-      selectedArtworks.delete(artworkNumber);
-      const item = document.querySelector(`[data-artwork="${artworkNumber}"]`);
-      const button = item.querySelector('.select-btn');
-      if (item) {
-        item.classList.remove('selected');
-        button.classList.remove('selected');
-        button.textContent = '+';
-      }
-      updateCart();
-    }
-
-    function getArtworkImage(artworkNumber) {
-      const imageMap = {
-        1: 'IMG_0471.JPG', 2: 'IMG_0472.JPG', 3: 'IMG_0474.JPG', 4: 'IMG_0476.JPG', 5: 'IMG_0477.JPG',
-        6: 'IMG_0479.JPG', 7: 'IMG_0481.JPG', 8: 'IMG_0482.JPG', 9: 'IMG_0485.JPG', 10: 'IMG_0486.JPG',
-        11: 'photo_2025-09-19_01-14-34.jpg', 12: 'photo_2025-10-02_19-04-36.jpg', 13: 'photo_2025-10-02_19-04-44.jpg',
-        14: 'photo_2025-10-02_19-04-51.jpg', 15: 'photo_2025-10-02_19-05-39.jpg', 16: 'photo_2025-10-02_19-06-08.jpg',
-        17: 'photo_2025-10-02_19-06-39.jpg', 18: 'photo_2025-10-02_19-06-52.jpg', 19: 'photo_2025-10-02_19-07-09.jpg',
-        20: 'photo_2025-10-02_19-07-39.jpg', 21: 'photo_2025-10-02_19-07-54.jpg', 22: 'photo_2025-10-02_19-08-09.jpg',
-        23: 'photo_2025-10-02_19-08-16.jpg'
-      };
-      return imageMap[artworkNumber] || 'IMG_0471.JPG';
-    }
-
-    function submitOrder() {
-      const firstName = document.getElementById('firstName').value;
-      const lastName = document.getElementById('lastName').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-      
-      if (!firstName || !lastName || !email) {
-        alert('Please fill in all required fields.');
-        return;
-      }
-      
-      if (selectedArtworks.size === 0) {
-        alert('Please select at least one artwork.');
-        return;
-      }
-      
-      // Prepare email content
-      const artworkList = Array.from(selectedArtworks).join(', ');
-      const subject = `Art Purchase Inquiry - ${firstName} ${lastName}`;
-      const body = `
-Purchase Inquiry Details:
-
-Name: ${firstName} ${lastName}
-Email: ${email}
-Selected Artworks: ${artworkList}
-
-Additional Message:
-${message}
-
----
-This inquiry was sent from Shima Gallery website.
-      `;
-      
-      // Create a hidden link and click it to send email
-      const mailtoLink = `mailto:ShimaArtist1994@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      // Create temporary link element
-      const tempLink = document.createElement('a');
-      tempLink.href = mailtoLink;
-      tempLink.style.display = 'none';
-      document.body.appendChild(tempLink);
-      
-      // Trigger click
-      tempLink.click();
-      
-      // Remove temporary link
-      document.body.removeChild(tempLink);
-      
-      // Show success message after a short delay to allow email client to open
-      setTimeout(() => {
-        document.getElementById('orderForm').style.display = 'none';
-        document.getElementById('successMessage').style.display = 'block';
-        
-        // Reset form
-        document.getElementById('firstName').value = '';
-        document.getElementById('lastName').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('message').value = '';
-        
-        // Clear cart
-        selectedArtworks.clear();
-        updateCart();
-        
-        // Reset all selection buttons
-        document.querySelectorAll('.select-btn').forEach(button => {
-          button.classList.remove('selected');
-          button.textContent = '+';
-        });
-        
-        // Reset all gallery items
-        document.querySelectorAll('.gallery-item').forEach(item => {
-          item.classList.remove('selected');
-        });
-      }, 1000);
-    }
-
-    function getTranslation(key) {
-      const lang = document.getElementById('languageSelect').value;
-      return translations[lang][key] || key;
-    }
+    let currentLanguage = 'en';
+    let selectedArtworks = [];
+    let currentLightboxIndex = 0;
+    const artworkImages = [
+      'IMG_0471.JPG', 'IMG_0472.JPG', 'IMG_0473.JPG', 
+      'IMG_0474.JPG', 'IMG_0475.JPG', 'IMG_0476.JPG',
+      'IMG_0477.JPG', 'IMG_0478.JPG', 'IMG_0479.JPG'
+    ];
 
     function changeLanguage() {
-      const lang = document.getElementById('languageSelect').value;
-      const t = translations[lang];
-      
-      // Update existing translations
+      const select = document.getElementById('languageSelect');
+      currentLanguage = select.value;
+      const t = translations[currentLanguage];
+
       document.getElementById('logoText').textContent = t.logoText;
       document.getElementById('navHome').textContent = t.navHome;
       document.getElementById('navGallery').textContent = t.navGallery;
@@ -1697,82 +1387,270 @@ This inquiry was sent from Shima Gallery website.
       document.getElementById('heroTitle').textContent = t.heroTitle;
       document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
       document.getElementById('galleryTitle').textContent = t.galleryTitle;
+      document.getElementById('purchaseStrong').textContent = t.purchaseStrong;
+      document.getElementById('purchaseDescription').textContent = t.purchaseDescription;
+      document.getElementById('purchaseTitle').textContent = t.purchaseTitle;
+      document.getElementById('formTitle').textContent = t.formTitle;
+      document.getElementById('firstNameLabel').textContent = t.firstNameLabel;
+      document.getElementById('lastNameLabel').textContent = t.lastNameLabel;
+      document.getElementById('emailLabel').textContent = t.emailLabel;
+      document.getElementById('phoneLabel').textContent = t.phoneLabel;
+      document.getElementById('messageLabel').textContent = t.messageLabel;
+      document.getElementById('selectedArtworksTitle').textContent = t.selectedArtworksTitle;
+      document.getElementById('submitButton').textContent = t.submitButton;
       document.getElementById('aboutTitle').textContent = t.aboutTitle;
       document.getElementById('aboutText').textContent = t.aboutText;
       document.getElementById('contactTitle').textContent = t.contactTitle;
       document.getElementById('contactText').textContent = t.contactText;
-      document.getElementById('emailButton').textContent = t.emailButton;
-      document.getElementById('purchaseStrong').textContent = t.purchaseStrong;
-      document.getElementById('purchaseDescription').textContent = t.purchaseDescription;
-      
-      // Update new purchase page translations
-      const purchaseTitle = document.getElementById('purchaseTitle');
-      const submitButton = document.getElementById('submitButton');
-      const successMessage = document.getElementById('successMessage');
-      const firstNameLabel = document.getElementById('firstNameLabel');
-      const lastNameLabel = document.getElementById('lastNameLabel');
-      const emailLabel = document.getElementById('emailLabel');
-      const messageLabel = document.getElementById('messageLabel');
-      
-      if (purchaseTitle) purchaseTitle.textContent = t.purchaseTitle;
-      if (submitButton) submitButton.textContent = t.sendInquiry;
-      if (successMessage) {
-        successMessage.querySelector('h3').textContent = t.thankYou;
-        successMessage.querySelector('p').textContent = t.confirmationMessage;
-      }
-      if (firstNameLabel) firstNameLabel.textContent = t.firstNameLabel;
-      if (lastNameLabel) lastNameLabel.textContent = t.lastNameLabel;
-      if (emailLabel) emailLabel.textContent = t.emailLabel;
-      if (messageLabel) messageLabel.textContent = t.messageLabel;
-      
-      document.body.style.direction = lang === 'fa' ? 'rtl' : 'ltr';
-      document.documentElement.lang = lang;
-      
-      // Update cart page content
-      updateCartPage();
+      document.getElementById('emailBtn').textContent = t.emailBtn;
+      document.getElementById('successTitle').textContent = t.successTitle;
+      document.getElementById('successText').textContent = t.successText;
+
+      updateCartDisplay();
     }
 
-    function showPage(pageId) {
+    function showPage(pageName) {
       document.querySelectorAll('.page-container').forEach(page => {
         page.classList.remove('active');
       });
       
-      document.getElementById(`${pageId}-page`).classList.add('active');
-      
-      navLinks.classList.remove('active');
+      const pageId = pageName + '-page';
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
       menuToggle.classList.remove('active');
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      // Update cart when showing purchase page
-      if (pageId === 'purchase') {
-        updateCartPage();
-        // Reset success message display
-        document.getElementById('orderForm').style.display = 'block';
-        document.getElementById('successMessage').style.display = 'none';
+      navLinks.classList.remove('active');
+
+      if (pageName === 'purchase') {
+        updateCartDisplay();
       }
     }
 
-    // Initialize the page
-    document.addEventListener('DOMContentLoaded', function() {
-      updateCart();
-    });
+    function toggleArtworkSelection(artworkId, button) {
+      const index = selectedArtworks.indexOf(artworkId);
+      const galleryItem = button.closest('.gallery-item');
+      
+      if (index > -1) {
+        selectedArtworks.splice(index, 1);
+        button.classList.remove('selected');
+        button.textContent = '+';
+        galleryItem.classList.remove('selected');
+      } else {
+        selectedArtworks.push(artworkId);
+        button.classList.add('selected');
+        button.textContent = '✓';
+        galleryItem.classList.add('selected');
+      }
+      
+      updateCartCount();
+      updateSelectedArtworksDisplay();
+    }
 
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
+    function updateCartCount() {
+      document.getElementById('cartCount').textContent = selectedArtworks.length;
+    }
 
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      menuToggle.classList.toggle('active');
-    });
+    function updateSelectedArtworksDisplay() {
+      const container = document.getElementById('selectedArtworksDisplay');
+      const numbersContainer = document.getElementById('artworkNumbers');
+      
+      if (selectedArtworks.length > 0) {
+        container.style.display = 'block';
+        numbersContainer.innerHTML = selectedArtworks
+          .sort((a, b) => a - b)
+          .map(id => `<span class="artwork-number">#${id}</span>`)
+          .join('');
+      } else {
+        container.style.display = 'none';
+      }
+    }
 
-    // Close mobile menu when clicking on links
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cartItems');
+      const t = translations[currentLanguage];
+      
+      if (selectedArtworks.length === 0) {
+        cartItems.innerHTML = `
+          <div class="empty-cart">
+            <p>${t.emptyCart}</p>
+            <button class="page-button" onclick="showPage('gallery')">${t.backToGallery}</button>
+          </div>
+        `;
+        document.getElementById('orderForm').style.display = 'none';
+      } else {
+        cartItems.innerHTML = selectedArtworks.sort((a, b) => a - b).map(id => `
+          <div class="cart-item">
+            <div class="cart-item-image">
+              <img src="${artworkImages[id-1]}" alt="Artwork ${id}">
+            </div>
+            <div class="cart-item-details">
+              <div class="cart-item-number">Artwork #${id}</div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${id})">${t.removeBtn}</button>
+          </div>
+        `).join('');
+        document.getElementById('orderForm').style.display = 'block';
+        updateSelectedArtworksDisplay();
+      }
+    }
+
+    function removeFromCart(artworkId) {
+      const index = selectedArtworks.indexOf(artworkId);
+      if (index > -1) {
+        selectedArtworks.splice(index, 1);
+        
+        const button = document.querySelector(`[data-artwork="${artworkId}"] .select-btn`);
+        if (button) {
+          button.classList.remove('selected');
+          button.textContent = '+';
+          button.closest('.gallery-item').classList.remove('selected');
+        }
+        
+        updateCartCount();
+        updateCartDisplay();
+      }
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      
+      const artworksList = selectedArtworks.sort((a, b) => a - b).join(', ');
+      
+      const emailBody = `
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+
+Selected Artworks: ${artworksList}
+
+Message:
+${message || 'No additional message'}
+      `.trim();
+      
+      console.log('Form submitted with data:', {
+        firstName,
+        lastName,
+        email,
+        phone,
+        artworks: selectedArtworks,
+        message
       });
+      
+      document.getElementById('purchaseContent').style.display = 'none';
+      const successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+      successMessage.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetForm() {
+      document.getElementById('contactForm').reset();
+      selectedArtworks = [];
+      
+      document.querySelectorAll('.select-btn').forEach(btn => {
+        btn.classList.remove('selected');
+        btn.textContent = '+';
+      });
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+      
+      updateCartCount();
+      document.getElementById('successMessage').classList.remove('show');
+      document.getElementById('successMessage').style.display = 'none';
+      document.getElementById('purchaseContent').style.display = 'block';
+      
+      showPage('gallery');
+    }
+
+    function openLightbox(index) {
+      currentLightboxIndex = index - 1;
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
+      
+      img.src = artworkImages[currentLightboxIndex];
+      lightbox.classList.add('open');
+      document.body.classList.add('lb-lock');
+      updateLightboxCounter();
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('open');
+      document.body.classList.remove('lb-lock');
+    }
+
+    function nextImage() {
+      currentLightboxIndex = (currentLightboxIndex + 1) % artworkImages.length;
+      document.getElementById('lightboxImg').src = artworkImages[currentLightboxIndex];
+      updateLightboxCounter();
+    }
+
+    function prevImage() {
+      currentLightboxIndex = (currentLightboxIndex - 1 + artworkImages.length) % artworkImages.length;
+      document.getElementById('lightboxImg').src = artworkImages[currentLightboxIndex];
+      updateLightboxCounter();
+    }
+
+    function updateLightboxCounter() {
+      document.getElementById('lightboxCounter').textContent = 
+        `${currentLightboxIndex + 1} / ${artworkImages.length}`;
+    }
+
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      this.classList.toggle('active');
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    document.getElementById('menuToggle').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+
+    document.getElementById('logoText').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showPage('home');
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      const lightbox = document.getElementById('lightbox');
+      if (lightbox.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowRight') {
+          nextImage();
+        } else if (e.key === 'ArrowLeft') {
+          prevImage();
+        }
+      }
+    });
+
+    window.addEventListener('load', function() {
+      document.querySelectorAll('.page-container').forEach(page => {
+        if (!page.classList.contains('active')) {
+          page.style.display = 'none';
+        }
+      });
+      setTimeout(() => {
+        document.querySelectorAll('.page-container').forEach(page => {
+          page.style.display = '';
+        });
+      }, 100);
     });
   </script>
 </body>
