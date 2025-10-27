@@ -257,7 +257,6 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
       transition: all 0.4s ease;
       background: rgba(255, 255, 255, 0.05);
-      cursor: zoom-in;
       border: 1px solid rgba(212, 175, 55, 0.2);
       aspect-ratio: 4 / 5;
     }
@@ -294,6 +293,56 @@
       backdrop-filter: blur(10px);
       pointer-events: none;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Action buttons */
+    .gallery-actions {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .select-btn {
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a;
+    }
+
+    .select-btn:hover {
+      transform: scale(1.1);
+      background: linear-gradient(135deg, #f0c748 0%, #ffd700 100%);
+    }
+
+    .select-btn.selected {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .zoom-btn {
+      background: rgba(255, 255, 255, 0.9);
+      color: #1a1a1a;
+    }
+
+    .zoom-btn:hover {
+      transform: scale(1.1);
+      background: white;
     }
 
     .purchase-info {
@@ -410,17 +459,257 @@
       border-color: #d4af37;
     }
 
+    /* NEW PURCHASE PAGE STYLES - Matching original design */
+    .purchase-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.4s ease;
+    }
+
+    .cart-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .cart-item-image {
+      width: 120px;
+      height: 150px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .cart-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-number {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+    }
+
+    .cart-item-remove {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #f0f0f0;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cart-item-remove:hover {
+      background: rgba(255, 0, 0, 0.2);
+      border-color: rgba(255, 0, 0, 0.5);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #c0c0c0;
+    }
+
+    .empty-cart p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .order-form {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3rem;
+      border-radius: 15px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .order-form:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #d4af37;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #f0f0f0;
+      font-family: 'Georgia', serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .selected-artworks {
+      background: rgba(212, 175, 55, 0.1);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .selected-artworks h4 {
+      color: #d4af37;
+      margin-bottom: 1rem;
+    }
+
+    .artwork-numbers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .artwork-number {
+      background: #d4af37;
+      color: #1a1a1a;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .submit-button {
+      background: linear-gradient(135deg, #d4af37 0%, #f0c748 100%);
+      color: #1a1a1a;
+      border: none;
+      padding: 1.2rem 3rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    }
+
+    .success-message {
+      text-align: center;
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      display: none;
+    }
+
+    .success-message h3 {
+      color: #4CAF50;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .success-message p {
+      color: #e0e0e0;
+      margin-bottom: 2rem;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      color: #4CAF50;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Gallery item selection */
+    .gallery-item.selected {
+      border: 3px solid #d4af37;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    }
+
+    .cart-indicator {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .cart-indicator:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+
+    .cart-count {
+      background: #d4af37;
+      color: #1a1a1a;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
     /* Lightbox */
     .lightbox {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.95);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 2000;
-      padding: 1rem;
-      touch-action: none;
+      padding: 20px;
     }
 
     .lightbox.open {
@@ -433,32 +722,21 @@
       to { opacity: 1; }
     }
 
-    #lbStage {
+    .lightbox-content {
       position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
+      max-width: 90%;
+      max-height: 90%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transform: translate3d(0,0,0) scale(1);
-      will-change: transform;
-      cursor: grab;
-      touch-action: none;
     }
 
-    #lbStage:active {
-      cursor: grabbing;
-    }
-
-    #lbImg {
+    .lightbox-img {
       max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-      user-select: none;
-      -webkit-user-drag: none;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .lightbox .close-btn {
@@ -468,13 +746,18 @@
       background: rgba(212, 175, 55, 0.2);
       border: 2px solid rgba(212, 175, 55, 0.6);
       color: #d4af37;
-      font-size: 1.1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
+      font-size: 1.5rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: bold;
       backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2001;
     }
 
     .lightbox .close-btn:hover {
@@ -499,7 +782,10 @@
 
     .lightbox .nav {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -511,14 +797,18 @@
       background: rgba(212, 175, 55, 0.2);
       border: 2px solid rgba(212, 175, 55, 0.5);
       color: #d4af37;
-      font-size: 1.5rem;
-      padding: 1rem 1.2rem;
+      font-size: 2rem;
+      width: 60px;
+      height: 60px;
       margin: 0 1rem;
-      border-radius: 12px;
+      border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .lightbox .nav button:hover {
@@ -648,14 +938,16 @@
       }
 
       .lightbox .nav button {
-        font-size: 1.3rem;
-        padding: 0.8rem 1rem;
+        font-size: 1.5rem;
+        width: 50px;
+        height: 50px;
         margin: 0 0.5rem;
       }
 
       .lightbox .close-btn {
-        font-size: 1rem;
-        padding: 0.5rem 0.9rem;
+        font-size: 1.2rem;
+        width: 40px;
+        height: 40px;
         top: 15px;
         right: 15px;
       }
@@ -667,6 +959,32 @@
 
       .email-button {
         padding: 12px 30px;
+        font-size: 1rem;
+      }
+
+      .cart-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .cart-item-image {
+        width: 100%;
+        height: 200px;
+      }
+
+      .order-form {
+        padding: 2rem;
+      }
+
+      .cart-indicator {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+
+      .action-btn {
+        width: 32px;
+        height: 32px;
         font-size: 1rem;
       }
     }
@@ -711,6 +1029,12 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#" id="navHome" onclick="showPage('home')">Home</a></li>
         <li><a href="#" id="navGallery" onclick="showPage('gallery')">Gallery</a></li>
+        <li><a href="#" id="navPurchase" onclick="showPage('purchase')">
+          <div class="cart-indicator">
+            <span>🛒</span>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </a></li>
         <li><a href="#" id="navAbout" onclick="showPage('about-contact')">About Me</a></li>
         <li class="language-item">
           <div class="language-selector">
@@ -744,36 +1068,251 @@
     <section class="gallery-page">
       <h2 class="section-title" id="galleryTitle">My Artworks</h2>
       <div class="gallery" id="galleryGrid">
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Realistic portrait drawing with pen"><div class="gallery-overlay"><span>1</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing of a face"><div class="gallery-overlay"><span>2</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Pen art with shading techniques"><div class="gallery-overlay"><span>3</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Realistic eye drawing with pencil"><div class="gallery-overlay"><span>4</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Portrait art with pen technique"><div class="gallery-overlay"><span>5</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Detailed face study with pen"><div class="gallery-overlay"><span>6</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0481.JPG" alt="Artwork with shading techniques"><div class="gallery-overlay"><span>7</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0482.JPG" alt="Realistic drawing with precision"><div class="gallery-overlay"><span>8</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0485.JPG" alt="Pencil portrait with details"><div class="gallery-overlay"><span>9</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="IMG_0486.JPG" alt="Pen artwork in profile"><div class="gallery-overlay"><span>10</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-09-19_01-14-34.jpg" alt="Realistic hand drawing with pen"><div class="gallery-overlay"><span>11</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-36.jpg" alt="Detailed portrait study"><div class="gallery-overlay"><span>12</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-44.jpg" alt="Pen art with depth"><div class="gallery-overlay"><span>13</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-51.jpg" alt="Pencil drawing with texture"><div class="gallery-overlay"><span>14</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-05-39.jpg" alt="Realistic facial expressions"><div class="gallery-overlay"><span>15</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-08.jpg" alt="Artwork with light and shadow"><div class="gallery-overlay"><span>16</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-39.jpg" alt="Pen art in detail"><div class="gallery-overlay"><span>17</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-52.jpg" alt="Pencil study with precision"><div class="gallery-overlay"><span>18</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-09.jpg" alt="Realistic eye area"><div class="gallery-overlay"><span>19</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-39.jpg" alt="Artwork with depth effect"><div class="gallery-overlay"><span>20</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-54.jpg" alt="Portrait drawing with pen"><div class="gallery-overlay"><span>21</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-09.jpg" alt="Realistic facial features"><div class="gallery-overlay"><span>22</span></div></div>
-        <div class="gallery-item"><img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-16.jpg" alt="Detailed pencil art"><div class="gallery-overlay"><span>23</span></div></div>
+        <!-- Gallery items with separate zoom and selection buttons -->
+        <div class="gallery-item" data-artwork="1">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(1, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(1)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0471.JPG" alt="Realistic portrait drawing with pen">
+          <div class="gallery-overlay"><span>1</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="2">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(2, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(2)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0472.JPG" alt="Detailed pencil drawing of a face">
+          <div class="gallery-overlay"><span>2</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="3">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(3, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(3)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0474.JPG" alt="Pen art with shading techniques">
+          <div class="gallery-overlay"><span>3</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="4">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(4, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(4)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0476.JPG" alt="Realistic eye drawing with pencil">
+          <div class="gallery-overlay"><span>4</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="5">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(5, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(5)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0477.JPG" alt="Portrait art with pen technique">
+          <div class="gallery-overlay"><span>5</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="6">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(6, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(6)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0479.JPG" alt="Detailed face study with pen">
+          <div class="gallery-overlay"><span>6</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="7">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(7, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(7)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0481.JPG" alt="Artwork with shading techniques">
+          <div class="gallery-overlay"><span>7</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="8">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(8, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(8)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0482.JPG" alt="Realistic drawing with precision">
+          <div class="gallery-overlay"><span>8</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="9">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(9, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(9)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0485.JPG" alt="Pencil portrait with details">
+          <div class="gallery-overlay"><span>9</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="10">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(10, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(10)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="IMG_0486.JPG" alt="Pen artwork in profile">
+          <div class="gallery-overlay"><span>10</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="11">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(11, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(11)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-09-19_01-14-34.jpg" alt="Realistic hand drawing with pen">
+          <div class="gallery-overlay"><span>11</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="12">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(12, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(12)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-36.jpg" alt="Detailed portrait study">
+          <div class="gallery-overlay"><span>12</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="13">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(13, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(13)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-44.jpg" alt="Pen art with depth">
+          <div class="gallery-overlay"><span>13</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="14">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(14, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(14)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-04-51.jpg" alt="Pencil drawing with texture">
+          <div class="gallery-overlay"><span>14</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="15">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(15, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(15)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-05-39.jpg" alt="Realistic facial expressions">
+          <div class="gallery-overlay"><span>15</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="16">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(16, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(16)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-08.jpg" alt="Artwork with light and shadow">
+          <div class="gallery-overlay"><span>16</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="17">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(17, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(17)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-39.jpg" alt="Pen art in detail">
+          <div class="gallery-overlay"><span>17</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="18">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(18, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(18)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-06-52.jpg" alt="Pencil study with precision">
+          <div class="gallery-overlay"><span>18</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="19">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(19, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(19)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-09.jpg" alt="Realistic eye area">
+          <div class="gallery-overlay"><span>19</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="20">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(20, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(20)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-39.jpg" alt="Artwork with depth effect">
+          <div class="gallery-overlay"><span>20</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="21">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(21, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(21)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-07-54.jpg" alt="Portrait drawing with pen">
+          <div class="gallery-overlay"><span>21</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="22">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(22, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(22)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-09.jpg" alt="Realistic facial features">
+          <div class="gallery-overlay"><span>22</span></div>
+        </div>
+        <div class="gallery-item" data-artwork="23">
+          <div class="gallery-actions">
+            <button class="action-btn select-btn" onclick="toggleArtworkSelection(23, this)">+</button>
+            <button class="action-btn zoom-btn" onclick="openLightbox(23)">🔍</button>
+          </div>
+          <img loading="lazy" decoding="async" src="photo_2025-10-02_19-08-16.jpg" alt="Detailed pencil art">
+          <div class="gallery-overlay"><span>23</span></div>
+        </div>
       </div>
 
       <div class="purchase-info">
         <p id="purchaseText">
           <strong id="purchaseStrong">Interested in purchasing an artwork?</strong><br />
-          <span id="purchaseDescription">Contact me directly to discuss availability, pricing, and commission opportunities.</span>
+          <span id="purchaseDescription">Use the + button to select artworks, then proceed to purchase to send your inquiry.</span>
         </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- NEW PURCHASE PAGE -->
+  <div id="purchase-page" class="page-container">
+    <section class="purchase-page">
+      <h2 class="section-title" id="purchaseTitle">Purchase Artworks</h2>
+      
+      <div class="cart-items" id="cartItems">
+        <!-- Cart items will be dynamically added here -->
+      </div>
+
+      <div class="order-form" id="orderForm">
+        <h3 style="color: #d4af37; margin-bottom: 2rem; text-align: center;">Order Inquiry Form</h3>
+        
+        <div class="form-group">
+          <label for="firstName" id="firstNameLabel">First Name *</label>
+          <input type="text" id="firstName" required placeholder="Enter your first name">
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" id="lastNameLabel">Last Name *</label>
+          <input type="text" id="lastName" required placeholder="Enter your last name">
+        </div>
+
+        <div class="form-group">
+          <label for="email" id="emailLabel">Email Address *</label>
+          <input type="email" id="email" required placeholder="Enter your email address">
+        </div>
+
+        <div class="form-group">
+          <label for="message" id="messageLabel">Additional Message</label>
+          <textarea id="message" rows="4" placeholder="Any additional information or questions..."></textarea>
+        </div>
+
+        <div class="selected-artworks">
+          <h4>Selected Artworks:</h4>
+          <div class="artwork-numbers" id="selectedArtworksList">
+            <!-- Selected artworks will be shown here -->
+          </div>
+        </div>
+
+        <button class="submit-button" onclick="submitOrder()" id="submitButton">
+          Send Purchase Inquiry
+        </button>
+      </div>
+
+      <div class="success-message" id="successMessage">
+        <div class="success-icon">✓</div>
+        <h3>Thank You for Your Interest!</h3>
+        <p>Your purchase inquiry has been successfully sent to Shima. You will receive a confirmation email shortly.</p>
+        <button class="page-button" onclick="showPage('home')">Return to Home</button>
       </div>
     </section>
   </div>
@@ -801,17 +1340,87 @@
     </section>
   </div>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image enlarged view">
-    <button class="close-btn" id="lbClose" aria-label="Close (Esc)">✕</button>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="close-btn" id="lbClose">✕</button>
     <div class="nav">
-      <button id="lbPrev" aria-label="Previous (←)">←</button>
-      <button id="lbNext" aria-label="Next (→)">→</button>
+      <button id="lbPrev">←</button>
+      <button id="lbNext">→</button>
     </div>
-    <div id="lbStage"><img id="lbImg" src="" alt="Large image" /></div>
-    <div class="counter" id="lbCounter">1 / 1</div>
+    <div class="lightbox-content">
+      <img class="lightbox-img" id="lbImg" src="" alt="Large image view">
+    </div>
+    <div class="counter" id="lbCounter">1 / 23</div>
   </div>
 
   <script>
+    // Shopping Cart Functionality
+    let selectedArtworks = new Set();
+
+    // Lightbox functionality
+    let currentImageIndex = 0;
+    const totalImages = 23;
+
+    function openLightbox(imageIndex) {
+      currentImageIndex = imageIndex;
+      updateLightboxImage();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.classList.add('lb-lock');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.classList.remove('lb-lock');
+    }
+
+    function updateLightboxImage() {
+      const imageMap = {
+        1: 'IMG_0471.JPG', 2: 'IMG_0472.JPG', 3: 'IMG_0474.JPG', 4: 'IMG_0476.JPG', 5: 'IMG_0477.JPG',
+        6: 'IMG_0479.JPG', 7: 'IMG_0481.JPG', 8: 'IMG_0482.JPG', 9: 'IMG_0485.JPG', 10: 'IMG_0486.JPG',
+        11: 'photo_2025-09-19_01-14-34.jpg', 12: 'photo_2025-10-02_19-04-36.jpg', 13: 'photo_2025-10-02_19-04-44.jpg',
+        14: 'photo_2025-10-02_19-04-51.jpg', 15: 'photo_2025-10-02_19-05-39.jpg', 16: 'photo_2025-10-02_19-06-08.jpg',
+        17: 'photo_2025-10-02_19-06-39.jpg', 18: 'photo_2025-10-02_19-06-52.jpg', 19: 'photo_2025-10-02_19-07-09.jpg',
+        20: 'photo_2025-10-02_19-07-39.jpg', 21: 'photo_2025-10-02_19-07-54.jpg', 22: 'photo_2025-10-02_19-08-09.jpg',
+        23: 'photo_2025-10-02_19-08-16.jpg'
+      };
+      
+      const imageSrc = imageMap[currentImageIndex] || 'IMG_0471.JPG';
+      document.getElementById('lbImg').src = imageSrc;
+      document.getElementById('lbCounter').textContent = `${currentImageIndex} / ${totalImages}`;
+    }
+
+    function nextImage() {
+      currentImageIndex = currentImageIndex >= totalImages ? 1 : currentImageIndex + 1;
+      updateLightboxImage();
+    }
+
+    function prevImage() {
+      currentImageIndex = currentImageIndex <= 1 ? totalImages : currentImageIndex - 1;
+      updateLightboxImage();
+    }
+
+    // Event listeners for lightbox
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbNext').addEventListener('click', nextImage);
+    document.getElementById('lbPrev').addEventListener('click', prevImage);
+
+    // Close lightbox when clicking on the background
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('lightbox').classList.contains('open')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+      }
+    });
+
+    // Update translations for new content
     const translations = {
       en: {
         logoText: 'Shima Gallery',
@@ -827,7 +1436,19 @@
         contactText: 'Interested in my artwork? For purchase, exhibitions, commissions or collaborations, feel free to reach out to me. I\'d love to hear from you!',
         emailButton: 'ShimaArtist1994@gmail.com',
         purchaseStrong: 'Interested in purchasing an artwork?',
-        purchaseDescription: 'Contact me directly to discuss availability, pricing, and commission opportunities.'
+        purchaseDescription: 'Use the + button to select artworks, then proceed to purchase to send your inquiry.',
+        purchaseTitle: 'Purchase Artworks',
+        selectedArtworks: 'Selected Artworks',
+        sendInquiry: 'Send Purchase Inquiry',
+        thankYou: 'Thank You for Your Interest!',
+        confirmationMessage: 'Your purchase inquiry has been successfully sent to Shima. You will receive a confirmation email shortly.',
+        emptyCart: 'No artworks selected yet.',
+        selectFromGallery: 'Please select artworks from the gallery first.',
+        remove: 'Remove',
+        firstNameLabel: 'First Name *',
+        lastNameLabel: 'Last Name *',
+        emailLabel: 'Email Address *',
+        messageLabel: 'Additional Message'
       },
       de: {
         logoText: 'Shima Galerie',
@@ -843,7 +1464,19 @@
         contactText: 'Interessiert an meinen Kunstwerken? Für Verkauf, Ausstellungen, Auftragsarbeiten oder Zusammenarbeit können Sie mich gerne kontaktieren. Ich freue mich von Ihnen zu hören!',
         emailButton: 'ShimaArtist1994@gmail.com',
         purchaseStrong: 'Interessiert an einem Kunstwerk?',
-        purchaseDescription: 'Kontaktieren Sie mich direkt, um Verfügbarkeit, Preise und Auftragsarbeiten zu besprechen.'
+        purchaseDescription: 'Verwenden Sie die + Schaltfläche, um Kunstwerke auszuwählen, und fahren Sie dann mit dem Kauf fort, um Ihre Anfrage zu senden.',
+        purchaseTitle: 'Kunstwerke Kaufen',
+        selectedArtworks: 'Ausgewählte Kunstwerke',
+        sendInquiry: 'Kaufanfrage Senden',
+        thankYou: 'Vielen Dank für Ihr Interesse!',
+        confirmationMessage: 'Ihre Kaufanfrage wurde erfolgreich an Shima gesendet. Sie erhalten in Kürze eine Bestätigungs-E-Mail.',
+        emptyCart: 'Noch keine Kunstwerke ausgewählt.',
+        selectFromGallery: 'Bitte wählen Sie zuerst Kunstwerke aus der Galerie aus.',
+        remove: 'Entfernen',
+        firstNameLabel: 'Vorname *',
+        lastNameLabel: 'Nachname *',
+        emailLabel: 'E-Mail-Adresse *',
+        messageLabel: 'Zusätzliche Nachricht'
       },
       fa: {
         logoText: 'گالری شیما',
@@ -859,32 +1492,170 @@
         contactText: 'به آثار هنری من علاقه‌مند هستید؟ برای خرید، نمایشگاه‌ها، سفارشات یا همکاری، می‌توانید با من تماس بگیرید. خوشحال می‌شوم پیام شما را دریافت کنم!',
         emailButton: 'ShimaArtist1994@gmail.com',
         purchaseStrong: 'علاقه‌مند به خرید یک اثر هنری هستید؟',
-        purchaseDescription: 'مستقیماً با من تماس بگیرید تا در مورد موجودی، قیمت‌ها و فرصت‌های سفارش کاری صحبت کنیم.'
+        purchaseDescription: 'از دکمه + برای انتخاب آثار هنری استفاده کنید، سپس برای ارسال درخواست خود به بخش خرید بروید.',
+        purchaseTitle: 'خرید آثار هنری',
+        selectedArtworks: 'آثار هنری انتخاب شده',
+        sendInquiry: 'ارسال درخواست خرید',
+        thankYou: 'از علاقه شما سپاسگزاریم!',
+        confirmationMessage: 'درخواست خرید شما با موفقیت به شیما ارسال شد. به زودی ایمیل تأیید دریافت خواهید کرد.',
+        emptyCart: 'هنوز هیچ اثر هنری انتخاب نشده است.',
+        selectFromGallery: 'لطفاً ابتدا آثار هنری را از گالری انتخاب کنید.',
+        remove: 'حذف',
+        firstNameLabel: 'نام *',
+        lastNameLabel: 'نام خانوادگی *',
+        emailLabel: 'آدرس ایمیل *',
+        messageLabel: 'پیام اضافی'
       }
     };
 
-    // Page Navigation
-    function showPage(pageId) {
-      // Hide all pages
-      document.querySelectorAll('.page-container').forEach(page => {
-        page.classList.remove('active');
+    function toggleArtworkSelection(artworkNumber, button) {
+      const item = document.querySelector(`[data-artwork="${artworkNumber}"]`);
+      
+      if (selectedArtworks.has(artworkNumber)) {
+        selectedArtworks.delete(artworkNumber);
+        item.classList.remove('selected');
+        button.classList.remove('selected');
+        button.textContent = '+';
+      } else {
+        selectedArtworks.add(artworkNumber);
+        item.classList.add('selected');
+        button.classList.add('selected');
+        button.textContent = '✓';
+      }
+      
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartCount = document.getElementById('cartCount');
+      cartCount.textContent = selectedArtworks.size;
+      
+      updateCartPage();
+    }
+
+    function updateCartPage() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      const selectedArtworksList = document.getElementById('selectedArtworksList');
+      
+      // Update selected artworks list
+      selectedArtworksList.innerHTML = '';
+      Array.from(selectedArtworks).forEach(artworkNumber => {
+        const numberElement = document.createElement('div');
+        numberElement.className = 'artwork-number';
+        numberElement.textContent = artworkNumber;
+        selectedArtworksList.appendChild(numberElement);
       });
       
-      // Show selected page
-      document.getElementById(`${pageId}-page`).classList.add('active');
+      // Update cart items
+      cartItemsContainer.innerHTML = '';
       
-      // Close mobile menu if open
-      navLinks.classList.remove('active');
-      menuToggle.classList.remove('active');
+      if (selectedArtworks.size === 0) {
+        cartItemsContainer.innerHTML = `
+          <div class="empty-cart">
+            <p>${getTranslation('emptyCart')}</p>
+            <button class="page-button" onclick="showPage('gallery')">
+              ${getTranslation('selectFromGallery')}
+            </button>
+          </div>
+        `;
+      } else {
+        Array.from(selectedArtworks).forEach(artworkNumber => {
+          const cartItem = document.createElement('div');
+          cartItem.className = 'cart-item';
+          cartItem.innerHTML = `
+            <div class="cart-item-image">
+              <img src="${getArtworkImage(artworkNumber)}" alt="Artwork ${artworkNumber}">
+            </div>
+            <div class="cart-item-details">
+              <div class="cart-item-number">Artwork #${artworkNumber}</div>
+              <p>Realistic pen and pencil drawing</p>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${artworkNumber})">
+              ${getTranslation('remove')}
+            </button>
+          `;
+          cartItemsContainer.appendChild(cartItem);
+        });
+      }
+    }
+
+    function removeFromCart(artworkNumber) {
+      selectedArtworks.delete(artworkNumber);
+      const item = document.querySelector(`[data-artwork="${artworkNumber}"]`);
+      const button = item.querySelector('.select-btn');
+      if (item) {
+        item.classList.remove('selected');
+        button.classList.remove('selected');
+        button.textContent = '+';
+      }
+      updateCart();
+    }
+
+    function getArtworkImage(artworkNumber) {
+      const imageMap = {
+        1: 'IMG_0471.JPG', 2: 'IMG_0472.JPG', 3: 'IMG_0474.JPG', 4: 'IMG_0476.JPG', 5: 'IMG_0477.JPG',
+        6: 'IMG_0479.JPG', 7: 'IMG_0481.JPG', 8: 'IMG_0482.JPG', 9: 'IMG_0485.JPG', 10: 'IMG_0486.JPG',
+        11: 'photo_2025-09-19_01-14-34.jpg', 12: 'photo_2025-10-02_19-04-36.jpg', 13: 'photo_2025-10-02_19-04-44.jpg',
+        14: 'photo_2025-10-02_19-04-51.jpg', 15: 'photo_2025-10-02_19-05-39.jpg', 16: 'photo_2025-10-02_19-06-08.jpg',
+        17: 'photo_2025-10-02_19-06-39.jpg', 18: 'photo_2025-10-02_19-06-52.jpg', 19: 'photo_2025-10-02_19-07-09.jpg',
+        20: 'photo_2025-10-02_19-07-39.jpg', 21: 'photo_2025-10-02_19-07-54.jpg', 22: 'photo_2025-10-02_19-08-09.jpg',
+        23: 'photo_2025-10-02_19-08-16.jpg'
+      };
+      return imageMap[artworkNumber] || 'IMG_0471.JPG';
+    }
+
+    function submitOrder() {
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
       
-      // Scroll to top
-      window.scrollTo(0, 0);
+      if (!firstName || !lastName || !email) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      
+      if (selectedArtworks.size === 0) {
+        alert('Please select at least one artwork.');
+        return;
+      }
+      
+      // Show success message without opening email client
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+      
+      // Reset form
+      document.getElementById('firstName').value = '';
+      document.getElementById('lastName').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+      
+      // Clear cart
+      selectedArtworks.clear();
+      updateCart();
+      
+      // Reset all selection buttons
+      document.querySelectorAll('.select-btn').forEach(button => {
+        button.classList.remove('selected');
+        button.textContent = '+';
+      });
+      
+      // Reset all gallery items
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+    }
+
+    function getTranslation(key) {
+      const lang = document.getElementById('languageSelect').value;
+      return translations[lang][key] || key;
     }
 
     function changeLanguage() {
       const lang = document.getElementById('languageSelect').value;
       const t = translations[lang];
       
+      // Update existing translations
       document.getElementById('logoText').textContent = t.logoText;
       document.getElementById('navHome').textContent = t.navHome;
       document.getElementById('navGallery').textContent = t.navGallery;
@@ -900,9 +1671,58 @@
       document.getElementById('purchaseStrong').textContent = t.purchaseStrong;
       document.getElementById('purchaseDescription').textContent = t.purchaseDescription;
       
+      // Update new purchase page translations
+      const purchaseTitle = document.getElementById('purchaseTitle');
+      const submitButton = document.getElementById('submitButton');
+      const successMessage = document.getElementById('successMessage');
+      const firstNameLabel = document.getElementById('firstNameLabel');
+      const lastNameLabel = document.getElementById('lastNameLabel');
+      const emailLabel = document.getElementById('emailLabel');
+      const messageLabel = document.getElementById('messageLabel');
+      
+      if (purchaseTitle) purchaseTitle.textContent = t.purchaseTitle;
+      if (submitButton) submitButton.textContent = t.sendInquiry;
+      if (successMessage) {
+        successMessage.querySelector('h3').textContent = t.thankYou;
+        successMessage.querySelector('p').textContent = t.confirmationMessage;
+      }
+      if (firstNameLabel) firstNameLabel.textContent = t.firstNameLabel;
+      if (lastNameLabel) lastNameLabel.textContent = t.lastNameLabel;
+      if (emailLabel) emailLabel.textContent = t.emailLabel;
+      if (messageLabel) messageLabel.textContent = t.messageLabel;
+      
       document.body.style.direction = lang === 'fa' ? 'rtl' : 'ltr';
       document.documentElement.lang = lang;
+      
+      // Update cart page content
+      updateCartPage();
     }
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page-container').forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      document.getElementById(`${pageId}-page`).classList.add('active');
+      
+      navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Update cart when showing purchase page
+      if (pageId === 'purchase') {
+        updateCartPage();
+        // Reset success message display
+        document.getElementById('orderForm').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+      }
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCart();
+    });
 
     // Mobile Menu Toggle
     const menuToggle = document.getElementById('menuToggle');
@@ -920,146 +1740,6 @@
         menuToggle.classList.remove('active');
       });
     });
-
-    // Lightbox functionality
-    (function setupLightbox() {
-      const lb = document.getElementById('lightbox');
-      const lbStage = document.getElementById('lbStage');
-      const lbImg = document.getElementById('lbImg');
-      const lbClose = document.getElementById('lbClose');
-      const lbPrev = document.getElementById('lbPrev');
-      const lbNext = document.getElementById('lbNext');
-      const lbCounter = document.getElementById('lbCounter');
-      const grid = document.getElementById('galleryGrid');
-      const items = Array.from(grid.querySelectorAll('.gallery-item img'));
-      const cards = Array.from(grid.querySelectorAll('.gallery-item'));
-
-      let currentIndex = 0;
-      let scale = 1;
-      let tx = 0;
-      let ty = 0;
-      const minScale = 1;
-      const maxScale = 5;
-      const pointers = new Map();
-      let baseDist = 1;
-      let baseScale = 1;
-
-      const distance = (p1, p2) => Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
-      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-
-      grid.addEventListener('click', (e) => {
-        const card = e.target.closest('.gallery-item');
-        if (!card) return;
-        const i = cards.indexOf(card);
-        if (i > -1) openAt(i);
-      });
-
-      cards.forEach((card, i) => {
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', 'Open enlarged view');
-        card.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
-      });
-
-      lbClose.addEventListener('click', close);
-      lbNext.addEventListener('click', () => { resetTransform(); next(); });
-      lbPrev.addEventListener('click', () => { resetTransform(); prev(); });
-
-      lb.addEventListener('click', (e) => {
-        const controls = [lbStage, lbImg, lbNext, lbPrev, lbClose];
-        if (!controls.includes(e.target) && e.target === lb) {
-          close();
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (!lb.classList.contains('open')) return;
-        if (e.key === 'Escape') close();
-        if (e.key === 'ArrowRight') next();
-        if (e.key === 'ArrowLeft') prev();
-      });
-
-      function openAt(index) {
-        currentIndex = index;
-        lbImg.src = items[currentIndex].src;
-        lbImg.alt = items[currentIndex].alt;
-        lbCounter.textContent = `${currentIndex + 1} / ${items.length}`;
-        lb.classList.add('open');
-        document.body.classList.add('lb-lock');
-        resetTransform();
-      }
-
-      function close() {
-        lb.classList.remove('open');
-        document.body.classList.remove('lb-lock');
-        resetTransform();
-      }
-
-      function next() {
-        currentIndex = (currentIndex + 1) % items.length;
-        openAt(currentIndex);
-      }
-
-      function prev() {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        openAt(currentIndex);
-      }
-
-      function resetTransform() {
-        scale = 1;
-        tx = 0;
-        ty = 0;
-        updateTransform();
-      }
-
-      function updateTransform() {
-        lbStage.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
-      }
-
-      lbStage.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
-        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      });
-
-      lbStage.addEventListener('pointermove', (e) => {
-        if (pointers.size === 1) {
-          const pointer = pointers.get(e.pointerId);
-          if (pointer) {
-            tx += e.clientX - pointer.x;
-            ty += e.clientY - pointer.y;
-            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-            updateTransform();
-          }
-        } else if (pointers.size === 2) {
-          const [p1, p2] = Array.from(pointers.values());
-          const currentDist = distance(p1, p2);
-          scale = clamp(baseScale * (currentDist / baseDist), minScale, maxScale);
-          updateTransform();
-        }
-      });
-
-      lbStage.addEventListener('pointerup', (e) => {
-        pointers.delete(e.pointerId);
-        if (pointers.size === 0) {
-          baseScale = scale;
-        }
-      });
-
-      lbStage.addEventListener('pointercancel', (e) => {
-        pointers.delete(e.pointerId);
-      });
-
-      lbStage.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = -Math.sign(e.deltaY) * 0.2;
-        scale = clamp(scale + delta, minScale, maxScale);
-        updateTransform();
-      });
-    })();
-
-    console.log('🎨 Website loaded with complete translations!');
-    console.log('🌐 All text now properly translated in Persian');
-    console.log('📱 Navigation: Home → Gallery → About Me');
   </script>
 </body>
 </html>
