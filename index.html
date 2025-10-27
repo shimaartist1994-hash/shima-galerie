@@ -1293,13 +1293,14 @@
         messageLabel: "Message",
         selectedArtworksTitle: "Selected Artworks:",
         submitButton: "Send Inquiry",
+        sending: "Sending...",
         aboutTitle: "About Me",
         aboutText: "Hi, I'm Shima! I create realistic artwork using pen and pencil. Each piece is carefully crafted to capture detail and emotion. Thank you for visiting my gallery!",
         contactTitle: "Contact",
         contactText: "I'd love to hear from you! Whether you have questions about my artwork or want to discuss a custom piece, feel free to reach out.",
         emailBtn: "📧 Send Email",
-        successTitle: "Thank You!",
-        successText: "Your inquiry has been sent successfully. I will contact you soon via email.",
+        successTitle: "✓ Email Sent Successfully!",
+        successText: "Your inquiry has been delivered. I will contact you soon via email.",
         emptyCart: "Your cart is empty. Please select artworks from the gallery.",
         backToGallery: "Back to Gallery",
         removeBtn: "Remove"
@@ -1323,13 +1324,14 @@
         messageLabel: "Nachricht",
         selectedArtworksTitle: "Ausgewählte Kunstwerke:",
         submitButton: "Anfrage Senden",
+        sending: "Wird gesendet...",
         aboutTitle: "Über Mich",
         aboutText: "Hallo, ich bin Shima! Ich erstelle realistische Kunstwerke mit Stift und Bleistift. Jedes Stück wird sorgfältig gefertigt, um Details und Emotionen einzufangen. Vielen Dank für Ihren Besuch in meiner Galerie!",
         contactTitle: "Kontakt",
         contactText: "Ich würde gerne von Ihnen hören! Ob Sie Fragen zu meinen Kunstwerken haben oder ein individuelles Stück besprechen möchten, zögern Sie nicht, mich zu kontaktieren.",
         emailBtn: "📧 E-Mail Senden",
-        successTitle: "Vielen Dank!",
-        successText: "Ihre Anfrage wurde erfolgreich gesendet. Ich werde Sie bald per E-Mail kontaktieren.",
+        successTitle: "✓ E-Mail erfolgreich gesendet!",
+        successText: "Ihre Anfrage wurde zugestellt. Ich werde Sie bald per E-Mail kontaktieren.",
         emptyCart: "Ihr Warenkorb ist leer. Bitte wählen Sie Kunstwerke aus der Galerie aus.",
         backToGallery: "Zurück zur Galerie",
         removeBtn: "Entfernen"
@@ -1353,13 +1355,14 @@
         messageLabel: "پیام",
         selectedArtworksTitle: "آثار هنری انتخاب شده:",
         submitButton: "ارسال درخواست",
+        sending: "در حال ارسال...",
         aboutTitle: "درباره من",
         aboutText: "سلام، من شیما هستم! من آثار هنری واقع‌گرایانه با استفاده از قلم و مداد می‌سازم. هر اثر با دقت ساخته شده تا جزئیات و احساسات را به تصویر بکشد. از بازدید شما از گالری من متشکرم!",
         contactTitle: "تماس",
         contactText: "دوست دارم از شما بشنوم! خواه سوالاتی درباره آثار هنری من داشته باشید یا بخواهید درباره یک قطعه سفارشی صحبت کنید، با من در تماس باشید.",
         emailBtn: "📧 ارسال ایمیل",
-        successTitle: "متشکرم!",
-        successText: "درخواست شما با موفقیت ارسال شد. به زودی از طریق ایمیل با شما تماس خواهم گرفت.",
+        successTitle: "✓ ایمیل با موفقیت ارسال شد!",
+        successText: "درخواست شما تحویل داده شد. به زودی از طریق ایمیل با شما تماس خواهم گرفت.",
         emptyCart: "سبد خرید شما خالی است. لطفاً آثار هنری را از گالری انتخاب کنید.",
         backToGallery: "بازگشت به گالری",
         removeBtn: "حذف"
@@ -1519,6 +1522,10 @@
     function handleSubmit(event) {
       event.preventDefault();
       
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = true;
+      submitButton.textContent = translations[currentLanguage].sending || 'Sending...';
+      
       const firstName = document.getElementById('firstName').value.trim();
       const lastName = document.getElementById('lastName').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -1527,31 +1534,26 @@
       
       const artworksList = selectedArtworks.sort((a, b) => a - b).join(', ');
       
-      const emailBody = `
-Name: ${firstName} ${lastName}
-Email: ${email}
-Phone: ${phone || 'Not provided'}
-
-Selected Artworks: ${artworksList}
-
-Message:
-${message || 'No additional message'}
-      `.trim();
-      
-      console.log('Form submitted with data:', {
-        firstName,
-        lastName,
-        email,
-        phone,
-        artworks: selectedArtworks,
-        message
+      // Simuliere E-Mail-Versand (In Produktion: Server-seitiger E-Mail-Versand erforderlich)
+      console.log('Order submitted:', {
+        name: `${firstName} ${lastName}`,
+        email: email,
+        phone: phone || 'Not provided',
+        artworks: artworksList,
+        message: message || 'No message'
       });
       
-      document.getElementById('purchaseContent').style.display = 'none';
-      const successMessage = document.getElementById('successMessage');
-      successMessage.style.display = 'block';
-      successMessage.classList.add('show');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Simuliere Verzögerung für realistisches Feedback
+      setTimeout(() => {
+        document.getElementById('purchaseContent').style.display = 'none';
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.display = 'block';
+        successMessage.classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        submitButton.disabled = false;
+        submitButton.textContent = translations[currentLanguage].submitButton;
+      }, 1000);
     }
 
     function resetForm() {
